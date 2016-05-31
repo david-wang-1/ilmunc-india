@@ -1,0 +1,25 @@
+<ion-view title="Committees">
+ <!--  <ion-nav-buttons side="left">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons> -->
+  <ion-content class="has-header">
+      <ion-list>
+        <div ng-repeat="group in groups">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-chevron-down' "></i>
+            &nbsp;
+            {{group.name}}
+          </ion-item>
+          <ion-item class="item-accordion item-icon-right"
+                    ng-repeat="item in group.items"
+                    ng-show="isGroupShown(group)"
+                    href="#/app/{{item.page}}">
+            <!-- <img ng-src="{{item.comPic}}"> -->
+            {{item.name}}<i class="icon ion-chevron-right icon-accessory"></i>
+          </ion-item>
+        </div>
+      </ion-list>
+  </ion-content>
+</ion-view>

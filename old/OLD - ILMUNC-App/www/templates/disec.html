@@ -1,0 +1,41 @@
+<ion-view title="{{groups[0].items[0].name}}">
+    <ion-content class="has-header">
+        <div class="list card">
+            <div class="item">
+                <h2>Chairperson</h2>
+            </div>
+            <div class="item item-body">
+                <img style = "float: left; padding-right: 15px;" ng-src="{{groups[0].items[0].chairPic}}">
+                <b style="font-size: 18px;">{{groups[0].items[0].chair}}</b>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a ng-href ="mailto: {{groups[0].items[0].email}}" class="tab-item">
+                    <i class="icon ion-email"></i>
+                    Contact
+                </a>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item">
+                <h2>Committee Information</h2>
+            </div>
+            <div class="item item-body">
+                <p>{{groups[0].items[0].description}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item">
+                    <i class="icon ion-location"></i>
+                    {{groups[0].items[0].location}}
+                </a>
+                 <a target="_blank" href="{{groups[0].items[0].bg}}" class="tab-item">
+                    <i class="icon ion-ios-book"></i>
+                    View Background Guide
+                </a>
+                <a target="_blank" href="{{groups[0].items[0].dbg}}" class="tab-item">
+                    <i class="icon ion-ios-book"></i>
+                    View Dynamic Background Guide
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

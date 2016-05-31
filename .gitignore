@@ -1,0 +1,4 @@
+*.pyc
+venv
+*.psd
+.DS_Store

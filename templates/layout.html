@@ -1,0 +1,268 @@
+<!-- MENU ITEMS -->
+{% set about = [
+	('about', 'ILMUNC India'),
+	('muncafe', 'MUNCáfe'),
+	('penn', 'University of Pennsylvania'),
+	('ilmunc', 'ILMUNC')
+] %}
+
+{% set conference = [
+	('invitation', 'Invitation'),
+	('secretariat', 'Secretariat'),
+	('faq', 'FAQ')
+] %}
+
+{% set register = [
+	('register', 'Register'),
+	('ad', 'AD Application'),
+	('envoy', 'Envoy Application')
+] %}
+
+{% set committees_GA = [
+	('GA', 'GA Summary')
+] %}
+
+{% set committees_Specialized = [
+	('Specialized', 'Specialized Summary')
+] %}
+
+{% set committees_Crisis = [
+	('Crisis', 'Crisis Summary')
+] %}
+
+{% set research = [
+	('webinars', 'Webinars'),
+	('research', 'Research Links'),
+	('training', 'Training Videos'),
+	('procedure', 'Rules of Procedure')
+] %}
+
+
+<!-- SETTING AND PRINTING PAGES -->
+{% set active_page = active_page|default('index') %}
+{% macro print_menu(arr, committee_flag) %}
+	{% for item in arr %}
+		<li {% if active_page == item %} class="active" {% endif %}>
+			{% if committee_flag %}
+			<a href="{{ url_for('committee', name=item[0]|e) }}">{{ item[1] }}</a>
+			{% else %}
+			<a href="{{ url_for(item[0]|e) }}">{{ item[1] }}</a>
+			{% endif %}
+		</li>
+	{% endfor %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- META -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=320, initial-scale=1">
+
+		<!-- TITLE -->
+	<title>ILMUNC India {{ g.ILMUNC_year }}</title>
+
+	<!-- FAVICON -->
+	<link rel="apple-touch-icon" sizes="57x57" href="/static/images/favicons/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/static/images/favicons/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/static/images/favicons/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/static/images/favicons/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/static/images/favicons/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/static/images/favicons/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/static/images/favicons/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/static/images/favicons/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicons/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="/static/images/favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/static/images/favicons/favicon-194x194.png" sizes="194x194">
+	<link rel="icon" type="image/png" href="/static/images/favicons/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="/static/images/favicons/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="/static/images/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/static/images/favicons/manifest.json">
+	<link rel="mask-icon" href="/static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="/static/images/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="msapplication-TileImage" content="/static/images/favicons/mstile-144x144.png">
+	<meta name="msapplication-config" content="/static/images/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/static/css/main.css"/>
+	<link rel="stylesheet" href="/static/css/pages.css"/>
+
+	<!-- JQUERY AND JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+	<script src="/static/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+	<script src="/static/js/lightbox.js" type="text/javascript"></script>
+
+	<!-- FONTS -->
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600,900,300' rel='stylesheet' type='text/css'>
+
+	<!-- GOOGLE ANALYTICS -->
+
+</head>
+
+<body>
+	<div id="frames">
+		<!-- LIGHTBOX -->
+		<div id="lightbox" style="display: none;">
+			<div id="lightbox-background" onclick="hideLightbox();"></div>
+			<div id="lightbox-inner">
+				<div id="lightbox-title"></div>
+				<div id="lightbox-close" onclick="hideLightbox();"></div>
+				<div id="lightbox-body"></div>
+			</div>
+		</div>
+
+		<!-- NAV BAR -->
+		<nav {% if active_page == 'index' %}class="index"{% endif %}>
+			<ul>
+				<li>
+					<a href="{{ url_for('index') }}" class="logo"></a>
+				</li>
+				<li>
+					<a href="{{ url_for('about') }}">About</a>
+					<ul>{{ print_menu(about) }}</ul>
+				</li>
+				<li>
+					<a href="{{ url_for('invitation') }}">Conference</a>
+					<ul>{{ print_menu(conference) }}</ul>
+				</li>
+				<li>
+					<a href="{{ url_for('committees') }}">Committees</a>
+					<ul>{{ print_menu(about) }}</ul>
+				</li>
+				<li>
+					<a href="{{ url_for('research') }}">Research</a>
+					<ul>{{ print_menu(research) }}</ul>
+				</li>
+			</ul>
+			<ul class="highlight">
+				<li>
+					<a href="{{ url_for('register') }}">Register</a>
+					<ul>{{ print_menu(register) }}</ul>
+				</li>
+				<li>
+					<a href="{{ url_for('login') }}">Login</a>
+				</li>
+			</ul>
+		</nav>
+				
+		<!-- LANDING -->
+		<div id="landing">{% block landing %}{% endblock %}</div>
+
+		<!-- ERROR -->
+		{% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+		<!-- SUCCESS -->
+		{% if success %}<div class="success">{{ success }}</div>{% endif %}
+
+		<!-- CONTENT -->
+		<div id="content">{% block content %}{% endblock %}</div>
+
+		<!-- SIDEBAR -->
+		<div id="sidebar">{% block sidebar %}
+			<div id="clockdiv">
+				<div>
+					<span class="days"></span>
+					<div class="smalltext">Days</div>
+				</div>
+				<div>
+					<span class="hours"></span>
+					<div class="smalltext">Hrs</div>
+				</div>
+				<div>
+					<span class="minutes"></span>
+					<div class="smalltext">Min</div>
+				</div>
+			</div>
+
+			{% if g.updates|length > 0 %}
+				<span class="label">Announcements</span>
+				{% for update in g.updates %}
+					<!-- <h4>{{ update[0]|safe }}</h4> -->
+					<p class="label">{{ update[1]|safe }}</p>
+				{% endfor %}
+			{% endif %}
+
+			{% if g.deadlines|length > 0 %}
+				<span class="label">Deadlines</span>
+				{% for deadline in g.deadlines %}
+					<!-- <h4>{{ deadline[0]|safe }}</h4> -->
+					<p class="label">{{ deadline[1]|safe }}</p>
+				{% endfor %}
+			{% endif %}
+		{% endblock %}</div>
+		<script>
+			function getTimeRemaining(endtime) {
+				var t = Date.parse(endtime) - Date.parse(new Date());
+				var minutes = Math.floor((t / 1000 / 60) % 60);
+				var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+				var days = Math.floor(t / (1000 * 60 * 60 * 24));
+				return {
+					'total': t,
+					'days': days,
+					'hours': hours,
+					'minutes': minutes
+				};
+			}
+
+			function initializeClock(id, endtime) {
+				var clock = document.getElementById(id);
+				var daysSpan = clock.querySelector('.days');
+				var hoursSpan = clock.querySelector('.hours');
+				var minutesSpan = clock.querySelector('.minutes');
+
+				function updateClock() {
+					var t = getTimeRemaining(endtime);
+
+					daysSpan.innerHTML = t.days;
+					hoursSpan.innerHTML = t.hours
+					minutesSpan.innerHTML = t.minutes
+
+					if (t.total <= 0) {
+						clearInterval(timeinterval);
+					}
+				}
+
+				updateClock();
+				var timeinterval = setInterval(updateClock, 1000);
+			}
+
+			var deadline = 'November 19 2016 13:30:00 GMT+0200';
+			initializeClock('clockdiv', deadline);
+		</script>
+
+		<!-- LOWER -->
+		<div id="lower">{% block lower %}{% endblock %}</div>
+
+		<!-- FOOTER -->
+		<div id="footer">
+			<span>Organized by the <a href="http://penniaa.com/" target ="_blank">International Affairs Association</a> of the University of Pennsylvania</span>
+
+			<div id="contact-names">
+				<ul>
+					<li>Ana Rancic</li>
+					<li>Secretary-General</li>
+					<li><a href="mailto:secgen@ilmunc-india.com">secgen@ilmunc-india.com</a></li>
+				</ul>
+				<ul>
+					<li>Jialin Zhang</li>
+					<li>Director-General</li>
+					<li><a href="mailto:dirgen@ilmunc-india.com">dirgen@ilmunc-india.com</a></li>
+				</ul>
+			</div>
+
+			<br><br><div class="hr narrow" style="border-bottom-color: #FFFFFF;"></div><br><br>
+
+			<div class="social-icons">
+				<a href="https://www.facebook.com/UPMUNC" target="_blank" class="social white large facebook"></a>
+				<a href="http://twitter.com/UPMUNCXLVIII" target="_blank" class="social white large twitter"></a>
+				<a href="https://www.youtube.com/user/UPMUNCVideoChannel" target="_blank" class="social white large youtube"></a>
+				<a href="http://instagram.com/upmunc" target="_blank" class="social white large instagram"></a>
+			</div>
+
+			<span id="copyright">&copy; <a href="http://www.penniaa.com" target="_blank">University of Pennsylvania International Affairs Association</a></span>
+		</div>
+	</div>
+</body>
+</html>

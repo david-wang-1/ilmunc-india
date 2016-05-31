@@ -1,0 +1,51 @@
+<ion-view view-title="Schedule">
+<!--  <ion-nav-bar class="bar-dark">
+ <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+</ion-nav-bar>
+-->
+<div class="bar bar-subheader">
+      <div class=" button-bar">
+        <button class="button button-light" ng-class="{ 'button-positive': isActive('thursday')}" ng-click="setActive('thursday'); thursday()">
+          Thursday
+        </button>
+        <button class="button button-light" ng-class="{ 'button-positive': isActive('friday')}" ng-click="setActive('friday'); friday()">
+          Friday
+        </button>
+        <button class="button button-light" ng-class="{ 'button-positive': isActive('saturday')}" ng-click="setActive('saturday'); saturday()">
+          Saturday
+        </button>
+         <button class="button button-light" ng-class="{ 'button-positive': isActive('sunday')}" ng-click="setActive('sunday'); sunday()">
+          Sunday
+        </button>
+      </div>
+    </div>
+  <ion-content class="has-subheader">
+
+        <div class="list card" ng-repeat="task in tasks">
+      <div class="item item-divider"><b>{{task.title}}</b></div>
+      <!-- <div class="item item-body">
+        <div>
+          {{task.description}}
+        </div>
+      </div> -->
+      <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item">
+                    <i class="icon ion-clock"></i>
+                    {{task.time}}
+                </a>
+                <a ng-href = "#/app/map" class="tab-item">
+                    <i class="icon ion-map"></i>
+                    {{task.location}}
+                </a><!-- 
+                 <a ng-click = "createEvent()" class="tab-item">
+                    <i class="icon ion-calendar"></i>
+                    Add to Calendar
+                </a> -->
+            </div>
+    </div>
+
+  </ion-content>
+</ion-view>

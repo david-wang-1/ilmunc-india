@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACA,EAAE;EACE,aAAa,EAAE,IAAI;;AAEvB,kBAAkB;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,aAAa;;AAEzB,OAAO;EACH,UAAU,EAAE,IAAI",
+"sources": ["../../src/sass/committees.sass"],
+"names": [],
+"file": "committees.css"
+}

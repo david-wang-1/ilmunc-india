@@ -1,0 +1,41 @@
+<ion-view title="{}">
+    <ion-content class="has-header">
+        <div class="list card">
+            <div class="item">
+                <h2>Chairperson</h2>
+            </div>
+            <div class="item item-body">
+                <img style = "float: left; padding-right: 10px;" src="{{item.chairPic}}">
+                <p>{{item.chair}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item">
+                    <i class="icon ion-location"></i>
+                    {{item.location}}
+                </a>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item">
+                <h2>Committee Information</h2>
+            </div>
+            <div class="item item-body">
+                <p>{{committee.description}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+               <!--<a class="tab-item">
+                    <i class="icon ion-location"></i>
+                    {{item.location}}
+                </a>-->
+                 <a onclick="window.open(encodeURI('{{commitee.bg}}'), '_blank', 'location=no');" class="tab-item">
+                    <i class="icon ion-ios-book"></i>
+                    View Background Guide
+                </a>
+                <a onclick="window.open(encodeURI('{{commitee.dbg}}'), '_blank', 'location=no');" class="tab-item">
+                    <i class="icon ion-ios-book"></i>
+                    View Dynamic Background Guide
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
