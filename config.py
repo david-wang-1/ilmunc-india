@@ -11,8 +11,9 @@ username = 'staffindia'
 password = 'ILLmonkey2015!'
 database = 'staffindia'
 uri =  'mysql://%s:%s@%s/%s' % (username, password, host, database)
+SQLALCHEMY_POOL_RECYCLE = 50
+SQLALCHEMY_POOL_TIMEOUT = 800
 SQLALCHEMY_DATABASE_URI = uri
-DATABASE_CONNECT_OPTIONS = {}
 
 THREADS_PER_PAGE = 8
 
@@ -24,7 +25,7 @@ RECAPTCHA_SITE_KEY = "6Ld5IR8TAAAAAKm_qoty4GkBUtC56Csamsl4MA9U"
 RECAPTCHA_SECRET_KEY = "6Ld5IR8TAAAAAMUUiw0dh15W2oThfQ3NPqLmcH6g"
 RECAPTCHA_THEME = "light"
 RECAPTCHA_TYPE = "image"
-RECAPTCHA_SIZE = "compact"
+RECAPTCHA_SIZE = "normal"
 RECAPTCHA_RTABINDEX = 0
 
 # MAIL_SERVER = 'mail.upmunc.org'

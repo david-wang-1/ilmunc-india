@@ -5,21 +5,22 @@
 	<h1>Account Login</h1>
 		
 	<form action="{{ url_for('login') }}" method="post">
-		<div class="form-row">
-			<div class="form-group half">
+		<div class="row">
+			<div class="col s12">
 				<label class="required">Username</label>
 				<input id="login" type="text" name="name" required>
 			</div>
 		</div>
-		<div class="form-row">
-			<div class="form-group half">
+		<div class="row">
+			<div class="col s12">
 				<label class="required">Password</label>
 				<input id="password" type="password" name="password" required>
 			</div>
 		</div>
-
-		<div class="button-row left">
-			<input type="submit" value="Log In">
+		<div class="row button-row">
+			<div class="col s12">
+				<input type="submit" value="Log In">
+			</div>
 		</div>
 	</form>
 

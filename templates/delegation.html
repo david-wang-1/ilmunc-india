@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set active_page = 'delegation' %}
+
+{% block content %}
+	<h1>Delegation Manager</h1>
+	<span class="subhead">
+		{% if current_user.user.individual_first_name %}
+			{{ current_user.user.individual_first_name|safe }}&nbsp;{{ current_user.user.individual_last_name|safe }}
+		{% else %}
+			{{ current_user.user.school_name|safe }}
+		{% endif %}
+	</span>
+
+	<h2>Registration Information</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Item</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if current_user.user.individual_first_name %}
+			<tr>
+				<td>Name</td>
+				<td>{{ current_user.user.individual_prefix|safe }}&nbsp;{{ current_user.user.individual_first_name|safe }}&nbsp;{{ current_user.user.individual_last_name|safe }}</td>
+			</tr>
+			{% else %}
+			<tr>
+				<td>School</td>
+				<td>{{ current_user.user.school_name|safe }}</td>
+			</tr>
+			{% endif %}
+			<tr>
+				<td>Address</td>
+				<td>
+					{{ current_user.user.address1|safe }}<br>
+					{% if current_user.user.address2 %}{{ current_user.user.address2|safe }}<br>{% endif %}
+					{{ current_user.user.city|safe }},&nbsp;{{ current_user.user.state|safe }}<br>
+					{{ current_user.user.country|safe }}&nbsp;{{ current_user.user.zipcode|safe }}
+				</td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td>{{ current_user.user.username|safe }}</td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td>{{ current_user.user.email|safe }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ current_user.user.phone_number|safe }}</td>
+			</tr>
+			{% if not current_user.user.individual_first_name %}
+			<tr>
+				<td>Delegation Size</td>
+				<td>{{ current_user.user.expected_delegates }} delegates with {{ advisors|length }} advisor{% if advisors|length > 1 %}s{% endif %}</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+
+	<h2>Faculty Advisor Information</h2>
+	{% for advisor in advisors %}
+	<table>
+		<thead>
+			<tr>
+				<td colspan="2">Faculty Advisory {{ loop.index0 + 1 }}</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Name</td>
+				<td>{{ advisor.prefix|safe }}&nbsp;{{ advisor.first_name|safe }}&nbsp;{{ advisor.last_name|safe }}</td>
+			</tr>
+			<tr>
+				<td>Room Preference</td>
+				<td>
+					{{ advisor.room_preference|safe }}
+				</td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td>{{ advisor.email|safe }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ advisor.phone_number|safe }}</td>
+			</tr>
+		</tbody>
+	</table>
+	{% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+	{% include "delegationLinks.html" %}
+{% endblock %}

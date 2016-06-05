@@ -257,56 +257,9 @@ div.chairvideos iframe:first-child:nth-last-child(2) {
 
 
 /* Secretariat Page */
-ul#secretariat {
-	padding: 0;
-	text-align: center;
-}
-
-ul#secretariat li {
-	list-style: none;
-	display: inline-block;
-	vertical-align: top;
-	position: relative;
-	padding: 0;
-	width: 217px;
-	height: 312px;
-	overflow: hidden;
-	margin-bottom: 30px;
-	border-radius: 10px;
-	cursor: pointer;
-}
-
-ul#secretariat li {
-	margin-right: 0px;
-}
-
-ul#secretariat li img {
-	width: 100%;
-}
-
-ul#secretariat li div {
-	position: absolute;
-	top: 225px;
-	width: 100%;
-	padding: 6px 10px;
-	background-color: rgba(216, 216, 216, 0.7);
-	text-align: left;
-}
-
-ul#secretariat li div span {
-	display: block;
-	color: rgb(133, 0, 20);
-}
-
-ul#secretariat li div span:first-child {
-	text-transform: uppercase;
-	font-weight: bold;
-	font-size: 18px;
-}
-
-ul#secretariat li div span:last-child {
-	font-style: italic;
-	font-size: 20px;
+div.card.secretariat {
+	height: 300px;
+	margin-bottom: 20px;
 }
 
 div.bio {

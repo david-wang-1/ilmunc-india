@@ -48,7 +48,7 @@ h1, h1 > a {
 
 h2, h2 > a {
 	font-size: 38px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	padding-top: 10px;
 }
 
@@ -95,10 +95,11 @@ span.subtitle {
 }
 
 span.subhead {
+	display: block;
 	color: rgb(170, 170, 170);
 	font-size: 23px;
-	margin-bottom: 5px;
-	padding-top: 3px;
+	margin-top: -15px;
+	margin-bottom: 25px;
 }
 
 span.label {
@@ -108,9 +109,9 @@ span.label {
 	font-size: 16px;
 	border-bottom: 3px solid rgb(63, 196, 184);
 	display: inline-block;
-    line-height: 40px;
-    width: 100%;
-    margin-bottom: 15px;
+	line-height: 40px;
+	width: 100%;
+	margin-bottom: 15px;
 }
 
 p {
@@ -268,117 +269,71 @@ div.headshot-rounded img {
 
 
 table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid rgb(230, 230, 230);
 	margin-bottom: 10px;
+}
+
+table thead tr {
+	background-color: rgb(230, 230, 230);
 }
 
 table thead tr td {
 	font-weight: bold;
+	text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+	background-color: rgb(245, 245, 245);
 }
 
 table tr td {
-	vertical-align: top;
-}
-
-table tr td:not(:last-child) {
-	padding: 0px 30px 0px 0px;
-	margin: 0;
-}
-
-table.small-table thead tr td {
-	white-space: nowrap;
-}
-
-table.small-table tr td {
-	font-size: 16px;
-}
-
-table.small-table tr td:not(:last-child) {
-	padding: 0px 20px 0px 0px;
-}
-
-table.bordered-table {
-	border-collapse: collapse;
-}
-
-table.bordered-table td {
-	border: 1px solid #000000;
+	padding: 10px 20px;	
 }
 
 div.error {
-	background-color: #C63345;
+	background-color: rgb(239, 81, 81);
 	color: #FFFFFF;
 	font-size: 20px;
 	text-align: center;
 	padding: 15px 40px;
-	border-radius: 3px;
 	margin: 30px;
 }
 
 div.success {
-	background-color: #2BC274;
+	background-color: rgb(63, 196, 184);
 	color: #FFFFFF;
 	font-size: 20px;
 	text-align: center;
 	padding: 15px 40px;
-	border-radius: 3px;
 	margin: 30px;
 }
 
 @media only screen and (min-width: 1016px) {
 	div.error, div.success {
-		margin: 0px calc((100% - 680px - 320px) / 2) 20px;
-	}
-}
-
-div.button-row {
-	text-align: center;
-	margin: 30px 0px;
-}
-
-div.button-row.left {
-	text-align: left;
-	margin: 15px 0px;
-}
-
-div.form-group.half {
-	display: inline-block;
-	margin-right: -4px;
-	width: 48%;
-}
-
-div.form-group.half + div.form-group.half {
-	margin-left: 4%;
-}
-
-@media only screen and (max-width : 400px) {
-	div.form-group.half {
-		display: block;
-		margin-right: 0px;
-		width: 100%;
-	}
-
-	div.form-group.half + div.form-group.half {
-		margin-left: 0px;
+		margin: 20px 125px 10px;
 	}
 }
 
 label {
 	text-transform: uppercase;
-	font-family: 'Brandon Grotesque';
-	font-size: 12px;
-	color: #C63345;
-	display: inline-block;
+	font-weight: 700;
+	font-size: 16px;
+	display: block;
 }
 
 label.required:after {
 	content: ' *';
+	color: rgb(254, 119, 17);
 }
 
 input {
 	width: 100%;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
-	line-height: 17px;
+	line-height: 19px;
 	border: 1px solid #ACACAC;
 	border-radius: 3px;
 	padding: 10px 10px;
@@ -387,37 +342,43 @@ input {
 	-webkit-appearance: none;
 }
 
+input:disabled {
+	background-color: rgb(245, 245, 245);
+	opacity: 20%;
+	cursor: not-allowed;
+}
+
 input[type="radio"] {
 	-webkit-appearance: radio;
 }
 
 input[type="checkbox"] {
 	-webkit-appearance: checkbox;
+	display: inline-block;
+	width: auto;
+	margin-right: 15px;
+	margin-bottom: 0px;
 }
 
 input[type="submit"] {
-	background-color: #C63345;
-	color: #FFFFFF;
+	background-color: rgb(239, 81, 81);
+	color: rgb(255, 255, 255);
 	text-transform: uppercase;
-	font-family: 'Brandon Grotesque';
+	font-weight: 700;
 	font-size: 16px;
 	border: none;
-	display: inline-block;
-	width: 150px;
 	padding: 15px 10px;
 	cursor: pointer;
 	-webkit-appearance: none;
 }
 
 input[type="reset"] {
-	background-color: #ACACAC;
-	color: #FFFFFF;
+	background-color: rgb(170, 170, 170);
+	color: rgb(255, 255, 255);
 	text-transform: uppercase;
-	font-family: 'Brandon Grotesque';
+	font-weight: 700;
 	font-size: 16px;
 	border: none;
-	display: inline-block;
-	width: 150px;
 	padding: 15px 10px;
 	cursor: pointer;
 	-webkit-appearance: none;
@@ -427,7 +388,7 @@ textarea {
 	width: 100%;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
-	line-height: 17px;
+	line-height: 19px;
 	border: 1px solid #ACACAC;
 	border-radius: 3px;
 	padding: 10px 10px;
@@ -441,7 +402,7 @@ select {
 	width: 100%;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
-	line-height: 17px;
+	line-height: 19px;
 	border: 1px solid #ACACAC;
 	border-radius: 3px;
 	padding: 10px 30px 10px 10px;
@@ -456,6 +417,136 @@ select {
 	background-repeat: no-repeat;
 	background-position: 97% center;
 	background-size: 10px 8px;
+}
+
+
+/* ==========================================================================
+   grid
+   ========================================================================== */
+
+div.row {
+	margin: 10px 0px 10px 0px;
+}
+
+div.col {
+	display: inline-block;
+	margin-right: -4px;
+}
+
+div.col:first-child {
+	margin-left: 0px;
+}
+
+div.col:last-child {
+	margin-right: 0px;
+}
+
+div.col.s12 {
+	width: 100%;
+}
+
+div.col.s11 {
+	width: 91.66%;
+}
+
+div.col.s10 {
+	width: 83.33%
+}
+
+div.col.s9 {
+	width: 75%
+}
+
+div.col.s8 {
+	width: 66.66%
+}
+
+div.col.s7 {
+	width: 58.33%;
+}
+
+div.col.s6 {
+	width: 50%;
+}
+
+div.col.s5 {
+	width: 41.66%;
+}
+
+div.col.s4 {
+	width: 33.33%;
+}
+
+div.col.s3 {
+	width: 25%;
+}
+
+div.col.s2 {
+	width: 16.66%;
+}
+
+div.col.s1 {
+	width: 8.33%;
+}
+
+[class*='col'] {
+	padding-right: 20px;
+}
+
+[class*='col']:last-of-type {
+	padding-right: 0;
+}
+
+
+/* ==========================================================================
+   cards
+   ========================================================================== */
+
+div.card {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+div.card.clickable {
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+div.card.unselected {
+	opacity: 0.3;
+}
+
+div.card.c1 {
+	background-color: rgb(62, 196, 184);
+}
+
+div.card.c2 {
+	background-color: rgb(239, 81, 81);
+}
+
+div.card.c3 {
+	background-color: rgb(254, 119, 17);
+}
+
+div.card > .inner-shadow {
+	display: block;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.card span.card-h1 {
+	display: block;
+	color: rgb(255, 255, 255);
+	font-size: 50px;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 60px 0px;
 }
 
 
@@ -486,7 +577,7 @@ select {
 
 
 /* ==========================================================================
-   navbar, dropdown elements, login, and footer
+   navbar
    ========================================================================== */
 
 nav {
@@ -501,6 +592,9 @@ nav {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+nav {
 	background-image: url('../images/backgrounds/landing.png');
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -543,7 +637,7 @@ nav > ul > li > a {
 	margin: 10px 15px;
 }
 
-nav > ul > li > a.logo {
+nav > ul > li.logo > a {
 	display: block;
 	height: 55px;
 	width: 55px;
@@ -552,13 +646,21 @@ nav > ul > li > a.logo {
 	background-size: contain;
 }
 
-nav > ul > li > a.logo:hover {
+nav > ul > li.logo > a:hover {
 	background-image: url('../images/logos/lotus_color.png');
 	-webkit-transition: background-image 0.2s ease;
 	-moz-transition: background-image 0.2s ease;
 	-ms-transition: background-image 0.2s ease;
 	-o-transition: background-image 0.2s ease;
 	transition: background-image 0.2s ease;
+}
+
+nav > ul > li:not(.logo):hover {
+	background-color: white;
+}
+
+nav > ul > li:not(.logo):hover > a {
+	color: rgb(63, 196, 184);
 }
 
 nav > ul > li:hover > ul {
@@ -572,12 +674,9 @@ nav > ul > li > ul {
 	display: none;
 	overflow: hidden;
 	text-align: left;
-	margin-left: 15px;
-	border-left: 2px solid rgb(255, 255, 255);
 }
 
-nav:not(.index) > ul > li > ul {
-	border-left: 2px solid rgb(63, 196, 184);
+nav > ul > li > ul {
 	background-color: rgb(255, 255, 255);
 }
 
@@ -597,7 +696,7 @@ nav > ul > li > ul > li > a {
 	transition: padding 0.2s ease-in-out;
 }
 
-nav:not(.index) > ul > li > ul > li > a {
+nav > ul > li > ul > li > a {
 	color: rgb(63, 196, 184);
 }
 
@@ -608,6 +707,33 @@ nav > ul > li > ul > li > a:hover {
 	-ms-transition: padding 0.2s ease-in-out;
 	-o-transition: padding 0.2s ease-in-out;
 	transition: padding 0.2s ease-in-out;
+}
+
+div#sidebar ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+div#sidebar ul li {
+	display: block;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+div#sidebar ul li a {
+	display: block;
+	padding: 15px 0px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	background-color: rgb(63, 196, 184);
+}
+
+div#sidebar ul li a:hover {
+	color: rgb(63, 196, 184);
+	background-color: rgb(255, 255, 255);
 }
 
 div#footer, div#footer * {
@@ -688,10 +814,7 @@ div#footer {
 	vertical-align: top;
 	margin-top: 40px;
 	padding: 40px 20px;
-	background-color: #05234D;
-	background-image: url('../images/backgrounds/footer.png');
-	background-repeat: repeat;
-	background-size: 130px;
+	background-color: rgb(63, 196, 184);
 	text-align: center;
 	width: 100%;
 	position: absolute;
@@ -706,17 +829,18 @@ div#footer {
 	div#content {
 		display: inline-block;
 		vertical-align: top;
-		margin: 30px -4px 30px 115px;
-		padding: 0px 20px 0px 10px;
-		width: calc(100% - (115px + 320px + 115px + 115px));
+		margin: 30px -4px 30px 125px;
+		padding: 0px;
+		width: calc(100% - (125px + 320px + 125px + 125px));
 	}
 
 	div#sidebar {
 		display: inline-block;
 		margin-right: -4px;
 		vertical-align: top;
-		padding: 30px 10px 30px 115px;
-		width: 435px;
+		padding: 30px 0px 30px;
+		margin-left: 125px;
+		width: 320px;
 	}
 
 	div#lower {
@@ -781,7 +905,6 @@ div#lightbox-background {
 
 div#lightbox > div#lightbox-inner {
 	background-color: #FFFFFF;
-	border-radius: 10px;
 	position: absolute;
 	max-width: 90%;
 	max-height: 90%;
