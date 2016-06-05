@@ -419,6 +419,18 @@ select {
 	background-size: 10px 8px;
 }
 
+a.button.submit {
+	background-color: rgb(239, 81, 81);
+	color: rgb(255, 255, 255);
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 16px;
+	border: none;
+	padding: 15px 10px;
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
 
 /* ==========================================================================
    grid
@@ -731,11 +743,6 @@ div#sidebar ul li a {
 	background-color: rgb(63, 196, 184);
 }
 
-div#sidebar ul li a:hover {
-	color: rgb(63, 196, 184);
-	background-color: rgb(255, 255, 255);
-}
-
 div#footer, div#footer * {
 	color: #FFFFFF;
 }
@@ -756,7 +763,7 @@ div#frames {
 	padding-bottom: 450px;
 }
 
-div#content:empty, div#sidebar:empty, div#lower:empty {
+div#banner:empty, div#content:empty, div#sidebar:empty, div#lower:empty {
 	display: none;
 }
 
@@ -767,6 +774,12 @@ div#landing:empty {
 div#landing {
 	width: 100%;
 	vertical-align: top;
+}
+
+div#banner {
+	width: 100%;
+	margin: 0 auto;
+	padding: 30px 30px;
 }
 
 div#content {
@@ -799,6 +812,12 @@ div#footer {
 	div#landing:empty {
 		padding: 83px 0px 10px 0px
 	}
+
+	div#banner {
+		vertical-align: top;
+		padding: 50px 0px 30px 0px;
+		width: calc(100% - (125px + 125px));
+	}
 	
 	div#content {
 		display: inline-block;
@@ -819,8 +838,8 @@ div#footer {
 
 	div#lower {
 		vertical-align: top;
-		padding: 30px 20px;
-		width: 1015px;
+		padding: 30px 0px;
+		width: calc(100% - (125px + 125px));
 	}
 }
 
