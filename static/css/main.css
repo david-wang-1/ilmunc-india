@@ -594,7 +594,7 @@ nav {
 	user-select: none;
 }
 
-nav {
+nav:not(.index) {
 	background-image: url('../images/backgrounds/landing.png');
 	background-repeat: no-repeat;
 	background-size: cover;
