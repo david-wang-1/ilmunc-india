@@ -740,33 +740,7 @@ div#footer, div#footer * {
 	color: #FFFFFF;
 }
 
-div#footer span {
-	display: block;
-}
-
-div#footer div#contact-names ul {
-	display: inline-block;
-	margin: 0;
-	padding: 20px 60px 0px 60px;
-}
-
-div#footer div#contact-names ul li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-div#footer div#contact-names ul li:nth-child(1) {
-	font-size: 20px;
-	font-weight: bold;
-}
-
-div#footer div#contact-names ul li:nth-child(2) {
-	font-weight: bold;
-	color: #C63345;
-}
-
-div#footer span#copyright, div#footer span#copyright a {
+div#footer p#copyright, div#footer p#copyright a {
 	font-size: 13px;
 	margin: 20px 0px 0px 0px;
 }
