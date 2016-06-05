@@ -76,6 +76,14 @@ h6, h6 > a {
 	padding-top: 1px;
 }
 
+h2 > a > i {
+	color: rgb(254, 119, 17);
+	float: right;
+	vertical-align: bottom;
+	font-size: 30px !important;
+	margin-top: 12px;
+}
+
 span.title {
 	display: block;
 	font-family: 'Black Sand', sans-serif;
@@ -801,7 +809,7 @@ div#footer {
 	vertical-align: top;
 	margin-top: 40px;
 	padding: 40px 20px;
-	background-color: rgb(63, 196, 184);
+	background-color: rgb(40, 45, 50);
 	text-align: center;
 	width: 100%;
 	position: absolute;

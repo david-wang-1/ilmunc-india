@@ -3,7 +3,37 @@
 
 {% block content %}
 	<h1>Invoice</h1>
-	<p>Coming soon!</p>
+	<table>
+		<thead>
+			<tr>
+				<td>Date</td>
+				<td>Item</td>
+				<td>Rate</td>
+				<td>Quantity</td>
+				<td>Amount</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Username</td>
+				<td>{{ current_user.user.username|safe }}</td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td>{{ current_user.user.email|safe }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ current_user.user.phone_number|safe }}</td>
+			</tr>
+			{% if not current_user.user.individual_first_name %}
+			<tr>
+				<td>Delegation Size</td>
+				<td>{{ current_user.user.expected_delegates }} delegates</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
 {% endblock %}
 
 {% block sidebar %}

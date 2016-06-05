@@ -11,7 +11,7 @@
 		{% endif %}
 	</span>
 
-	<h2>Registration Information</h2>
+	<h2>Registration Information <a href="{{ url_for('editDelegation') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></h2>
 	<table>
 		<thead>
 			<tr>
@@ -55,13 +55,13 @@
 			{% if not current_user.user.individual_first_name %}
 			<tr>
 				<td>Delegation Size</td>
-				<td>{{ current_user.user.expected_delegates }} delegates with {{ advisors|length }} advisor{% if advisors|length > 1 %}s{% endif %}</td>
+				<td>{{ current_user.user.expected_delegates }} delegates</td>
 			</tr>
 			{% endif %}
 		</tbody>
 	</table>
 
-	<h2>Faculty Advisor Information</h2>
+	<h2>Faculty Advisor Information <a href="{{ url_for('editFaculty') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></h2>
 	{% for advisor in advisors %}
 	<table>
 		<thead>

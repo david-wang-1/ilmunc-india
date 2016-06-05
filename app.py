@@ -691,6 +691,17 @@ def delegation():
 	advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
 	return render_template('delegation.html', error=get_session_error(), success=get_session_success(), advisors=advisors)
 
+@app.route('/delegation/edit')
+def editDelegation():
+	if not check_authentication('Delegation'): return redirect(url_for('login'))
+	return render_template('editDelegation.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/delegation/faculty')
+def editFaculty():
+	if not check_authentication('Delegation'): return redirect(url_for('login'))
+	advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
+	return render_template('editFaculty.html', error=get_session_error(), success=get_session_success(), advisors=advisors)
+
 @app.route('/delegation/invoice')
 def invoice():
 	if not check_authentication('Delegation'): return redirect(url_for('login'))
