@@ -24,6 +24,7 @@
 					/* Show the correct form type */
 					registration_form.attr("action", "{{ url_for('registerSchool') }}");
 					registration_form_content.html($('#school_registration_content').html())
+					$('#faculty_phone_number').inputmasks(maskOpts);
 					registration_form.show();
 				});
 
@@ -43,6 +44,24 @@
 				var maskList = $.masksSort($.masksLoad("http://cdn.rawgit.com/andr-04/inputmask-multi/master/data/phone-codes.json"), ['#'], /[0-9]|#/, "mask");
 
 				var maskOpts = {
+					inputmask: {
+						definitions: {
+							'#': {
+								validator: "[0-9]",
+								cardinality: 1
+							}
+						},
+						showMaskOnHover: false,
+						autoUnmask: true,
+						clearMaskOnLostFocus: false
+					},
+					match: /[0-9]/,
+					replace: '#',
+					list: maskList,
+					listKey: "mask"
+				};
+
+				var maskOptsTwo = {
 					inputmask: {
 						definitions: {
 							'#': {
@@ -393,6 +412,7 @@
 				<div class="col s6">
 					<label class="required">Prefix</label>
 					<select id="faculty_prefix" name="faculty_prefix" required>
+						<option disabled selected value></option>
 						<option value="Mr.">Mr.</option>
 						<option value="Ms.">Ms.</option>
 					</select>
@@ -408,7 +428,7 @@
 			<div class="row">
 				<div class="col s6">
 					<label class="required">Phone number</label>
-					<input type="text" name="faculty_phone_number" id="phone_number" required>
+					<input type="text" name="faculty_phone_number" id="faculty_phone_number" required>
 				</div>
 				<div class="col s6">
 					<label class="required">E-mail address</label>
@@ -462,6 +482,7 @@
 				<div class="col s6">
 					<label class="required">Prefix</label>
 					<select id="prefix" name="prefix" required>
+						<option disabled selected value></option>
 						<option value="Mr.">Mr.</option>
 						<option value="Ms.">Ms.</option>
 					</select>

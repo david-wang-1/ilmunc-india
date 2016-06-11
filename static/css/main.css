@@ -277,6 +277,7 @@ div.headshot-rounded img {
 
 
 table {
+	word-wrap: break-word;
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -321,7 +322,7 @@ div.success {
 
 @media only screen and (min-width: 1016px) {
 	div.error, div.success {
-		margin: 20px 125px 10px;
+		margin: 20px 0px 10px;
 	}
 }
 
@@ -817,6 +818,12 @@ div#footer {
 }
 
 @media only screen and (min-width: 1016px) {
+	div.inner {
+		width: calc(100% - (125px + 125px));
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
 	div#landing:empty {
 		padding: 83px 0px 10px 0px
 	}
@@ -824,15 +831,15 @@ div#footer {
 	div#banner {
 		vertical-align: top;
 		padding: 50px 0px 30px 0px;
-		width: calc(100% - (125px + 125px));
+		width: 100%;
 	}
 	
 	div#content {
 		display: inline-block;
 		vertical-align: top;
-		margin: 30px -4px 30px 125px;
+		margin: 30px -4px 30px 0px;
 		padding: 0px;
-		width: calc(100% - (125px + 320px + 125px + 125px));
+		width: calc(100% - (320px + 125px));
 	}
 
 	div#sidebar {
@@ -847,7 +854,7 @@ div#footer {
 	div#lower {
 		vertical-align: top;
 		padding: 30px 0px;
-		width: calc(100% - (125px + 125px));
+		width: 100%;
 	}
 }
 
@@ -929,7 +936,7 @@ div#lightbox > div#lightbox-inner > div#lightbox-title {
 div#lightbox > div#lightbox-inner > div#lightbox-close {
 	height: 15px;
 	width: 15px;
-	background-image: url('../images/icons/close_red_1x.png');
+	background-image: url('../images/icons/close.png');
 	background-size: 15px 15px;
 	background-position: left center;
 	background-repeat: no-repeat;
@@ -937,12 +944,6 @@ div#lightbox > div#lightbox-inner > div#lightbox-close {
 	top: 15px;
 	right: 15px;
 	cursor: pointer;
-}
-
-@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
-	div#lightbox > div#lightbox-inner > div#lightbox-close {
-		background-image: url('../images/icons/close_red_2x.png');
-	}
 }
 
 div#lightbox > div#lightbox-inner > div#lightbox-body {

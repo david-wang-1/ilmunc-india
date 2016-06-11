@@ -6,7 +6,6 @@
 	<table>
 		<thead>
 			<tr>
-				<td>Date</td>
 				<td>Item</td>
 				<td>Rate</td>
 				<td>Quantity</td>
@@ -15,24 +14,64 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>Username</td>
-				<td>{{ current_user.user.username|safe }}</td>
+				<td>Delegate Conference Fee</td>
+				<td>INR {{ g.ILMUNC_fees.delegate }}</td>
+				<td>{{ current_user.user.expected_delegates }}</td>
+				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates }}</td>
 			</tr>
+			{% if single_advisors|length > 0 %}
 			<tr>
-				<td>E-mail</td>
-				<td>{{ current_user.user.email|safe }}</td>
+				<td>Faculty Advisor Fee (Single Room)</td>
+				<td>INR {{ g.ILMUNC_fees.faculty_single }}</td>
+				<td>{{ single_advisors|length }}</td>
+				<td>INR {{ g.ILMUNC_fees.faculty_single * single_advisors|length }}</td>
 			</tr>
+			{% endif %}
+			{% if double_advisors|length > 0 %}
 			<tr>
-				<td>Phone</td>
-				<td>{{ current_user.user.phone_number|safe }}</td>
+				<td>Faculty Advisor Fee (Double Room)</td>
+				<td>INR {{ g.ILMUNC_fees.faculty_double }}</td>
+				<td>{{ double_advisors|length }}</td>
+				<td>INR {{ g.ILMUNC_fees.faculty_double * double_advisors|length }}</td>
 			</tr>
-			{% if not current_user.user.individual_first_name %}
+			{% endif %}
+			{% if assistant_directors|length > 0 %}
 			<tr>
-				<td>Delegation Size</td>
-				<td>{{ current_user.user.expected_delegates }} delegates</td>
+				<td>Assistant Director Fee</td>
+				<td>INR {{ g.ILMUNC_fees.assistant_director }}</td>
+				<td>{{ assistant_directors|length }}</td>
+				<td>INR {{ g.ILMUNC_fees.assistant_director * assistant_directors|length }}</td>
 			</tr>
 			{% endif %}
 		</tbody>
+		<thead>
+			<tr>
+				<td colspan="3">Total</td>
+				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates + g.ILMUNC_fees.faculty_single * single_advisors|length + g.ILMUNC_fees.faculty_double * double_advisors|length + g.ILMUNC_fees.assistant_director * assistant_directors|length }}</td>
+			</tr>
+		</thead>
+		<tdbody>
+			{% set payment_total = 0 %}
+			{% for payment in payments %}
+			<tr>
+				<td colspan="3">{{ payment.date }}</td>
+				<td>(INR {{ payment.amount }})</td>
+			</tr>
+			{% set payment_total = payment_total + payment.amount %}
+			{% endfor %}
+		</tdbody>
+		<thead>
+			<tr>
+				<td colspan="3">Amount Paid</td>
+				<td>(INR {{ payment_total }})</td>
+			</tr>
+		</thead>
+		<thead>
+			<tr>
+				<td colspan="3">Balance Remaining</td>
+				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates + g.ILMUNC_fees.faculty_single * single_advisors|length + g.ILMUNC_fees.faculty_double * double_advisors|length + g.ILMUNC_fees.assistant_director * assistant_directors|length - payment_total }}</td>
+			</tr>
+		</thead>
 	</table>
 {% endblock %}
 

@@ -39,41 +39,43 @@
 		
 		<p>Our delegates' experiences outside of committee are just as vital as their experiences within committee. At ILMUNC India we ensure that our delegates take away memories and experiences that will better them personally and professionally. Outside of the invaluable Model United Nations experience, we host numerous college and career fairs, personal mentoring sessions with current students and alumni, keynote speeches from prominent members of society and, of course, enthralling social events.</p>
 		
-		<p>Our delegates are the most integral part of our story and I'd like to once again thank you for choosing to be a part of our next chapter of ILMUNC India 2015. We are certain that you will walk away from this conference with memories that you will cherish for a long time to come. If you have any questions, concerns, or comments between now and the conference, I encourage you to reach out to me at secgen@ilmunc-india.com. On behalf of the entire Secretariat, I cannot wait to host you and your school in Delhi this November.</p>
+		<p>Our delegates are the most integral part of our story and I'd like to once again thank you for choosing to be a part of our next chapter of ILMUNC India 2016. We are certain that you will walk away from this conference with memories that you will cherish for a long time to come. If you have any questions, concerns, or comments between now and the conference, I encourage you to reach out to me at secgen@ilmunc-india.com. On behalf of the entire Secretariat, I cannot wait to host you and your school in Delhi this November.</p>
 
 		<p><span class="signature">Ana Rancic</span><br>
 		Secretary-General<br>
 		ILMUNC India {{ g.ILMUNC_year }}<br>
-		<a href="mailto:secgen@upmunc.org">secgen@upmunc.org</a></p>
+		<a href="mailto:secgen@ilmunc-india.com">secgen@ilmunc-india.com</a></p>
 	</div>
 {% endblock %}
 
 {% block lower %}
-	<div class="row">
-		<div class="col s4">
-			<div class="card c1" style="background-image: url('/static/images/cards/3.jpg');">
-				<div class="inner-shadow" style="background-color: rgba(62, 196, 184, 0.5);">
-					<span class="card-h1">Debate</span>
+	<div class="inner">
+		<div class="row">
+			<div class="col s4">
+				<div class="card c1" style="background-image: url('/static/images/cards/3.jpg');">
+					<div class="inner-shadow" style="background-color: rgba(62, 196, 184, 0.5);">
+						<span class="card-h1">Debate</span>
+					</div>
+				</div>
+			</div>
+			<div class="col s4">
+				<div class="card c2" style="background-image: url('/static/images/cards/4.jpg');">
+					<div class="inner-shadow" style="background-color: rgba(239, 81, 81, 0.5);">
+						<span class="card-h1">Discover</span>
+					</div>
+				</div>
+			</div>
+			<div class="col s4">
+				<div class="card c3" style="background-image: url('/static/images/cards/5.jpg');">
+					<div class="inner-shadow" style="background-color: rgba(254, 119, 17, 0.5);">
+						<span class="card-h1">Dance</span>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col s4">
-			<div class="card c2" style="background-image: url('/static/images/cards/4.jpg');">
-				<div class="inner-shadow" style="background-color: rgba(239, 81, 81, 0.5);">
-					<span class="card-h1">Discover</span>
-				</div>
-			</div>
+		<span class="subhead" style="text-align:center; margin-top:0px; font-size:40px;">Join us for an unforgettable conference from {{ g.ILMUNC_month }} {{ g.ILMUNC_start }} - {{ g.ILMUNC_end }}!</span>
+		<div class="row button-row" style="text-align:center; margin-top: 50px;">
+			<a class="button submit" href="{{ url_for('register') }}"  style="font-size: 24px;">Register Today!</a>
 		</div>
-		<div class="col s4">
-			<div class="card c3" style="background-image: url('/static/images/cards/5.jpg');">
-				<div class="inner-shadow" style="background-color: rgba(254, 119, 17, 0.5);">
-					<span class="card-h1">Dance</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<span class="subhead" style="text-align:center; margin-top:0px; font-size:40px;">Join us for an unforgettable conference from {{ g.ILMUNC_month }} {{ g.ILMUNC_start }} - {{ g.ILMUNC_end }}!</span>
-	<div class="row button-row" style="text-align:center; margin-top: 50px;">
-		<a class="button submit" href="{{ url_for('register') }}"  style="font-size: 24px;">Register Today!</a>
 	</div>
 {% endblock %}

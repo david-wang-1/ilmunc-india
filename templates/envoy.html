@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% set active_page = 'envoy' %}
+
+{% block content %}
+	<h1>Envoy Application</h1>
+	<p>We thank you for your interest in applying to be an Envoy for ILMUNC India {{ g.ILMUNC_year }}! In order to apply, please complete the application below. If you would like to register as a delegate for ILMUNC India {{ g.ILMUNC_year }} please visit our <a href="{{ url_for('register') }}">Registration</a> page.</p>
+	<p>If you have any questions while filling out the application, feel free to reach out to us at <a href="mailto:{{ g.ILMUNC_email }}">{{ g.ILMUNC_email }}</a>.</p>
+	<script>
+		var submitted=false;
+
+		$(document).ready(function() {
+			var maskList = $.masksSort($.masksLoad("http://cdn.rawgit.com/andr-04/inputmask-multi/master/data/phone-codes.json"), ['#'], /[0-9]|#/, "mask");
+
+			var maskOpts = {
+				inputmask: {
+					definitions: {
+						'#': {
+							validator: "[0-9]",
+							cardinality: 1
+						}
+					},
+					showMaskOnHover: false,
+					autoUnmask: true,
+					clearMaskOnLostFocus: false
+				},
+				match: /[0-9]/,
+				replace: '#',
+				list: maskList,
+				listKey: "mask"
+			};
+
+			$('#entry\\.1740396478').inputmasks(maskOpts);
+		});
+	</script>
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='{{ url_for('index') }}';}"></iframe>
+	<form method="post" action="https://docs.google.com/forms/d/1R-HNxbz4-SEEQz7m6pAolDsnIqMYZVUYLWyedfLE8bY/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+		<h2>Personal Information</h2>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">First name</label>
+				<input type="text" name="entry.1806311742" id="entry.1806311742" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Last name</label>
+				<input type="text" name="entry.559139005" id="entry.559139005" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">School/university name</label>
+				<input type="text" name="entry.2093882500" id="entry.2093882500" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Grade</label>
+				<input type="text" name="entry.238725995" id="entry.238725995" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Location until August</label>
+				<input type="text" name="entry.2083750805" id="entry.2083750805" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Location from August until conference ({{ g.ILMUNC_month }}&nbsp;{{ g.ILMUNC_start }})</label>
+				<input type="text" name="entry.1458799831" id="entry.1458799831" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">E-mail address</label>
+				<input type="text" name="entry.1308047245" id="entry.1308047245" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Skype ID</label>
+				<input type="text" name="entry.698241312" id="entry.698241312" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Phone number</label>
+				<input type="text" name="entry.1740396478" id="entry.1740396478" required>
+			</div>
+		</div>
+
+
+		<h2>Application Questions</h2>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">In descending chronological order, please list any prior experience you have with organizing conferences or events (does not necessarily have to be Model UN conferences).</label>
+				<textarea name="entry.1756157452" id="entry.1756157452" placeholder="In descending chronological order, please list any prior experience you have with organizing conferences or events (does not necessarily have to be Model UN conferences)." rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Why do you want to be an envoy for ILMUNC India 2016?</label>
+				<textarea name="entry.986852018" id="entry.986852018" placeholder="Why do you want to be an envoy for ILMUNC India 2016?" rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">What distinguishes you from other applicants?</label>
+				<textarea name="entry.1543238608" id="entry.1543238608" placeholder="What distinguishes you from other applicants?" rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Being an envoy for ILMUNC India {{ g.ILMUNC_year }} requires a variety of organizational skills including sending and replying to multiple emails a week, taking charge on phone calls and teleconferencing sessions with stakeholders, and collaborating with fellow envoys. Describe an instance when you displayed an exemplary work ethic, and how do you wish to apply this to your work at ILMUNC India {{ g.ILMUNC_year }}.</label>
+				<textarea name="entry.1800814472" id="entry.1800814472" placeholder="Being an envoy for ILMUNC India {{ g.ILMUNC_year }} requires a variety of organizational skills including sending and replying to multiple emails a week, taking charge on phone calls and teleconferencing sessions with stakeholders, and collaborating with fellow envoys. Describe an instance when you displayed an exemplary work ethic, and how do you wish to apply this to your work at ILMUNC India {{ g.ILMUNC_year }}." rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Please list all relevant technical experience (programming, photo/video editing, etc.).</label>
+				<textarea name="entry.2039382281" id="entry.2039382281" placeholder="Please list all relevant technical experience (programming, photo editing, video editing, etc.)." rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Describe a time when you had to convince or persuade someone who was against your viewpoints? How did you go about doing so?</label>
+				<textarea name="entry.1108165490" id="entry.1108165490" placeholder="Describe a time when you had to convince or persuade someone who was against your viewpoints? How did you go about doing so?" rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label>Take this opportunity to tell us anything else that would help us more wholesomely judge your application. </label>
+				<textarea name="entry.286433315" id="entry.286433315" placeholder="Take this opportunity to tell us anything else that would help us more wholesomely judge your application. " rows="8"></textarea>
+			</div>
+		</div>
+
+		<h2>Final Confirmation</h2>
+		<p>To submit your application, please double check the information entered in the fields above, make sure that all fields are completed, and then press "Apply" below.</p>
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Apply">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+	</form>
+{% endblock %}

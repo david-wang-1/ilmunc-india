@@ -217,6 +217,12 @@ def before_request():
 	g.ILMUNC_email = "ilmunc@ilmunc-india.com"
 	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Sep 1 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 1 2016  11:59PM', '%b %d %Y %I:%M%p')
+	g.ILMUNC_fees = {
+		'delegate': 1234,
+		'faculty_single': 1234,
+		'faculty_double': 1234,
+		'assistant_director': 1234
+	}
 
 	# Global updates and deadlines arrays for sidebar
 	g.strtime = datetime.now()
@@ -224,7 +230,7 @@ def before_request():
 	dbdeadlines = SiteUpdate.query.filter_by(uptype='deadline').filter(SiteUpdate.date>=datetime.now()).order_by(SiteUpdate.date.asc()).limit(2).all()
 	g.deadlines = []
 	for d in dbdeadlines:
-		dt = custom_strftime('%B {S} ', datetime.fromtimestamp(float(d.date)))
+		dt = custom_strftime('%B {S} ', d.date)
 		g.deadlines.append((dt, d.text))
 	dbupdates = SiteUpdate.query.filter_by(uptype='update').order_by(
 		SiteUpdate.date.desc()).limit(2).all()
@@ -705,8 +711,11 @@ def editFaculty():
 @app.route('/delegation/invoice')
 def invoice():
 	if not check_authentication('Delegation'): return redirect(url_for('login'))
-	advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
-	return render_template('invoice.html', error=get_session_error(), success=get_session_success(), advisors=advisors)
+	single_advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID, room_preference="Single").all()
+	double_advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID, room_preference="Double").all()
+	assistant_directors = []
+	payments = []
+	return render_template('invoice.html', error=get_session_error(), success=get_session_success(), single_advisors=single_advisors, double_advisors=double_advisors, assistant_directors=assistant_directors, payments=payments)
 
 @app.route('/admin')
 def admin():
