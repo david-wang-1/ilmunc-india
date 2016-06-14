@@ -555,6 +555,11 @@ def ad():
 def envoy():
 	return render_template('envoy.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/success')
+def success():
+	session['success'] = 'Thank you for applying to ILMUNC India %s! We have received your application and will get back to you shortly with our decision.' % (g.ILMUNC_year)
+	return redirect(url_for('invitation'))
+
 # --- COMMITTEES ###############################################################
 @app.route('/committees')
 def committees():
