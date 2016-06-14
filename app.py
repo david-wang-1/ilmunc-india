@@ -437,8 +437,8 @@ def registerSchool():
 						"look forward to working with you in the coming months.\n\n"
 						"See you in %s!\n\n"
 						"%s\nSecretary-General, ILMUNC India %s"
-						% (prefix, last_name, g.ILMUNC_year, g.ILMUNC_month, g.ILMUNC_start, g.ILMUNC_end, 
-								username, school_name, prefix + " " + first_name + " " + last_name, phone_number, email, 
+						% (faculty_prefix, faculty_last_name, g.ILMUNC_year, g.ILMUNC_month, g.ILMUNC_start, g.ILMUNC_end, 
+								username, school_name, faculty_prefix + " " + faculty_first_name + " " + faculty_last_name, phone_number, email, 
 								expected_delegates, g.ILMUNC_month, g.ILMUNC_secgen, g.ILMUNC_year))
 		msg.body = body
 		# mail.send(msg)
@@ -518,7 +518,6 @@ def registerIndividual():
 						"simply go to your account portal and click on \"Your Invoice.\"\n\n"
 						"Registration Details:\n"
 						"Username: %s \n"
-						"School: %s \n"
 						"Contact: %s \n"
 						"Phone Number: %s \n"
 						"E-mail: %s \n"
@@ -529,7 +528,7 @@ def registerIndividual():
 						"See you in %s!\n\n"
 						"%s\nSecretary-General, ILMUNC India %s"
 						% (prefix, last_name, g.ILMUNC_year, g.ILMUNC_month, g.ILMUNC_start, g.ILMUNC_end, 
-								username, school_name, prefix + " " + first_name + " " + last_name, phone_number, email, 
+								username, prefix + " " + first_name + " " + last_name, phone_number, email, 
 								g.ILMUNC_month, g.ILMUNC_secgen, g.ILMUNC_year))
 		msg.body = body
 		# mail.send(msg)
