@@ -15,39 +15,39 @@
 		<tbody>
 			<tr>
 				<td>Delegate Conference Fee</td>
-				<td>INR {{ g.ILMUNC_fees.delegate }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.delegate }}</td>
 				<td>{{ current_user.user.expected_delegates }}</td>
-				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.delegate * current_user.user.expected_delegates }}</td>
 			</tr>
 			{% if single_advisors|length > 0 %}
 			<tr>
 				<td>Faculty Advisor Fee (Single Room)</td>
-				<td>INR {{ g.ILMUNC_fees.faculty_single }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_single }}</td>
 				<td>{{ single_advisors|length }}</td>
-				<td>INR {{ g.ILMUNC_fees.faculty_single * single_advisors|length }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_single * single_advisors|length }}</td>
 			</tr>
 			{% endif %}
 			{% if double_advisors|length > 0 %}
 			<tr>
 				<td>Faculty Advisor Fee (Double Room)</td>
-				<td>INR {{ g.ILMUNC_fees.faculty_double }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_double }}</td>
 				<td>{{ double_advisors|length }}</td>
-				<td>INR {{ g.ILMUNC_fees.faculty_double * double_advisors|length }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_double * double_advisors|length }}</td>
 			</tr>
 			{% endif %}
 			{% if assistant_directors|length > 0 %}
 			<tr>
 				<td>Assistant Director Fee</td>
-				<td>INR {{ g.ILMUNC_fees.assistant_director }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.assistant_director }}</td>
 				<td>{{ assistant_directors|length }}</td>
-				<td>INR {{ g.ILMUNC_fees.assistant_director * assistant_directors|length }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.assistant_director * assistant_directors|length }}</td>
 			</tr>
 			{% endif %}
 		</tbody>
 		<thead>
 			<tr>
 				<td colspan="3">Total</td>
-				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates + g.ILMUNC_fees.faculty_single * single_advisors|length + g.ILMUNC_fees.faculty_double * double_advisors|length + g.ILMUNC_fees.assistant_director * assistant_directors|length }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.delegate * current_user.user.expected_delegates + g.ILMUNC_fees_domestic.faculty_single * single_advisors|length + g.ILMUNC_fees_domestic.faculty_double * double_advisors|length + g.ILMUNC_fees_domestic.assistant_director * assistant_directors|length }}</td>
 			</tr>
 		</thead>
 		<tdbody>
@@ -55,7 +55,7 @@
 			{% for payment in payments %}
 			<tr>
 				<td colspan="3">{{ payment.date }}</td>
-				<td>(INR {{ payment.amount }})</td>
+				<td>({{ g.ILMUNC_fees_domestic.currency }}{{ payment.amount }})</td>
 			</tr>
 			{% set payment_total = payment_total + payment.amount %}
 			{% endfor %}
@@ -63,13 +63,13 @@
 		<thead>
 			<tr>
 				<td colspan="3">Amount Paid</td>
-				<td>(INR {{ payment_total }})</td>
+				<td>({{ g.ILMUNC_fees_domestic.currency }}{{ payment_total }})</td>
 			</tr>
 		</thead>
 		<thead>
 			<tr>
 				<td colspan="3">Balance Remaining</td>
-				<td>INR {{ g.ILMUNC_fees.delegate * current_user.user.expected_delegates + g.ILMUNC_fees.faculty_single * single_advisors|length + g.ILMUNC_fees.faculty_double * double_advisors|length + g.ILMUNC_fees.assistant_director * assistant_directors|length - payment_total }}</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.delegate * current_user.user.expected_delegates + g.ILMUNC_fees_domestic.faculty_single * single_advisors|length + g.ILMUNC_fees_domestic.faculty_double * double_advisors|length + g.ILMUNC_fees_domestic.assistant_director * assistant_directors|length - payment_total }}</td>
 			</tr>
 		</thead>
 	</table>

@@ -215,9 +215,17 @@ def before_request():
 	g.ILMUNC_secgen = "Ana Rancic"
 	g.ILMUNC_webmaster = "Alex Sands"
 	g.ILMUNC_email = "ilmunc@ilmunc-india.com"
-	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 16 2016  11:59PM', '%b %d %Y %I:%M%p')
+	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 15 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 20 2016  11:59PM', '%b %d %Y %I:%M%p')
-	g.ILMUNC_fees = {
+	g.ILMUNC_fees_domestic = {
+		'currency': "INR ",
+		'delegate': 1234,
+		'faculty_single': 1234,
+		'faculty_double': 1234,
+		'assistant_director': 1234
+	}
+	g.ILMUNC_fees_international = {
+		'currency': "$",
 		'delegate': 1234,
 		'faculty_single': 1234,
 		'faculty_double': 1234,

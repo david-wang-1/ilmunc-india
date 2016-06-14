@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% set active_page = 'fees' %}
+
+{% block content %}
+	<h1>Registration Fees and Deadlines</h1>
+	
+	<h2>Registration Policies</h2>
+	<ol>
+		<li>
+			There will be two rounds of registrations:
+			<ol>
+				<li>The Priority Registration period will take place from June 15th to August 15th</li>
+				<li>Regular registrations will take place from August 16th to October 20th.</li>
+			</ol>
+		</li>
+		<li>Priority allocations will occur once at the end of July and once at the end of August. Although we do our best to keep everyone's preferences in mind while allocating, earlier registrations are more likely to be assigned their country preferences.</li>
+		<li>
+			Allocations will not be released until the relevant materials have been received and processed. If any of the materials below are not received, you will be pushed into a later allocation round. Please contact <a href="mailto:secgen@ilmunc-india.com">secgen@ilmunc-india.com</a> if you have any problems.
+			<ol>
+				<li>Full Payment</li>
+				<li>Liability waiver form (will be sent once school has registered)</li>
+			</ol>
+		</li>
+		<li>If the conference reaches capacity schools and individuals will be placed on the waitlist. Preference to come off the waitlist will be given to delegations over individual delegates.</li>
+		<li>Individual delegates are only required to pay the delegate fee and will be assigned to double rooms by default. To request roommate preferences or to request a single please email <a href="mailto:president@ilmunc-india.com">president@ilmunc-india.com</a>.</li>
+		<li>Please note that Hotel Accommodation is available from 1400 hours on November 24th, 2015 to 1200 hours on November 27th, 2015. All requests for early check-in must be sent to <a href="mailto:president@ilmunc-india.com">president@ilmunc-india.com</a> and will be catered to on a first-come basis.</li>
+		<li>All conference fees are non-refundable and non-transferrable.</li>
+	</ol>
+
+
+	<h2>Fees and Benefits</h2>
+	<ul>
+		<li>All fees are inclusive of taxes</li>
+		<li>Hotel room cost for 3 nights (in a double)</li>
+		<li>9 meals (Dinner on Day 1, Breakfast, Lunch and Dinner on Day 2, Breakfast, Lunch and Dinner on Day 3, Breakfast and Lunch on Day 4)</li>
+		<li>Entry to all social events</li>
+		<li>Entry to all conference events including speaker presentations, college fairs, educational and college workshops, training workshops, etc.</li>
+		<li>Access to all online features including dynamic background guides, discussion forums, etc.</li>
+		<li>Conference Kits including delegate guides, placards, ID Cards, etc.</li>
+		<li>Logistical help for travel including Visa</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<td colspan="2">Domestic Delegations</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Delegate Conference Fee</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.delegate }} per delegate</td>
+			</tr>
+			<tr>
+				<td>Faculty Advisor Fee (Single Room)</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_single }} per advisor</td>
+			</tr>
+			<tr>
+				<td>Faculty Advisor Fee (Double Room)</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.faculty_double }} per advisor</td>
+			</tr>
+			<tr>
+				<td>Assistant Director Fee</td>
+				<td>{{ g.ILMUNC_fees_domestic.currency }}{{ g.ILMUNC_fees_domestic.assistant_director }} per Assistant Director</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<thead>
+			<tr>
+				<td colspan="2">International Delegations</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Delegate Conference Fee</td>
+				<td>{{ g.ILMUNC_fees_international.currency }}{{ g.ILMUNC_fees_international.delegate }} per delegate</td>
+			</tr>
+			<tr>
+				<td>Faculty Advisor Fee (Single Room)</td>
+				<td>{{ g.ILMUNC_fees_international.currency }}{{ g.ILMUNC_fees_international.faculty_single }} per advisor</td>
+			</tr>
+			<tr>
+				<td>Faculty Advisor Fee (Double Room)</td>
+				<td>{{ g.ILMUNC_fees_international.currency }}{{ g.ILMUNC_fees_international.faculty_double }} per advisor</td>
+			</tr>
+			<tr>
+				<td>Assistant Director Fee</td>
+				<td>{{ g.ILMUNC_fees_international.currency }}{{ g.ILMUNC_fees_international.assistant_director }} per Assistant Director</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<h2>Deadlines</h2>
+	<table>
+		<tbody>
+			<tr>
+				<td>June 15th</td>
+				<td>Priority Registrations Open</td>
+			</tr>
+			<tr>
+				<td>June 15th</td>
+				<td>Assistant Director Applications Open</td>
+			</tr>
+			<tr>
+				<td>July 30th</td>
+				<td>Assistant Director Applications Close</td>
+			</tr>
+			<tr>
+				<td>August 15th</td>
+				<td>Priority Registrations Close</td>
+			</tr>
+			<tr>
+				<td>August 16th</td>
+				<td>Regular Registrations Open</td>
+			</tr>
+			<tr>
+				<td>October 20th</td>
+				<td>Regular Registrations Close</td>
+			</tr>
+		</tbody>
+	</table>
+{% endblock %}
