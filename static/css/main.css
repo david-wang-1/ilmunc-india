@@ -648,6 +648,7 @@ nav > ul > li {
 	vertical-align: middle;
 	height: 80px;
 	line-height: 60px;
+	border-bottom: 4px solid transparent;
 }
 
 nav > ul.highlight {
@@ -682,6 +683,10 @@ nav > ul > li:not(.logo):hover {
 
 nav > ul > li:not(.logo):hover > a {
 	color: rgb(63, 196, 184);
+}
+
+nav > ul > li.active:not(.logo) {
+	border-bottom: 4px solid white;
 }
 
 nav > ul > li:hover > ul {

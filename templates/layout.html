@@ -31,7 +31,6 @@
 ] %}
 
 {% set research = [
-	('webinars', 'Webinars'),
 	('research', 'Research Links'),
 	('training', 'Training Videos'),
 	('procedure', 'Rules of Procedure')
@@ -137,16 +136,16 @@
 				</li>
 				<li>
 					<a href="{{ url_for('committees') }}">Committees</a>
-					<ul>
+					<!-- <ul>
 						<li><a>General Assembly</a></li>
 						<li><a>Specialized</a></li>
 						<li><a>Crisis</a></li>
-					</ul>
+					</ul> -->
 				</li>
-				<li>
+				<!-- <li>
 					<a href="{{ url_for('research') }}">Research</a>
 					<ul>{{ print_menu(research) }}</ul>
-				</li>
+				</li> -->
 			</ul>
 			<ul class="highlight">
 				<li>

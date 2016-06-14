@@ -30,7 +30,7 @@ RECAPTCHA_RTABINDEX = 0
 
 # MAIL_SERVER = 'mail.upmunc.org'
 # MAIL_PORT = 587
-# MAIL_USERNAME = 'upmunc@upmunc.org'
+# MAIL_USERNAME = 'ilmunc@ilmunc-india.org'
 # MAIL_PASSWORD = 'bacardi151rum'
-# DEFAULT_MAIL_SENDER = 'upmunc@upmunc.org'
+# DEFAULT_MAIL_SENDER = 'ilmunc@ilmunc-india.org'
 

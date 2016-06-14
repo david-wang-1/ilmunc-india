@@ -210,13 +210,13 @@ def before_request():
 	# Some places still need updated dates each year
 	g.ILMUNC_year = "2016"
 	g.ILMUNC_month = "November"
-	g.ILMUNC_start = "19th"
-	g.ILMUNC_end = "22nd"
+	g.ILMUNC_start = "24th"
+	g.ILMUNC_end = "27th"
 	g.ILMUNC_secgen = "Ana Rancic"
 	g.ILMUNC_webmaster = "Alex Sands"
 	g.ILMUNC_email = "ilmunc@ilmunc-india.com"
-	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Sep 1 2016  11:59PM', '%b %d %Y %I:%M%p')
-	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 1 2016  11:59PM', '%b %d %Y %I:%M%p')
+	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 16 2016  11:59PM', '%b %d %Y %I:%M%p')
+	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 20 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_fees = {
 		'delegate': 1234,
 		'faculty_single': 1234,
