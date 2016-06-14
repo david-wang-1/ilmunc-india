@@ -214,7 +214,7 @@ def before_request():
 	g.ILMUNC_end = "27th"
 	g.ILMUNC_secgen = "Ana Rancic"
 	g.ILMUNC_webmaster = "Alex Sands"
-	g.ILMUNC_email = "ilmunc@ilmunc-india.com"
+	g.ILMUNC_email = "secgen@ilmunc-india.com"
 	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 15 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 20 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_fees_domestic = {
@@ -443,7 +443,8 @@ def registerSchool():
 		msg.body = body
 		# mail.send(msg)
 
-		session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
+		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to your Delegation Manager using the username and password you registered with.' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
@@ -533,7 +534,8 @@ def registerIndividual():
 		msg.body = body
 		# mail.send(msg)
 
-		session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
+		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to your Delegation Manager using the username and password you registered with.' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
