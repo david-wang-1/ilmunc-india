@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% set active_page = 'internal_server_error' %}
+
+{% block content %}
+	<h1>500 Error</h1>
+	<p>An internal server error has occurred. Please try again. If the problem continues, please contact us at <a href="mailto:{{ g.ILMUNC_email }}">{{ g.ILMUNC_email }}</a>.</p>
+{% endblock %}

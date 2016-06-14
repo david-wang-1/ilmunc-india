@@ -219,17 +219,17 @@ def before_request():
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 20 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_fees_domestic = {
 		'currency': "INR ",
-		'delegate': 1234,
-		'faculty_single': 1234,
-		'faculty_double': 1234,
-		'assistant_director': 1234
+		'delegate': 22790,
+		'faculty_single': 22790,
+		'faculty_double': 11970,
+		'assistant_director': 11970
 	}
 	g.ILMUNC_fees_international = {
-		'currency': "$",
-		'delegate': 1234,
-		'faculty_single': 1234,
-		'faculty_double': 1234,
-		'assistant_director': 1234
+		'currency': "USD ",
+		'delegate': 390,
+		'faculty_single': 390,
+		'faculty_double': 195,
+		'assistant_director': 195
 	}
 
 	# Global updates and deadlines arrays for sidebar
@@ -735,6 +735,16 @@ def admin():
 def staff():
 	if not check_authentication('Staff'): return redirect(url_for('login'))
 	return render_template('staff.html', error=get_session_error(), success=get_session_success())
+
+
+# ERROR HANDLERS ###############################################################
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+	return render_template('500.html'), 500
 
 
 # MAIN FUNCTION ################################################################
