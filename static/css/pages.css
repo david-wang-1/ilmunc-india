@@ -215,44 +215,12 @@ div.chairvideos iframe:first-child:nth-last-child(2) {
 
 
 /* Invoice */
-#invoice {
-	background-color: #FFFFFF;
-	padding: 30px 10px;
-	color: #000000;
-	cursor: pointer;
-	font-size: 14px;
-}
-
-#invoice table {
-	border-collapse: collapse;
-	text-align: center;
-}
-
-#invoice table tr th {
-	background-color: rgb(124, 165, 240);
-	border: 1px solid rgb(36, 52, 94);
-	color: rgb(36, 52, 94);
-	padding: 2px 10px;
-	text-align: center;
-}
-
-#invoice table tr td {
-	border: 1px solid rgb(36, 52, 94);
-	padding: 2px 10px;
-}
-
-#invoice table#items tr td:nth-child(1) {
-	white-space: nowrap;
-}
-
-#invoice table#items tr td:nth-child(3) {
-	text-align: center;
-	white-space: nowrap;
-}
-
-#invoice table#items tr td:nth-child(4), #invoice table#items tr td:nth-child(5)  {
+#invoice tr td:nth-child(2), #invoice tr td:nth-child(4) {
 	text-align: right;
-	white-space: nowrap;
+}
+
+#invoice tr td:nth-child(3) {
+	text-align: center;
 }
 
 

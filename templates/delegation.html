@@ -61,7 +61,16 @@
 		</tbody>
 	</table>
 
-	<h2>Faculty Advisor Information <a href="{{ url_for('editFaculty') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></h2>
+	<h2>Faculty Advisor Information <a href="{{ url_for('editFaculty') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></h2>
+	{% if advisors|length == 0 %}
+	<table>
+		<tbody>
+			<tr>
+				<td style="text-align:center;">No faculty advisors</td>
+			</tr>
+		</tbody>
+	</table>
+	{% endif %}
 	{% for advisor in advisors %}
 	<table>
 		<thead>

@@ -225,7 +225,7 @@ def before_request():
 		'assistant_director': 11970
 	}
 	g.ILMUNC_fees_international = {
-		'currency': "USD ",
+		'currency': "$",
 		'delegate': 390,
 		'faculty_single': 390,
 		'faculty_double': 195,
@@ -338,27 +338,27 @@ def register():
 @app.route('/registerSchool', methods=['GET', 'POST'])
 def registerSchool():
 	if recaptcha.verify():
-		school_name = request.form['school_name']
-		address1 = request.form['address1']
-		address2 = request.form['address2']
-		city = request.form['city']
-		state = request.form['state']
-		zipcode = request.form['zipcode']
+		school_name = request.form['school_name'].strip()
+		address1 = request.form['address1'].strip()
+		address2 = request.form['address2'].strip()
+		city = request.form['city'].strip()
+		state = request.form['state'].strip()
+		zipcode = request.form['zipcode'].strip()
 		country = request.form['country']
-		username = request.form['username']
-		email = request.form['email']
-		phone_number = request.form['phone_number']
+		username = request.form['username'].strip()
+		email = request.form['email'].strip()
+		phone_number = request.form['phone_number'].strip()
 		password = request.form['password']
 		password_confirm = request.form['password_confirm']
 		expected_delegates = request.form['expected_delegates']
 		first_ilmunc = request.form['first_ilmunc']
-		experience = request.form['experience']
+		experience = request.form['experience'].strip()
 		faculty_prefix = request.form['faculty_prefix']
-		faculty_first_name = request.form['faculty_first_name']
-		faculty_last_name = request.form['faculty_last_name']
-		faculty_room_preference = request.form['faculty_room_preference']
-		faculty_phone_number = request.form['faculty_phone_number']
-		faculty_email = request.form['faculty_email']
+		faculty_first_name = request.form['faculty_first_name'].strip()
+		faculty_last_name = request.form['faculty_last_name'].strip()
+		faculty_room_preference = request.form['faculty_room_preference'].strip()
+		faculty_phone_number = request.form['faculty_phone_number'].strip()
+		faculty_email = request.form['faculty_email'].strip()
 
 		# Didn't agree to contract
 		if 'contract' not in request.form:
@@ -444,7 +444,7 @@ def registerSchool():
 		# mail.send(msg)
 
 		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
-		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to your Delegation Manager using the username and password you registered with.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password.' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
@@ -456,22 +456,22 @@ def registerSchool():
 @app.route('/registerIndividual', methods=['GET', 'POST'])
 def registerIndividual():
 	if recaptcha.verify():
-		address1 = request.form['address1']
-		address2 = request.form['address2']
-		city = request.form['city']
-		state = request.form['state']
-		zipcode = request.form['zipcode']
+		address1 = request.form['address1'].strip()
+		address2 = request.form['address2'].strip()
+		city = request.form['city'].strip()
+		state = request.form['state'].strip()
+		zipcode = request.form['zipcode'].strip()
 		country = request.form['country']
-		username = request.form['username']
+		username = request.form['username'].strip()
 		password = request.form['password']
 		password_confirm = request.form['password_confirm']
 		first_ilmunc = request.form['first_ilmunc']
-		experience = request.form['experience']
+		experience = request.form['experience'].strip()
 		prefix = request.form['prefix']
-		first_name = request.form['first_name']
-		last_name = request.form['last_name']
-		phone_number = request.form['phone_number']
-		email = request.form['email']
+		first_name = request.form['first_name'].strip()
+		last_name = request.form['last_name'].strip()
+		phone_number = request.form['phone_number'].strip()
+		email = request.form['email'].strip()
 
 		# Didn't agree to contract
 		if 'contract' not in request.form:
@@ -534,7 +534,7 @@ def registerIndividual():
 		# mail.send(msg)
 
 		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
-		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to your Delegation Manager using the username and password you registered with.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password.' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
@@ -711,10 +711,93 @@ def delegation():
 	advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
 	return render_template('delegation.html', error=get_session_error(), success=get_session_success(), advisors=advisors)
 
-@app.route('/delegation/edit')
+@app.route('/delegation/edit', methods=['GET', 'POST'])
 def editDelegation():
-	if not check_authentication('Delegation'): return redirect(url_for('login'))
-	return render_template('editDelegation.html', error=get_session_error(), success=get_session_success())
+	if request.method == 'POST':
+		address1 = request.form.get('address1', None).strip()
+		address2 = request.form.get('address2', None).strip()
+		city = request.form.get('city', None).strip()
+		state = request.form.get('state', None).strip()
+		zipcode = request.form.get('zipcode', None).strip()
+		country = request.form.get('country', None)
+		username = request.form.get('username', None).strip()
+		email = request.form.get('email', None).strip()
+		phone_number = request.form.get('phone_number', None).strip()
+		password = request.form.get('password', None)
+		password_confirm = request.form.get('password_confirm', None)
+		prefix = request.form.get('prefix', None)
+		first_name = request.form.get('first_name', None).strip()
+		last_name = request.form.get('last_name', None).strip()
+		school_name = request.form.get('school_name', 'Individual').strip()
+		expected_delegates = request.form.get('expected_delegates', 1)
+
+		print address1
+		print address2
+		print city
+		print state
+		print zipcode
+		print country
+		print username
+		print email
+		print phone_number
+		print password
+		print password_confirm
+		print prefix
+		print first_name
+		print last_name
+		print school_name
+		print expected_delegates
+
+		# Missing required field
+		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not phone_number or not email:
+			session['error'] = 'Please fill out all the required fields (indicated by *) and try again.'
+			return redirect(url_for('editDelegation'))
+
+		# Username already taken
+		delegation = Delegations.query.filter_by(username = username).first()
+		if delegation and delegation.delegation_ID != current_user.user.delegation_ID:
+			session['error'] = 'Sorry, that username is already taken! Please try another one.'
+			return redirect(url_for('editDelegation'))
+
+		# Password is the wrong length
+		if len(username) < 6 or len(password) < 6:
+			session['error'] = 'Your username and password need to be at least 6 characters long. Please try again.'
+			return redirect(url_for('editDelegation'))
+
+		# Passwords do not match
+		if not password == password_confirm:
+			session['error'] = 'Your passwords do not match. Please enter them again.'
+			return redirect(url_for('editDelegation'))
+
+		# Update all the fields
+		hashedPassword = sha1(password).hexdigest()
+		account = User.query.filter_by(username=current_user.user.username).first()
+		account.email = email
+		account.username = username
+		account.password = hashedPassword
+		current_user.user.address1 = address1
+		current_user.user.address2 = address2
+		current_user.user.city = city
+		current_user.user.state = state
+		current_user.user.zipcode = zipcode
+		current_user.user.country = country
+		current_user.user.username = username
+		current_user.user.email = email
+		current_user.user.phone_number = phone_number
+		current_user.user.password = password
+		current_user.user.prefix = prefix
+		current_user.user.first_name = first_name
+		current_user.user.last_name = last_name
+		current_user.user.school_name = school_name
+		current_user.user.expected_delegates = expected_delegates
+
+		db.session.commit()
+		session['success'] = 'You have successfully updated your delegation information. The new details you have entered are shown below.'
+		return redirect(url_for('delegation'))
+
+	else:
+		if not check_authentication('Delegation'): return redirect(url_for('login'))
+		return render_template('editDelegation.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/delegation/faculty')
 def editFaculty():

@@ -61,24 +61,6 @@
 					listKey: "mask"
 				};
 
-				var maskOptsTwo = {
-					inputmask: {
-						definitions: {
-							'#': {
-								validator: "[0-9]",
-								cardinality: 1
-							}
-						},
-						showMaskOnHover: false,
-						autoUnmask: true,
-						clearMaskOnLostFocus: false
-					},
-					match: /[0-9]/,
-					replace: '#',
-					list: maskList,
-					listKey: "mask"
-				};
-
 				$('#phone_number').inputmasks(maskOpts);
 			});
 		</script>
@@ -195,7 +177,7 @@
 				<div class="col s6">
 					<label class="required">Country</label>
 					<select id="country" name="country" required>
-						<option value=""></option>
+						<option disabled selected value></option>
 						<option value="Afghanistan">Afghanistan</option>
 						<option value="Albania">Albania</option>
 						<option value="Algeria">Algeria</option>
@@ -540,7 +522,7 @@
 				<div class="col s6">
 					<label class="required">Country</label>
 					<select id="country" name="country" required>
-						<option value=""></option>
+						<option disabled selected value></option>
 						<option value="Afghanistan">Afghanistan</option>
 						<option value="Albania">Albania</option>
 						<option value="Algeria">Algeria</option>
