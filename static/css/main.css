@@ -548,7 +548,6 @@ nav > ul > li {
 	vertical-align: middle;
 	height: 80px;
 	line-height: 80px;
-	border-bottom: 4px solid transparent;
 }
 
 nav > ul > li > a {
@@ -575,15 +574,13 @@ nav > ul > li.logo > a:hover {
 }
 
 nav > ul > li:not(.logo):hover {
-	background-color: white;
+	background-color: rgb(255, 255, 255);
+	opacity: 0.98;
 }
 
 nav > ul > li:not(.logo):hover > a {
 	color: rgb(63, 196, 184);
-}
-
-nav > ul > li.active:not(.logo) {
-	border-bottom: 4px solid white;
+	opacity: 0.98;
 }
 
 nav > ul > li:hover > ul {
@@ -598,6 +595,7 @@ nav > ul > li > ul {
 	overflow: hidden;
 	text-align: left;
 	background-color: rgb(255, 255, 255);
+	opacity: 0.98;
 }
 
 nav > ul > li > ul > li {
@@ -650,6 +648,8 @@ nav > ul > li > ul > li > a:hover {
 		-o-transition: max-height 0.2s ease-in-out;
 		transition: max-height 0.2s ease-in-out;
 		overflow: visible;
+		border-bottom: 4px solid rgb(240, 245, 245);
+		opacity: 0.98;
 	}
 
 	nav > i.menu {
