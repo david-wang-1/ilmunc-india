@@ -641,7 +641,7 @@ nav > ul > li > ul > li > a:hover {
 		background-position: left top;
 	}
 
-	nav:hover {
+	nav.visible {
 		height: auto;
 		max-height: 2000px;
 		-webkit-transition: max-height 0.2s ease-in-out;
@@ -663,15 +663,15 @@ nav > ul > li > ul > li > a:hover {
 		font-size: 50px;
 	}
 
-	nav.index:hover {
+	nav.index.visible {
 		background: rgb(255, 255, 255);
 	}
 
-	nav.index:hover > i.menu {
+	nav.index.visible > i.menu {
 		color: rgb(241, 108, 110);
 	}
 
-	nav.index:hover > ul > li.logo > a {
+	nav.index.visible > ul > li.logo > a {
 		background-image: url('../images/logos/lotus_color.png');
 	}
 
