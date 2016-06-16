@@ -367,7 +367,7 @@ def registerSchool():
 
 		# Missing required field
 		if not school_name or not address1 or not city or not state or not zipcode or not country or not username or not email or not phone_number or not password or not password_confirm or not expected_delegates or not first_ilmunc or not faculty_prefix or not faculty_first_name or not faculty_last_name or not faculty_room_preference or not faculty_phone_number or not faculty_email:
-			session['error'] = 'Please fill out all the required fields (indicated by *) and try again.'
+			session['error'] = 'Please fill out all the required fields (*) and try again.'
 			return redirect(url_for('register'))
 
 		# Expected delegates is not a number
@@ -480,7 +480,7 @@ def registerIndividual():
 
 		# Missing required field
 		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not first_ilmunc or not prefix or not first_name or not last_name or not phone_number or not email:
-			session['error'] = 'Please fill out all the required fields (indicated by *) and try again.'
+			session['error'] = 'Please fill out all the required fields (*) and try again.'
 			return redirect(url_for('register'))
 
 		# Username already taken
@@ -714,21 +714,21 @@ def delegation():
 @app.route('/delegation/edit', methods=['GET', 'POST'])
 def editDelegation():
 	if request.method == 'POST':
-		address1 = request.form.get('address1', None).strip()
-		address2 = request.form.get('address2', None).strip()
-		city = request.form.get('city', None).strip()
-		state = request.form.get('state', None).strip()
-		zipcode = request.form.get('zipcode', None).strip()
-		country = request.form.get('country', None)
-		username = request.form.get('username', None).strip()
-		email = request.form.get('email', None).strip()
-		phone_number = request.form.get('phone_number', None).strip()
-		password = request.form.get('password', None)
-		password_confirm = request.form.get('password_confirm', None)
+		address1 = request.form.get('address1').strip()
+		address2 = request.form.get('address2').strip()
+		city = request.form.get('city').strip()
+		state = request.form.get('state').strip()
+		zipcode = request.form.get('zipcode').strip()
+		country = request.form.get('country')
+		username = request.form.get('username').strip()
+		email = request.form.get('email').strip()
+		phone_number = request.form.get('phone_number').strip()
+		password = request.form.get('password')
+		password_confirm = request.form.get('password_confirm')
 		prefix = request.form.get('prefix', None)
-		first_name = request.form.get('first_name', None).strip()
-		last_name = request.form.get('last_name', None).strip()
-		school_name = request.form.get('school_name', 'Individual').strip()
+		first_name = request.form.get('first_name', None)
+		last_name = request.form.get('last_name', None)
+		school_name = request.form.get('school_name', 'Individual')
 		expected_delegates = request.form.get('expected_delegates', 1)
 
 		print address1
@@ -750,7 +750,7 @@ def editDelegation():
 
 		# Missing required field
 		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not phone_number or not email:
-			session['error'] = 'Please fill out all the required fields (indicated by *) and try again.'
+			session['error'] = 'Please fill out all the required fields (*) and try again.'
 			return redirect(url_for('editDelegation'))
 
 		# Username already taken
