@@ -89,7 +89,8 @@ span.title {
 	font-family: 'Black Sand', sans-serif;
 	font-size: 175pt;
 	font-weight: 400;
-	line-height: 150pt;
+	line-height: 115px;
+	margin-bottom: 40px;
 	color: rgb(255, 255, 255);
 }
 
@@ -152,125 +153,6 @@ a {
 	color: rgb(239, 81, 81);
 }
 
-
-/* ==========================================================================
-   social media objects
-   ========================================================================== */
-
-a.social {
-	display: inline-block;
-	width: 27px;
-	height: 26px;
-	background-size: 27px;
-}
-
-div.social-icons a.social:not(:last-child) {
-	margin-right: 20px;
-}
-
-a.social.large {
-	width: 40px;
-	height: 40px;
-	background-size: 40px;
-}
-
-a.social.play {
-	background-image: url('../images/icons/play_white_1x.png');
-}
-
-a.social.facebook {
-	background-image: url('../images/social/facebook_1x.png');
-}
-
-a.social.twitter {
-	background-image: url('../images/social/twitter_1x.png');
-}
-
-a.social.instagram {
-	background-image: url('../images/social/instagram_1x.png');
-}
-
-a.social.youtube {
-	background-image: url('../images/social/youtube_1x.png');
-}
-
-a.social.white.facebook {
-	background-image: url('../images/social/facebook_white_1x.png');
-}
-
-a.social.white.twitter {
-	background-image: url('../images/social/twitter_white_1x.png');
-}
-
-a.social.white.instagram {
-	background-image: url('../images/social/instagram_white_1x.png');
-}
-
-a.social.white.youtube {
-	background-image: url('../images/social/youtube_white_1x.png');
-}
-
-@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
-	a.social.play {
-		background-image: url('../images/icons/play_white_2x.png');
-	}
-
-	a.social.facebook {
-		background-image: url('../images/social/facebook_2x.png');
-	}
-
-	a.social.twitter {
-		background-image: url('../images/social/twitter_2x.png');
-	}
-
-	a.social.instagram {
-		background-image: url('../images/social/instagram_2x.png');
-	}
-
-	a.social.youtube {
-		background-image: url('../images/social/youtube_2x.png');
-	}
-
-	a.social.white.facebook {
-		background-image: url('../images/social/facebook_white_2x.png');
-	}
-
-	a.social.white.twitter {
-		background-image: url('../images/social/twitter_white_2x.png');
-	}
-
-	a.social.white.instagram {
-		background-image: url('../images/social/instagram_white_2x.png');
-	}
-
-	a.social.white.youtube {
-		background-image: url('../images/social/youtube_white_2x.png');
-	}
-}
-
-img.headshot {
-	height: 200px;
-	margin: 4px 30px 10px 0px;
-	float: left;
-}
-
-img.headshot-large {
-	height: 250px;
-	margin: 4px 30px 10px 0px;
-	float: left;
-}
-
-div.headshot-rounded {
-	height: 100px;
-	width: 100px;
-	border-radius: 100px;
-	overflow: hidden;
-	margin: 0 auto 10px auto;
-}
-
-div.headshot-rounded img {
-	width: 100px;
-}
 
 /* ==========================================================================
    form objects
@@ -519,6 +401,15 @@ div.col.s1 {
 	padding-right: 0;
 }
 
+@media only screen and (max-width: 1015px) {
+	div.col {
+		width: 100% !important;
+		display: block;
+		padding: 0;
+		margin-bottom: 10px;
+	}
+}
+
 
 /* ==========================================================================
    cards
@@ -623,6 +514,10 @@ nav:not(.index) {
 	background-position: top center;
 }
 
+nav > i.menu {
+	display: none;
+}
+
 /* ALL LINKS */
 nav ul > li > a {
 	display: block;
@@ -643,27 +538,28 @@ nav > ul {
 	padding: 0px;
 }
 
+nav > ul.highlight {
+	float: right;
+}
+
 nav > ul > li {
 	display: inline-block;
 	list-style: none;
 	vertical-align: middle;
 	height: 80px;
-	line-height: 60px;
+	line-height: 80px;
 	border-bottom: 4px solid transparent;
 }
 
-nav > ul.highlight {
-	float: right;
-}
-
 nav > ul > li > a {
-	margin: 10px 15px;
+	margin: 0px 15px;
 }
 
 nav > ul > li.logo > a {
 	display: block;
 	height: 55px;
 	width: 55px;
+	margin-top: 10px;
 	background-image: url('../images/logos/lotus.png');
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -701,9 +597,6 @@ nav > ul > li > ul {
 	display: none;
 	overflow: hidden;
 	text-align: left;
-}
-
-nav > ul > li > ul {
 	background-color: rgb(255, 255, 255);
 }
 
@@ -734,6 +627,88 @@ nav > ul > li > ul > li > a:hover {
 	-ms-transition: padding 0.2s ease-in-out;
 	-o-transition: padding 0.2s ease-in-out;
 	transition: padding 0.2s ease-in-out;
+}
+
+@media only screen and (max-width: 1015px) {
+	nav {
+		height: 80px;
+		max-height: 80px;
+		overflow: hidden;
+	}
+
+	nav:not(.index) {
+		background-size: 2000px auto;
+		background-position: left top;
+	}
+
+	nav:hover {
+		height: auto;
+		max-height: 2000px;
+		-webkit-transition: max-height 0.2s ease-in-out;
+		-moz-transition: max-height 0.2s ease-in-out;
+		-ms-transition: max-height 0.2s ease-in-out;
+		-o-transition: max-height 0.2s ease-in-out;
+		transition: max-height 0.2s ease-in-out;
+		overflow: visible;
+	}
+
+	nav > i.menu {
+		display: block;
+		position: absolute;
+		right: 20px;
+		top: 15px;
+		z-index: 99999;
+		color: rgb(255, 255, 255);
+		opacity: 0.9;
+		font-size: 50px;
+	}
+
+	nav.index:hover {
+		background: rgb(255, 255, 255);
+	}
+
+	nav.index:hover > i.menu {
+		color: rgb(241, 108, 110);
+	}
+
+	nav.index:hover > ul > li.logo > a {
+		background-image: url('../images/logos/lotus_color.png');
+	}
+
+	/* LEVEL 1 */
+	nav > ul, nav > ul.highlight {
+		float: none;
+		display: block;
+		width: 100%;
+		margin: 0;
+	}
+
+	nav > ul > li {
+		display: block;
+		text-align: center;
+		width: 100%;
+		height: 80px;
+	}
+
+	nav > ul > li:not(.logo):hover {
+		height: auto;
+	}
+
+	nav.index > ul > li:not(.logo) > a {
+		color: rgb(63, 196, 184);
+	}
+
+	/* LEVEL 2 */
+	nav > ul > li:not(.logo) > ul {
+		position: relative;
+		text-align: center;
+		width: 100%;
+		height: auto;
+	}
+
+	nav > ul > li > ul > li > a, nav > ul > li > ul > li > a:hover {
+		padding: 0;
+	}
 }
 
 div#sidebar ul {
@@ -962,4 +937,124 @@ div.lightbox-content {
 
 div#lightbox div.lightbox-content {
 	display: block;
+}
+
+
+/* ==========================================================================
+   social media objects
+   ========================================================================== */
+
+a.social {
+	display: inline-block;
+	width: 27px;
+	height: 26px;
+	background-size: 27px;
+}
+
+div.social-icons a.social:not(:last-child) {
+	margin-right: 20px;
+}
+
+a.social.large {
+	width: 40px;
+	height: 40px;
+	background-size: 40px;
+}
+
+a.social.play {
+	background-image: url('../images/icons/play_white_1x.png');
+}
+
+a.social.facebook {
+	background-image: url('../images/social/facebook_1x.png');
+}
+
+a.social.twitter {
+	background-image: url('../images/social/twitter_1x.png');
+}
+
+a.social.instagram {
+	background-image: url('../images/social/instagram_1x.png');
+}
+
+a.social.youtube {
+	background-image: url('../images/social/youtube_1x.png');
+}
+
+a.social.white.facebook {
+	background-image: url('../images/social/facebook_white_1x.png');
+}
+
+a.social.white.twitter {
+	background-image: url('../images/social/twitter_white_1x.png');
+}
+
+a.social.white.instagram {
+	background-image: url('../images/social/instagram_white_1x.png');
+}
+
+a.social.white.youtube {
+	background-image: url('../images/social/youtube_white_1x.png');
+}
+
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+	a.social.play {
+		background-image: url('../images/icons/play_white_2x.png');
+	}
+
+	a.social.facebook {
+		background-image: url('../images/social/facebook_2x.png');
+	}
+
+	a.social.twitter {
+		background-image: url('../images/social/twitter_2x.png');
+	}
+
+	a.social.instagram {
+		background-image: url('../images/social/instagram_2x.png');
+	}
+
+	a.social.youtube {
+		background-image: url('../images/social/youtube_2x.png');
+	}
+
+	a.social.white.facebook {
+		background-image: url('../images/social/facebook_white_2x.png');
+	}
+
+	a.social.white.twitter {
+		background-image: url('../images/social/twitter_white_2x.png');
+	}
+
+	a.social.white.instagram {
+		background-image: url('../images/social/instagram_white_2x.png');
+	}
+
+	a.social.white.youtube {
+		background-image: url('../images/social/youtube_white_2x.png');
+	}
+}
+
+img.headshot {
+	height: 200px;
+	margin: 4px 30px 10px 0px;
+	float: left;
+}
+
+img.headshot-large {
+	height: 250px;
+	margin: 4px 30px 10px 0px;
+	float: left;
+}
+
+div.headshot-rounded {
+	height: 100px;
+	width: 100px;
+	border-radius: 100px;
+	overflow: hidden;
+	margin: 0 auto 10px auto;
+}
+
+div.headshot-rounded img {
+	width: 100px;
 }
