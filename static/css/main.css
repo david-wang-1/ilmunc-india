@@ -663,15 +663,15 @@ nav > ul > li > ul > li > a:hover {
 		font-size: 50px;
 	}
 
-	nav.index.visible {
+	nav.visible {
 		background: rgb(255, 255, 255);
 	}
 
-	nav.index.visible > i.menu {
+	nav.visible > i.menu {
 		color: rgb(241, 108, 110);
 	}
 
-	nav.index.visible > ul > li.logo > a {
+	nav.visible > ul > li.logo > a {
 		background-image: url('../images/logos/lotus_color.png');
 	}
 
@@ -687,15 +687,14 @@ nav > ul > li > ul > li > a:hover {
 		display: block;
 		text-align: center;
 		width: 100%;
-		height: 80px;
 	}
 
-	nav > ul > li:not(.logo):hover {
+	nav > ul > li:not(.logo) {
 		height: auto;
 	}
 
-	nav.index > ul > li:not(.logo) > a {
-		color: rgb(63, 196, 184);
+	nav > ul > li:not(.logo) > a {
+		color: rgb(241, 108, 110) !important;
 	}
 
 	/* LEVEL 2 */
@@ -703,6 +702,7 @@ nav > ul > li > ul > li > a:hover {
 		position: relative;
 		text-align: center;
 		width: 100%;
+		display: block;
 		height: auto;
 	}
 
