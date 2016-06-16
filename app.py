@@ -713,6 +713,7 @@ def delegation():
 
 @app.route('/delegation/edit', methods=['GET', 'POST'])
 def editDelegation():
+	if not check_authentication('Delegation'): return redirect(url_for('login'))
 	if request.method == 'POST':
 		address1 = request.form.get('address1').strip()
 		address2 = request.form.get('address2').strip()
@@ -796,14 +797,81 @@ def editDelegation():
 		return redirect(url_for('delegation'))
 
 	else:
-		if not check_authentication('Delegation'): return redirect(url_for('login'))
 		return render_template('editDelegation.html', error=get_session_error(), success=get_session_success())
 
-@app.route('/delegation/faculty')
-def editFaculty():
+@app.route('/delegation/faculty', defaults = {'id':None}, methods=['GET', 'POST'])
+@app.route('/delegation/faculty/<int:id>', methods=['GET', 'POST'])
+def editFaculty(id):
 	if not check_authentication('Delegation'): return redirect(url_for('login'))
-	advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
-	return render_template('editFaculty.html', error=get_session_error(), success=get_session_success(), advisors=advisors)
+
+	# If there is an id provided, check if the delegation has permission to edit it
+	if id:
+		advisor = Faculty.query.filter_by(faculty_ID=id).first()
+		if not advisor or advisor.delegation_ID != current_user.user.delegation_ID:
+			session['error'] = 'You do not have permission to edit this faculty advisor\'s information. You may only edit faculty advisors that are in your delegation.'
+			return redirect(url_for('delegation'))
+
+	if request.method == 'POST':
+		prefix = request.form.get('prefix')
+		first_name = request.form.get('first_name').strip()
+		last_name = request.form.get('last_name').strip()
+		room_preference = request.form.get('room_preference')
+		phone_number = request.form.get('phone_number').strip()
+		email = request.form.get('email').strip()
+
+		# Missing required field
+		if not prefix or not first_name or not last_name or not room_preference or not phone_number or not email:
+			session['error'] = 'Please fill out all the required fields (*) and try again.'
+			return redirect(url_for('editFaculty', id=id))
+
+		# Didn't agree to contract
+		if 'contract' not in request.form:
+			session['error'] = 'Faculty advisors must agree to the Faculty Advisor Contract in order to attend ILMUNC India.'
+			return redirect(url_for('register'))
+
+		# Check if we are editing or adding a new one
+		if id:
+			advisor.prefix = prefix
+			advisor.first_name = first_name
+			advisor.last_name = last_name
+			advisor.room_preference = room_preference
+			advisor.phone_number = phone_number
+			advisor.email = email
+			db.session.commit()
+		else:
+			faculty = Faculty(prefix, first_name, last_name, room_preference, phone_number, email, current_user.user.delegation_ID, current_user.user.school_name)
+			db.session.add(faculty)
+			db.session.commit()
+
+		session['success'] = 'You have successfully updated your faculty advisors. The new details you have entered are shown below.'
+		return redirect(url_for('delegation'))
+	else:
+		if id:
+			return render_template('editFaculty.html', error=get_session_error(), success=get_session_success(), advisor=advisor)
+		else:
+			return render_template('editFaculty.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/delegation/deleteFaculty/<int:id>')
+def deleteFaculty(id):
+	if not check_authentication('Delegation'): return redirect(url_for('login'))
+	if id:
+		advisor = Faculty.query.filter_by(faculty_ID=id).first()
+		# Check if the user has permission to delete
+		if not advisor or advisor.delegation_ID != current_user.user.delegation_ID:
+			session['error'] = 'You do not have permission to delete this faculty advisor. You may only delete faculty advisors that are in your delegation.'
+			return redirect(url_for('delegation'))
+		# Check if the school will not have any faculty advisors left
+		advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
+		if len(advisors) == 1 and not current_user.user.individual_first_name:
+			session['error'] = 'Sorry, you cannot delete this faculty advisor because you will no longer have any faculty advisors associated with your delegation. Each school is required to have at least one faculty advisor present for the duration of ILMUNC India.'
+			return redirect(url_for('delegation'))
+		db.session.delete(advisor)
+		db.session.commit()
+		session['success'] = 'This faculty advisor has been successfully removed from your delegation.'
+		return redirect(url_for('delegation'))
+	else:
+		session['error'] = 'An error has occurred. Please try again.'
+		return redirect(url_for('delegation'))
 
 @app.route('/delegation/invoice')
 def invoice():

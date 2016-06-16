@@ -75,7 +75,7 @@
 	<table>
 		<thead>
 			<tr>
-				<td colspan="2">Faculty Advisory {{ loop.index0 + 1 }}</td>
+				<td colspan="2">Faculty Advisory {{ loop.index0 + 1 }}<a href="{{ url_for('editFaculty', id=advisor.faculty_ID) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 			</tr>
 		</thead>
 		<tbody>

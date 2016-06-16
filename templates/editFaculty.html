@@ -2,8 +2,114 @@
 {% set active_page = 'editFaculty' %}
 
 {% block content %}
+
+	<script>
+		$(document).ready(function() {
+			var maskList = $.masksSort($.masksLoad("http://cdn.rawgit.com/andr-04/inputmask-multi/master/data/phone-codes.json"), ['#'], /[0-9]|#/, "mask");
+
+			var maskOpts = {
+				inputmask: {
+					definitions: {
+						'#': {
+							validator: "[0-9]",
+							cardinality: 1
+						}
+					},
+					showMaskOnHover: false,
+					autoUnmask: true,
+					clearMaskOnLostFocus: false
+				},
+				match: /[0-9]/,
+				replace: '#',
+				list: maskList,
+				listKey: "mask"
+			};
+
+			$('#phone_number').inputmasks(maskOpts);
+		});
+	</script>
+
+	{% if advisor %}
 	<h1>Edit Faculty</h1>
-	<p>We see you're trying to edit the faculty advisors for your delegation. We're still working on this part of our website, but it will be available in the coming days. If it is urgent, feel free to email us at <a href="mailto:secgen@ilmunc-india.com">secgen@ilmunc-india.com</a></p>
+	{% else %}
+	<h1>Add Faculty Advisor</h1>
+	{% endif %}
+
+	<form method="post" id="edit_delegation_form">
+		<p>You must fill out all the required (*) fields below to save the faculty advisor's information.</p>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">First name</label>
+				<input type="text" name="first_name" id="first_name" required value="{% if advisor %}{{ advisor.first_name }}{% endif %}">
+			</div>
+			<div class="col s6">
+				<label class="required">Last name</label>
+				<input type="text" name="last_name" id="last_name" required value="{% if advisor %}{{ advisor.last_name }}{% endif %}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Prefix</label>
+				<select id="prefix" name="prefix" required>
+					{% if advisor %}
+					<option selected value="{{ advisor.prefix }}">{{ advisor.prefix }}</option>
+					{% else %}
+					<option disabled selected value></option>
+					{% endif %}
+					<option value="Mr.">Mr.</option>
+					<option value="Ms.">Ms.</option>
+				</select>
+			</div>
+			<div class="col s6">
+				<label class="required">Room preference</label>
+				<select id="room_preference" name="room_preference">
+					{% if advisor %}
+					<option selected value="{{ advisor.room_preference }}">{{ advisor.room_preference }}</option>
+					{% else %}
+					<option disabled selected value></option>
+					{% endif %}
+					<option value="Single">Single</option>
+					<option value="Double">Double</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Phone number</label>
+				<input type="text" name="phone_number" id="phone_number" required value="{% if advisor %}{{ advisor.phone_number }}{% endif %}">
+			</div>
+			<div class="col s6">
+				<label class="required">E-mail address</label>
+				<input type="text" name="email" id="email" required value="{% if advisor %}{{ advisor.email }}{% endif %}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Faculty advisor contract</label>
+				<input type="checkbox" name="contract" id="contract" required {% if advisor %}checked{% endif %}>I acknowledge that I have read <a href="/static/docs/fa-agreement.pdf" target="_blank">this faculty advisor contract</a>, understand the expectations and obligations, and commit to fulfilling my obligations as a faculty advisor for ILMUNC India {{ g.ILMUNC_year }}.
+			</div>
+		</div>
+
+		{% if advisor %}
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Save">
+			</div>
+			<div class="col s6">
+				<input type="reset" value="Delete advisor" onclick="window.location='{{ url_for('deleteFaculty', id=advisor.faculty_ID) }}';">
+			</div>
+		</div>
+		{% else %}
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Add">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+		{% endif %}
+	</form>
 {% endblock %}
 
 {% block sidebar %}

@@ -177,6 +177,12 @@ table thead tr td {
 	text-transform: uppercase;
 }
 
+table thead tr td > a > i {
+	float: right;
+	margin-top: 3px;
+	color: rgb(0, 0, 0);
+}
+
 table tr:nth-child(even) {
 	background-color: rgb(245, 245, 245);
 }
