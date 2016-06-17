@@ -370,6 +370,11 @@ def registerSchool():
 			session['error'] = 'Please fill out all the required fields (*) and try again.'
 			return redirect(url_for('register'))
 
+		# Phone field is invalid
+		if "_" in phone_number or "_" in faculty_phone_number:
+			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+			return redirect(url_for('register'))
+
 		# Expected delegates is not a number
 		try:
 			expected_delegates = int(expected_delegates)
@@ -481,6 +486,11 @@ def registerIndividual():
 		# Missing required field
 		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not first_ilmunc or not prefix or not first_name or not last_name or not phone_number or not email:
 			session['error'] = 'Please fill out all the required fields (*) and try again.'
+			return redirect(url_for('register'))
+
+		# Phone field is invalid
+		if "_" in phone_number:
+			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
 			return redirect(url_for('register'))
 
 		# Username already taken
@@ -754,6 +764,11 @@ def editDelegation():
 			session['error'] = 'Please fill out all the required fields (*) and try again.'
 			return redirect(url_for('editDelegation'))
 
+		# Phone field is invalid
+		if "_" in phone_number:
+			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+			return redirect(url_for('register'))
+
 		# Username already taken
 		delegation = Delegations.query.filter_by(username = username).first()
 		if delegation and delegation.delegation_ID != current_user.user.delegation_ID:
@@ -827,6 +842,11 @@ def editFaculty(id):
 		# Didn't agree to contract
 		if 'contract' not in request.form:
 			session['error'] = 'Faculty advisors must agree to the Faculty Advisor Contract in order to attend ILMUNC India.'
+			return redirect(url_for('register'))
+
+		# Phone field is invalid
+		if "_" in phone_number:
+			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
 			return redirect(url_for('register'))
 
 		# Check if we are editing or adding a new one
