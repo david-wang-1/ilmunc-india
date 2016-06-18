@@ -119,8 +119,6 @@ class Secretariat(db.Model):
 	position = db.Column(db.String(40))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(50))
-	username = db.Column(db.String(40))
-	password = db.Column(db.String(60))
 	email = db.Column(db.String(60))
 	bio = db.Column(db.Text)
 
@@ -185,7 +183,9 @@ def load_user(userid):
 	user = User.query.get(userid)
 	if user:
 		if user.role == 'Admin':
-			return DbUser('admin', userid, 'Admin')
+			return DbUser(user, userid, 'Admin')
+		elif user.role == 'Staff':
+			return DbUser(user, userid, 'Staff')
 		elif user.role == 'Delegation':
 			school = Delegations.query.filter_by(username=user.username).first()
 			if school:
@@ -193,11 +193,9 @@ def load_user(userid):
 			else:
 				return None
 		else:
-			staff = Staff.query.filter_by(username=user.username).first()
-			if staff:
-				if staff.isChair == 1:
-					staff.type = 'chair'
-				return DbUser(staff, userid, 'Staff')
+			chair = Chairs.query.filter_by(username=user.username).first()
+			if chair:
+				return DbUser(chair, userid, 'Chair')
 			else:
 				return None
 	return None
@@ -907,10 +905,20 @@ def admin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	return render_template('admin.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/admin/add')
+def addAdmin():
+	if not check_authentication('Admin'): return redirect(url_for('login'))
+	return render_template('addAdmin.html', error=get_session_error(), success=get_session_success())
+
 @app.route('/staff')
 def staff():
 	if not check_authentication('Staff'): return redirect(url_for('login'))
 	return render_template('staff.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/staff/add')
+def addStaff():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	return render_template('addStaff.html', error=get_session_error(), success=get_session_success())
 
 
 # ERROR HANDLERS ###############################################################
