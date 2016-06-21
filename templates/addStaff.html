@@ -2,7 +2,32 @@
 {% set active_page = 'addStaff' %}
 
 {% block content %}
-	
+	<h1>Add Staff</h1>
+	<p>Anyone added as a Staff to the website will be able to view statistics on registered delegates, payments, etc. They will also be able to update delegation information and access the Staff dashboard.</p>
+
+	<form method="post" id="edit_delegation_form">
+		<p>You must fill out all the required (*) fields below to save the faculty advisor's information.</p>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">E-mail address</label>
+				<input type="text" name="email" id="email" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Username</label>
+				<input type="text" pattern=".{6,}" name="username" id="username" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Password</label>
+				<input type="password" pattern=".{6,}" name="password" id="password" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Confirm password</label>
+				<input type="password" pattern=".{6,}" name="password_confirm" id="password_confirm" required>
+			</div>
+		</div>
+	</form>
 {% endblock %}
 
 {% block sidebar %}
