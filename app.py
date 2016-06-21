@@ -9,10 +9,9 @@ import math
 from datetime import datetime
 # from dropbox.client import DropboxClient, DropboxOAuth2Flow
 from flask import Flask, flash, g, json, jsonify, redirect, render_template, request, Response, send_file, send_from_directory, session, url_for
-from flask.ext.login import (LoginManager, current_user, login_required, login_user, logout_user, UserMixin, confirm_login, fresh_login_required)
-from flask.ext.mail import *
-from flask.ext.uploads import (UploadSet, configure_uploads, UploadNotAllowed)
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_login import (LoginManager, current_user, login_required, login_user, logout_user, UserMixin, confirm_login, fresh_login_required)
+from flask_mail import *
+from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
 from hashlib import sha1
 from sqlalchemy import or_, and_
@@ -279,6 +278,47 @@ def check_authentication(role):
 	else:
 		return True
 
+def validate_username_available(username):
+	# Username already taken
+	user = User.query.filter_by(username = username).first()
+	if user:
+		session['error'] = 'Sorry, that username is already taken! Please try another one.'
+		return False
+	else:
+		return True
+
+def validate_username_length(username):
+	# Password is the wrong length
+	if len(username) < 6:
+		session['error'] = 'Your username needs to be at least 6 characters long. Please try again.'
+		return False
+	else:
+		return True
+
+def validate_password_length(password):
+	# Password is the wrong length
+	if len(password) < 6:
+		session['error'] = 'Your password needs to be at least 6 characters long. Please try again.'
+		return False
+	else:
+		return True
+
+def validate_passwords_match(password, password_confirm):
+	# Passwords do not match
+	if password != password_confirm:
+		session['error'] = 'Your passwords do not match. Please enter them again.'
+		return False
+	else:
+		return True
+
+def validate_phone_number(phone_number):
+	# Phone field is invalid
+	if "_" in phone_number:
+		session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+		return False
+	else:
+		return True
+
 
 # APP ROUTES ###################################################################
 
@@ -369,8 +409,7 @@ def registerSchool():
 			return redirect(url_for('register'))
 
 		# Phone field is invalid
-		if "_" in phone_number or "_" in faculty_phone_number:
-			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+		if not validate_phone_number(phone_number) or not validate_phone_number(faculty_phone_number):
 			return redirect(url_for('register'))
 
 		# Expected delegates is not a number
@@ -386,9 +425,7 @@ def registerSchool():
 			return redirect(url_for('register'))
 
 		# Username already taken
-		delegation = Delegations.query.filter_by(username = username).first()
-		if delegation:
-			session['error'] = 'Sorry, that username is already taken! Please try another one.'
+		if not validate_username_available(username):
 			return redirect(url_for('register'))
 
 		# School already registered
@@ -398,13 +435,11 @@ def registerSchool():
 			return redirect(url_for('register'))
 
 		# Password is the wrong length
-		if len(username) < 6 or len(password) < 6:
-			session['error'] = 'Your username and password need to be at least 6 characters long. Please try again.'
+		if not validate_username_length(username) or not validate_password_length(password):
 			return redirect(url_for('register'))
 
 		# Passwords do not match
-		if not password == password_confirm:
-			session['error'] = 'Your passwords do not match. Please enter them again.'
+		if not validate_passwords_match(password, password_confirm):
 			return redirect(url_for('register'))
 
 		# All successful, create the school
@@ -487,24 +522,19 @@ def registerIndividual():
 			return redirect(url_for('register'))
 
 		# Phone field is invalid
-		if "_" in phone_number:
-			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+		if not validate_phone_number(phone_number):
 			return redirect(url_for('register'))
 
 		# Username already taken
-		delegation = Delegations.query.filter_by(username = username).first()
-		if delegation:
-			session['error'] = 'Sorry, that username is already taken! Please try another one.'
+		if not validate_username_available(username):
 			return redirect(url_for('register'))
 
 		# Password is the wrong length
-		if len(username) < 6 or len(password) < 6:
-			session['error'] = 'Your username and password need to be at least 6 characters long. Please try again.'
+		if not validate_username_length(username) or not validate_password_length(password):
 			return redirect(url_for('register'))
 
 		# Passwords do not match
-		if not password == password_confirm:
-			session['error'] = 'Your passwords do not match. Please enter them again.'
+		if not validate_passwords_match(password, password_confirm):
 			return redirect(url_for('register'))
 
 		# All successful, create the individual
@@ -763,25 +793,20 @@ def editDelegation():
 			return redirect(url_for('editDelegation'))
 
 		# Phone field is invalid
-		if "_" in phone_number:
-			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+		if not validate_phone_number(phone_number):
 			return redirect(url_for('register'))
 
 		# Username already taken
-		delegation = Delegations.query.filter_by(username = username).first()
-		if delegation and delegation.delegation_ID != current_user.user.delegation_ID:
-			session['error'] = 'Sorry, that username is already taken! Please try another one.'
-			return redirect(url_for('editDelegation'))
+		if not validate_username_available(username):
+			return redirect(url_for('register'))
 
 		# Password is the wrong length
-		if len(username) < 6 or len(password) < 6:
-			session['error'] = 'Your username and password need to be at least 6 characters long. Please try again.'
-			return redirect(url_for('editDelegation'))
+		if not validate_username_length(username) or not validate_password_length(password):
+			return redirect(url_for('register'))
 
 		# Passwords do not match
-		if not password == password_confirm:
-			session['error'] = 'Your passwords do not match. Please enter them again.'
-			return redirect(url_for('editDelegation'))
+		if not validate_passwords_match(password, password_confirm):
+			return redirect(url_for('register'))
 
 		# Update all the fields
 		hashedPassword = sha1(password).hexdigest()
@@ -843,8 +868,7 @@ def editFaculty(id):
 			return redirect(url_for('register'))
 
 		# Phone field is invalid
-		if "_" in phone_number:
-			session['error'] = 'Invalid phone number entered. Please make sure to enter your international call prefix, area code, and phone number. For example, +91(9999)999-999.'
+		if not validate_phone_number(phone_number):
 			return redirect(url_for('register'))
 
 		# Check if we are editing or adding a new one
@@ -905,23 +929,36 @@ def admin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	return render_template('admin.html', error=get_session_error(), success=get_session_success())
 
-@app.route('/admin/add')
+@app.route('/admin/addAdmin', methods=['GET', 'POST'])
 def addAdmin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	return render_template('addAdmin.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/admin/addStaff', methods=['GET', 'POST'])
+def addStaff():
+	if not check_authentication('Admin'): return redirect(url_for('login'))
+	if request.method == 'POST':
+		username = request.form.get('username').strip()
+		email = request.form.get('email').strip()
+		password = request.form.get('password')
+		password_confirm = request.form.get('password_confirm')
+
+		newuser = User(email, username, password, 'Delegation')
+		db.session.add(newuser)
+	else:
+		return render_template('addStaff.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/staff')
 def staff():
 	if not check_authentication('Staff'): return redirect(url_for('login'))
 	return render_template('staff.html', error=get_session_error(), success=get_session_success())
 
-@app.route('/staff/add')
-def addStaff():
-	if not check_authentication('Staff'): return redirect(url_for('login'))
-	return render_template('addStaff.html', error=get_session_error(), success=get_session_success())
-
 
 # ERROR HANDLERS ###############################################################
+@app.errorhandler(400)
+def bad_request(e):
+	return render_template('400.html'), 400
+
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('404.html'), 404
