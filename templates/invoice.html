@@ -56,7 +56,7 @@
 				<td>{{ fees.currency }}{{ fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length }}</td>
 			</tr>
 		</thead>
-		<tdbody>
+		<tbody>
 			{% set payment_total = 0 %}
 			{% for payment in payments %}
 			<tr>
@@ -65,7 +65,7 @@
 			</tr>
 			{% set payment_total = payment_total + payment.amount %}
 			{% endfor %}
-		</tdbody>
+		</tbody>
 		<thead>
 			<tr>
 				<td colspan="3">Amount Paid</td>
@@ -78,6 +78,62 @@
 				<td>{{ fees.currency }}{{ fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length - payment_total }}</td>
 			</tr>
 		</thead>
+	</table>
+
+	<h2>Payment Instructions</h2>
+	<table>
+		<thead class="expander">
+			<tr>
+				<td>Pay by Check</td>
+			</tr>
+		</thead>
+		<tbody class="expandable">
+			<tr>
+				<td>
+					<p>Delegations must send a single check in the total amount of the delegation. The check should be made payable to "Worldview Education Services Pvt. Ltd- ILMUNC India". Please ensure that you write the name of your school and ILMUNC India on the envelope or the back of the check. Checks must be mailed to:</p>
+					<p>
+						ILMUNC India<br>
+						409/411- Block II, WhiteHouse,<br>
+						Greenlands, Begumpet, Hyderabad - 500016<br>
+						Andhra Pradesh, India<br>
+						Ph- 040-64630095 ,040-64630058
+					</p>
+				</td>
+			</tr>
+		</tbody>
+		<thead class="expander">
+			<tr>
+				<td>Wire Transfer</td>
+			</tr>
+		</thead>
+		<tbody class="expandable">
+			<tr>
+				<td>
+					<p>
+						<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
+						<b>Account Number</b>: 915020021429917<br>
+						<b>IFSC Code</b>: UTIB0000030<br>
+						<b>Bank Name</b>: Axis Bank<br>
+						<b>Branch</b>: Jubilee Hills
+					</p>
+				</td>
+			</tr>
+		</tbody>
+		<thead class="expander">
+			<tr>
+				<td>Demand Draft</td>
+			</tr>
+		</thead>
+		<tbody class="expandable">
+			<tr>
+				<td>
+					<p>
+						<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
+						<b>Account Number</b>: 915020021429917
+					</p>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 {% endblock %}
 

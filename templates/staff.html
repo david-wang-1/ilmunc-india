@@ -2,5 +2,55 @@
 {% set active_page = 'staff' %}
 
 {% block content %}
-	
+	<h1>Summary</h1>
+	<table>
+		<thead>
+			<tr>
+				<td>Item</td>
+				<td>Amount</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Schools</td>
+				<td>{{ schools|length }}<a href="{{ url_for('staffSchools') }}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+			</tr>
+			<tr>
+				<td>Individuals</td>
+				<td>{{ individuals|length }}<a href="{{ url_for('staffIndividuals') }}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+			</tr>
+		</tbody>
+		<thead>
+			<tr>
+				<td>Total Delegations</td>
+				<td>{{ schools|length + individuals|length }}</td>
+			</tr>
+		</thead>
+		<thead>
+			<tr>
+				<td>Total Delegates</td>
+				<td>1</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Faculty Advisors (Single Room)</td>
+				<td>{{ advisors_single|length }}</td>
+			</tr>
+			<tr>
+				<td>Faculty Advisors (Double Room)</td>
+				<td>{{ advisors_double|length }}</td>
+			</tr>
+		</tbody>
+		<thead>
+			<tr>
+				<td>Total Faculty Advisors</td>
+				<td>1</td>
+			</tr>
+		</thead>
+	</table>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "staffLinks.html" %}
 {% endblock %}

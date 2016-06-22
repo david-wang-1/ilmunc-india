@@ -76,10 +76,18 @@ h6, h6 > a {
 	padding-top: 1px;
 }
 
-h2 > a > i {
+h1 > a > i, h2 > a > i {
 	color: rgb(254, 119, 17);
 	float: right;
 	vertical-align: bottom;
+}
+
+h1 > a > i {
+	font-size: 50px !important;
+	margin-top: 10px;
+}
+
+h2 > a > i {
 	font-size: 30px !important;
 	margin-top: 12px;
 }
@@ -177,7 +185,7 @@ table thead tr td {
 	text-transform: uppercase;
 }
 
-table thead tr td > a > i {
+table tr td > a > i {
 	float: right;
 	margin-top: 3px;
 	color: rgb(0, 0, 0);
@@ -329,6 +337,25 @@ a.button.submit {
 	-webkit-appearance: none;
 }
 
+/* ==========================================================================
+   expandable items
+   ========================================================================== */
+
+.expander {
+	cursor: pointer;
+}
+
+.expandable {
+	display: none;
+}
+
+.expandable.visible {
+	display: block;
+}
+
+table tr.expandable.visible {
+	display: table-row;
+}
 
 /* ==========================================================================
    grid
