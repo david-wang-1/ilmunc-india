@@ -392,8 +392,8 @@ def registerSchool():
 		first_ilmunc = request.form['first_ilmunc']
 		experience = request.form['experience'].strip()
 		faculty_prefix = request.form['faculty_prefix']
-		faculty_first_name = request.form['faculty_first_name'].strip()
-		faculty_last_name = request.form['faculty_last_name'].strip()
+		faculty_first_name = request.form['faculty_first_name'].strip().title()
+		faculty_last_name = request.form['faculty_last_name'].strip().title()
 		faculty_room_preference = request.form['faculty_room_preference'].strip()
 		faculty_phone_number = request.form['faculty_phone_number'].strip()
 		faculty_email = request.form['faculty_email'].strip()
@@ -506,8 +506,8 @@ def registerIndividual():
 		first_ilmunc = request.form['first_ilmunc']
 		experience = request.form['experience'].strip()
 		prefix = request.form['prefix']
-		first_name = request.form['first_name'].strip()
-		last_name = request.form['last_name'].strip()
+		first_name = request.form['first_name'].strip().title()
+		last_name = request.form['last_name'].strip().title()
 		phone_number = request.form['phone_number'].strip()
 		email = request.form['email'].strip()
 
@@ -765,8 +765,8 @@ def editDelegation():
 		password = request.form.get('password')
 		password_confirm = request.form.get('password_confirm')
 		prefix = request.form.get('prefix', None)
-		first_name = request.form.get('first_name', None)
-		last_name = request.form.get('last_name', None)
+		first_name = request.form.get('first_name', None).title()
+		last_name = request.form.get('last_name', None).title()
 		school_name = request.form.get('school_name', 'Individual')
 		expected_delegates = request.form.get('expected_delegates', 1)
 
@@ -851,8 +851,8 @@ def editFaculty(id):
 
 	if request.method == 'POST':
 		prefix = request.form.get('prefix')
-		first_name = request.form.get('first_name').strip()
-		last_name = request.form.get('last_name').strip()
+		first_name = request.form.get('first_name').strip().title()
+		last_name = request.form.get('last_name').strip().title()
 		room_preference = request.form.get('room_preference')
 		phone_number = request.form.get('phone_number').strip()
 		email = request.form.get('email').strip()
@@ -927,7 +927,23 @@ def invoice():
 @app.route('/staff')
 def staff():
 	if not check_authentication('Staff'): return redirect(url_for('login'))
-	return render_template('staff.html', error=get_session_error(), success=get_session_success())
+	individuals = Delegations.query.filter_by(school_name='Individual').all()
+	schools = Delegations.query.filter_by(individual_prefix=None).all()
+	advisors_single = Faculty.query.filter_by(room_preference='Single').all()
+	advisors_double = Faculty.query.filter_by(room_preference='Double').all()
+	return render_template('staff.html', error=get_session_error(), success=get_session_success(), individuals=individuals, schools=schools, advisors_single=advisors_single, advisors_double=advisors_double)
+
+@app.route('/staff/individuals')
+def staffIndividuals():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	individuals = Delegations.query.filter_by(school_name='Individual').all()
+	return render_template('staffIndividuals.html', error=get_session_error(), success=get_session_success(), individuals=individuals)
+
+@app.route('/staff/schools')
+def staffSchools():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	schools = Delegations.query.filter_by(individual_prefix=None).all()
+	return render_template('staffSchools.html', error=get_session_error(), success=get_session_success(), schools=schools)
 
 @app.route('/admin')
 def admin():
