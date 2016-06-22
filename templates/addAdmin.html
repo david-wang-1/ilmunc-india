@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
-{% set active_page = 'addStaff' %}
+{% set active_page = 'addAdmin' %}
 
 {% block content %}
-	<h1>Add Staff</h1>
-	<p>Anyone added as a Staff to the website will be able to view statistics on registered delegates, payments, etc. They will also be able to update delegation information and access the Staff dashboard. The username and password must be at least six characters long.</p>
+	<h1>Add Admin</h1>
+	<p>Anyone added as an Admin to the website will be able to edit users, make announcements, and edit site functionality. The username and password must be at least six characters long.</p>
 
-	<form method="post" id="add_staff_form">
+	<form method="post" id="add_admin_form">
 		<div class="row">
 			<div class="col s6">
 				<label class="required">E-mail address</label>

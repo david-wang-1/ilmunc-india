@@ -924,6 +924,11 @@ def invoice():
 	payments = []
 	return render_template('invoice.html', error=get_session_error(), success=get_session_success(), single_advisors=single_advisors, double_advisors=double_advisors, assistant_directors=assistant_directors, payments=payments)
 
+@app.route('/staff')
+def staff():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	return render_template('staff.html', error=get_session_error(), success=get_session_success())
+
 @app.route('/admin')
 def admin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
@@ -932,7 +937,31 @@ def admin():
 @app.route('/admin/addAdmin', methods=['GET', 'POST'])
 def addAdmin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
-	return render_template('addAdmin.html', error=get_session_error(), success=get_session_success())
+	if request.method == 'POST':
+		username = request.form.get('username').strip()
+		email = request.form.get('email').strip()
+		password = request.form.get('password')
+		password_confirm = request.form.get('password_confirm')
+
+		# Check username doesn't exist
+		if not validate_username_available(username):
+			return redirect(url_for('addAdmin'))
+
+		# Check passwords match
+		if not validate_passwords_match(password, password_confirm):
+			return redirect(url_for('addAdmin'))
+
+		# Check length of username and password
+		if not validate_username_length(username) or not validate_password_length(password):
+			return redirect(url_for('addAdmin'))
+
+		newuser = User(email, username, password, 'Admin')
+		db.session.add(newuser)
+		db.session.commit()
+		session['success'] = 'This admin account has been successfully added to the database.'
+		return redirect(url_for('account'))
+	else:
+		return render_template('addAdmin.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/admin/addStaff', methods=['GET', 'POST'])
 def addStaff():
@@ -943,15 +972,25 @@ def addStaff():
 		password = request.form.get('password')
 		password_confirm = request.form.get('password_confirm')
 
-		newuser = User(email, username, password, 'Delegation')
+		# Check username doesn't exist
+		if not validate_username_available(username):
+			return redirect(url_for('addStaff'))
+
+		# Check passwords match
+		if not validate_passwords_match(password, password_confirm):
+			return redirect(url_for('addStaff'))
+
+		# Check length of username and password
+		if not validate_username_length(username) or not validate_password_length(password):
+			return redirect(url_for('addStaff'))
+
+		newuser = User(email, username, password, 'Staff')
 		db.session.add(newuser)
+		db.session.commit()
+		session['success'] = 'This staff account has been successfully added to the database.'
+		return redirect(url_for('account'))
 	else:
 		return render_template('addStaff.html', error=get_session_error(), success=get_session_success())
-
-@app.route('/staff')
-def staff():
-	if not check_authentication('Staff'): return redirect(url_for('login'))
-	return render_template('staff.html', error=get_session_error(), success=get_session_success())
 
 
 # ERROR HANDLERS ###############################################################
