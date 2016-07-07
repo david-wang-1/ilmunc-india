@@ -765,27 +765,10 @@ def editDelegation():
 		password = request.form.get('password')
 		password_confirm = request.form.get('password_confirm')
 		prefix = request.form.get('prefix', None)
-		first_name = request.form.get('first_name', None).title()
-		last_name = request.form.get('last_name', None).title()
+		first_name = request.form.get('first_name', None)
+		last_name = request.form.get('last_name', None)
 		school_name = request.form.get('school_name', 'Individual')
 		expected_delegates = request.form.get('expected_delegates', 1)
-
-		print address1
-		print address2
-		print city
-		print state
-		print zipcode
-		print country
-		print username
-		print email
-		print phone_number
-		print password
-		print password_confirm
-		print prefix
-		print first_name
-		print last_name
-		print school_name
-		print expected_delegates
 
 		# Missing required field
 		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not phone_number or not email:
@@ -794,19 +777,19 @@ def editDelegation():
 
 		# Phone field is invalid
 		if not validate_phone_number(phone_number):
-			return redirect(url_for('register'))
+			return redirect(url_for('editDelegation'))
 
 		# Username already taken
-		if not validate_username_available(username):
-			return redirect(url_for('register'))
+		if username != current_user.user.username and not validate_username_available(username):
+			return redirect(url_for('editDelegation'))
 
 		# Password is the wrong length
 		if not validate_username_length(username) or not validate_password_length(password):
-			return redirect(url_for('register'))
+			return redirect(url_for('editDelegation'))
 
 		# Passwords do not match
 		if not validate_passwords_match(password, password_confirm):
-			return redirect(url_for('register'))
+			return redirect(url_for('editDelegation'))
 
 		# Update all the fields
 		hashedPassword = sha1(password).hexdigest()
@@ -944,6 +927,94 @@ def staffSchools():
 	if not check_authentication('Staff'): return redirect(url_for('login'))
 	schools = Delegations.query.filter_by(individual_prefix=None).all()
 	return render_template('staffSchools.html', error=get_session_error(), success=get_session_success(), schools=schools)
+
+@app.route('/staff/viewDelegation/<int:id>', methods=['GET', 'POST'])
+def staffViewDelegation(id):
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	delegation = Delegations.query.filter_by(delegation_ID=id).first()
+	advisors = Faculty.query.filter_by(delegation_ID=id).all()
+	return render_template('staffViewDelegation.html', error=get_session_error(), success=get_session_success(), delegation=delegation, advisors=advisors)
+
+@app.route('/staff/editDelegation/<int:id>', methods=['GET', 'POST'])
+def staffEditDelegation(id):
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+	delegation = Delegations.query.filter_by(delegation_ID=id).first()
+
+	if request.method == 'POST':
+		address1 = request.form.get('address1').strip()
+		address2 = request.form.get('address2').strip()
+		city = request.form.get('city').strip()
+		state = request.form.get('state').strip()
+		zipcode = request.form.get('zipcode').strip()
+		country = request.form.get('country')
+		username = request.form.get('username').strip()
+		email = request.form.get('email').strip()
+		phone_number = request.form.get('phone_number').strip()
+		prefix = request.form.get('prefix', None)
+		first_name = request.form.get('first_name', None)
+		last_name = request.form.get('last_name', None)
+		school_name = request.form.get('school_name', 'Individual')
+		expected_delegates = request.form.get('expected_delegates', 1)
+
+		# Missing required field
+		if not address1 or not city or not state or not zipcode or not country or not username or not phone_number or not email:
+			session['error'] = 'Please fill out all the required fields (*) and try again.'
+			return redirect(url_for('staffEditDelegation', id=id))
+
+		# Phone field is invalid
+		if not validate_phone_number(phone_number):
+			return redirect(url_for('staffEditDelegation', id=id))
+
+		# Username already taken
+		if username != delegation.username and not validate_username_available(username):
+			return redirect(url_for('staffEditDelegation', id=id))
+
+		# Password is the wrong length
+		if not validate_username_length(username):
+			return redirect(url_for('staffEditDelegation', id=id))
+
+		# Update all the fields
+		account = User.query.filter_by(username=delegation.username).first()
+		account.email = email
+		account.username = username
+		delegation.address1 = address1
+		delegation.address2 = address2
+		delegation.city = city
+		delegation.state = state
+		delegation.zipcode = zipcode
+		delegation.country = country
+		delegation.username = username
+		delegation.email = email
+		delegation.phone_number = phone_number
+		delegation.prefix = prefix
+		delegation.first_name = first_name
+		delegation.last_name = last_name
+		delegation.school_name = school_name
+		delegation.expected_delegates = expected_delegates
+
+		db.session.commit()
+		session['success'] = 'You have successfully updated this delegation\'s information. The new details you have entered are shown below.'
+		if first_name == None:
+			return redirect(url_for('staffSchools'))
+		else:
+			return redirect(url_for('staffIndividuals'))
+
+	else:
+		return render_template('staffEditDelegation.html', error=get_session_error(), success=get_session_success(), delegation=delegation)
+
+@app.route('/staff/deleteDelegation/<int:id>')
+def staffDeleteDelegation(id):
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+
+	delegation = Delegations.query.filter_by(delegation_ID=id).first()
+	advisors = Faculty.query.filter_by(delegation_ID=id).all()
+	user = Users.query.filter_by(username=delegation.username).first()
+	db.session.delete(delegation)
+	db.session.delete(advisors)
+	db.session.delete(user)
+	db.session.commit()
+	session['success'] = 'This delegation has been successfully removed.'
+	return redirect(url_for('staff'))
 
 @app.route('/admin')
 def admin():

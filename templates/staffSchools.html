@@ -1,15 +1,16 @@
 {% extends "layout.html" %}
 {% set active_page = 'staffDelegations' %}
 
-{% block content %}
-	<h1>Schools <a href="{{ url_for('register') }}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></h1>
+{% block lower %}
+<div class="inner">
+	<h1>Schools <a href="{{ url_for('register') }}" title="Add New"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></h1>
 	<table style="word-wrap:break-word; table-layout:fixed;">
 		<thead>
 			<tr>
 				<td>School</td>
 				<td>Email</td>
 				<td style="width:100px;">Size</td>
-				<!-- <td style="width:80px;">Edit</td> -->
+				<td style="width:80px;">View</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,13 +19,12 @@
 				<td>{{ school.school_name }}</td>
 				<td><a href="mailto:{{ school.email }}">{{ school.email }}</a></td>
 				<td>{{ school.expected_delegates }}</td>
-				<!-- <td><a href="{{ url_for('staff') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td> -->
+				<td><a href="{{ url_for('staffViewDelegation', id=school.delegation_ID) }}" title="View"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
+</div>
 {% endblock %}
 
-{% block sidebar %}
-	{% include "staffLinks.html" %}
-{% endblock %}
+{% block sidebar %}{% endblock %}

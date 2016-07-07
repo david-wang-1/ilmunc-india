@@ -8,44 +8,52 @@
 			<tr>
 				<td>Item</td>
 				<td>Amount</td>
+				<td style="width:80px;">View</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>Schools</td>
-				<td>{{ schools|length }}<a href="{{ url_for('staffSchools') }}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+				<td>{{ schools|length }}</td>
+				<td><a href="{{ url_for('staffSchools') }}" title="View"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
 			</tr>
 			<tr>
 				<td>Individuals</td>
-				<td>{{ individuals|length }}<a href="{{ url_for('staffIndividuals') }}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+				<td>{{ individuals|length }}</td>
+				<td><a href="{{ url_for('staffIndividuals') }}" title="View"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
 			</tr>
 		</tbody>
 		<thead>
 			<tr>
 				<td>Total Delegations</td>
 				<td>{{ schools|length + individuals|length }}</td>
+				<td></td>
 			</tr>
 		</thead>
-		<thead>
+		<!-- <thead>
 			<tr>
 				<td>Total Delegates</td>
 				<td>1</td>
+				<td></td>
 			</tr>
-		</thead>
+		</thead> -->
 		<tbody>
 			<tr>
 				<td>Faculty Advisors (Single Room)</td>
 				<td>{{ advisors_single|length }}</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Faculty Advisors (Double Room)</td>
 				<td>{{ advisors_double|length }}</td>
+				<td></td>
 			</tr>
 		</tbody>
 		<thead>
 			<tr>
 				<td>Total Faculty Advisors</td>
-				<td>1</td>
+				<td>{{ advisors_single|length + advisors_double|length }}</td>
+				<td></td>
 			</tr>
 		</thead>
 	</table>
