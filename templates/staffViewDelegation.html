@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% set active_page = 'staffViewDelegation' %}
+
+{% block content %}
+	<h1>Delegation Information</h1>
+	<span class="subhead">
+		{% if delegation.individual_first_name %}
+			{{ delegation.individual_first_name|safe }}&nbsp;{{ delegation.individual_last_name|safe }}
+		{% else %}
+			{{ delegation.school_name|safe }}
+		{% endif %}
+	</span>
+
+	<h2>Registration Information <a href="{{ url_for('staffEditDelegation', id=delegation.delegation_ID) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Item</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if delegation.individual_first_name %}
+			<tr>
+				<td>Name</td>
+				<td>{{ delegation.individual_prefix|safe }}&nbsp;{{ delegation.individual_first_name|safe }}&nbsp;{{ delegation.individual_last_name|safe }}</td>
+			</tr>
+			{% else %}
+			<tr>
+				<td>School</td>
+				<td>{{ delegation.school_name|safe }}</td>
+			</tr>
+			{% endif %}
+			<tr>
+				<td>Address</td>
+				<td>
+					{{ delegation.address1|safe }}<br>
+					{% if delegation.address2 %}{{ delegation.address2|safe }}<br>{% endif %}
+					{{ delegation.city|safe }},&nbsp;{{ delegation.state|safe }}<br>
+					{{ delegation.country|safe }}&nbsp;{{ delegation.zipcode|safe }}
+				</td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td>{{ delegation.username|safe }}</td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td>{{ delegation.email|safe }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ delegation.phone_number|safe }}</td>
+			</tr>
+			{% if not delegation.individual_first_name %}
+			<tr>
+				<td>Delegation Size</td>
+				<td>{{ delegation.expected_delegates }} delegates</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+
+	<h2>Faculty Advisor Information <!-- <a href="{{ url_for('editFaculty') }}" title="Add New"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a> --></h2>
+	{% if advisors|length == 0 %}
+	<table>
+		<tbody>
+			<tr>
+				<td style="text-align:center;">No faculty advisors</td>
+			</tr>
+		</tbody>
+	</table>
+	{% endif %}
+	{% for advisor in advisors %}
+	<table>
+		<thead>
+			<tr>
+				<td colspan="2">Faculty Advisory {{ loop.index0 + 1 }}<!-- <a href="{{ url_for('editFaculty', id=advisor.faculty_ID) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> --></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Name</td>
+				<td>{{ advisor.prefix|safe }}&nbsp;{{ advisor.first_name|safe }}&nbsp;{{ advisor.last_name|safe }}</td>
+			</tr>
+			<tr>
+				<td>Room Preference</td>
+				<td>
+					{{ advisor.room_preference|safe }}
+				</td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td>{{ advisor.email|safe }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ advisor.phone_number|safe }}</td>
+			</tr>
+		</tbody>
+	</table>
+	{% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+	{% include "staffLinks.html" %}
+{% endblock %}
