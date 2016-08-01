@@ -90,6 +90,47 @@ class Delegations(db.Model):
 		self.first_ilmunc = first_ilmunc
 		self.experience = experience
 
+class Committees(db.Model):
+	__tablename__ = 'COMMITTEES'
+	committee_ID = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(100))
+	shortname = db.Column(db.String(20))
+	organ = db.Column(db.String(50))
+	dualdel = db.Column(TINYINT)
+	application = db.Column(TINYINT)
+	chair = db.Column(db.String(50))
+	chair_email = db.Column(db.String(50))
+	chair_letter = db.Column(db.Text)
+	crisis_director = db.Column(db.String(50))
+	crisis_director_email = db.Column(db.String(50))
+	crisis_director_letter = db.Column(db.Text)
+	Topic_A_name = db.Column(db.String(100))
+	Topic_A_summary = db.Column(db.Text)
+	Topic_B_name = db.Column(db.String(100))
+	Topic_B_summary = db.Column(db.Text)
+	update_paper = db.Column(db.String(500))
+	vid_code = db.Column(db.String(15))
+	vid_code2 = db.Column(db.String(15))
+	vid_code3 = db.Column(db.String(15))
+	bg_cover = db.Column(db.String(500))
+	bg_link = db.Column(db.String(500))
+	height = db.Column(db.Integer, default=1385)
+	s1_points = db.Column(db.String(10))
+	s2_points = db.Column(db.String(10))
+	s3_points = db.Column(db.String(10))
+	s4_points = db.Column(db.String(10))
+	s5_points = db.Column(db.String(10))
+	s6_points = db.Column(db.String(10))
+	s1_attendance = db.Column(db.String(10))
+	s2_attendance = db.Column(db.String(10))
+	s3_attendance = db.Column(db.String(10))
+	s4_attendance = db.Column(db.String(10))
+	s5_attendance = db.Column(db.String(10))
+	s6_attendance = db.Column(db.String(10))
+	awards = db.Column(db.String(10))
+	location = db.Column(db.String(100))
+	closing_remarks = db.Column(db.Text)
+
 class Faculty(db.Model):
 	__tablename__ = 'FACULTY'
 	faculty_ID = db.Column(db.Integer, primary_key=True)
@@ -601,11 +642,15 @@ def success():
 # --- COMMITTEES ###############################################################
 @app.route('/committees')
 def committees():
-	return render_template('committees.html', error=get_session_error(), success=get_session_success())
+	ga = Committees.query.filter_by(organ='GA')
+	ecosoc = Committees.query.filter_by(organ='ECOSOC')
+	crisis = Committees.query.filter_by(organ='Crisis')
+	return render_template('committees.html', error=get_session_error(), success=get_session_success(), ga=ga, ecosoc=ecosoc, crisis=crisis)
 
 @app.route('/committee/<name>')
 def committee(name):
-	return render_template('committee.html', error=get_session_error(), success=get_session_success())
+	committee = Committees.query.filter_by(shortname=name).first()
+	return render_template('committee.html', error=get_session_error(), success=get_session_success(), committee=committee)
 
 # --- RESEARCH #################################################################
 @app.route('/research')

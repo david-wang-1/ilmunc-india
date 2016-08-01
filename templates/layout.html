@@ -21,21 +21,25 @@
 ] %}
 
 {% set committees_GA = [
-	('GA', 'GA Summary')
+	('DISEC', 'First Committee: DISEC'),
+	('Legal', 'Sixth Committee: Legal'),
+	('Special', 'UN Special Session on Drugs')
 ] %}
 
-{% set committees_Specialized = [
-	('Specialized', 'Specialized Summary')
+{% set committees_ECOSOC = [
+	('WHO', 'World Health Organization'),
+	('ILO', 'International Labor Organization'),
+	('UNFPA', 'United Nations Population Fund')
 ] %}
 
 {% set committees_Crisis = [
-	('Crisis', 'Crisis Summary')
+	('Bonaparte', 'Bonaparte Family Dinner'),
+	('SAAAS', 'South African Anti-Apartheid Summit')
 ] %}
 
 {% set research = [
 	('research', 'Research Links'),
-	('training', 'Training Videos'),
-	('procedure', 'Rules of Procedure')
+	('training', 'Training Videos')
 ] %}
 
 {% set account = [
@@ -144,16 +148,20 @@
 				</li>
 				<li>
 					<a href="{{ url_for('committees') }}">Committees</a>
-					<!-- <ul>
-						<li><a>General Assembly</a></li>
-						<li><a>Specialized</a></li>
-						<li><a>Crisis</a></li>
-					</ul> -->
+					<ul>
+						{{ print_menu(committees_GA, True) }}
+						{{ print_menu(committees_ECOSOC, True) }}
+						{{ print_menu(committees_Crisis, True) }}
+						<!-- <li>
+							<a>General Assembly</a>
+							<ul>{{ print_menu (committees_GA, True) }}</ul>
+						</li> -->
+					</ul>
 				</li>
-				<!-- <li>
+				<li>
 					<a href="{{ url_for('research') }}">Research</a>
 					<ul>{{ print_menu(research) }}</ul>
-				</li> -->
+				</li>
 			</ul>
 			<ul class="highlight">
 				<li>

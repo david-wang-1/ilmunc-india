@@ -32,6 +32,48 @@ CREATE TABLE `DELEGATIONS` (
   PRIMARY KEY  (`delegation_ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE `COMMITTEES` (
+  `committee_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `shortname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `organ` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `dualdel` tinyint(1) NOT NULL DEFAULT '0',
+  `application` tinyint(1) NOT NULL DEFAULT '0',
+  `chair` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Or USG for committee main page',
+  `chair_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Or USG for committee main page',
+  `chair_letter` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Or USG for committee main page',
+  `crisis_director` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Enter Moderator for GA/Leave blank if none',
+  `crisis_director_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Enter moderator for GA/ Leave blank if none',
+  `crisis_director_letter` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Enter moderator for GA/ Leave blank if none',
+  `Topic_A_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Use if there is only one topic',
+  `Topic_A_summary` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Use if there is only one topic or for Committee Main Page',
+  `Topic_B_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Leave blank if none',
+  `Topic_B_summary` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Leave blank if none',
+  `update_paper` varchar(500) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Update Paper Location',
+  `vid_code` varchar(15) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The 11 character code for the youtube vid. Leave blank if none',
+  `vid_code2` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `vid_code3` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `bg_cover` varchar(500) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Location of BG Cover',
+  `bg_link` varchar(500) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Link to BG',
+  `height` int(4) NOT NULL DEFAULT '1385' COMMENT 'Leave blank if none',
+  `s1_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s2_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s3_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s4_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s5_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s6_points` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s1_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s2_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s3_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s4_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s5_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `s6_attendance` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `awards` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `location` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `closing_remarks` text COLLATE utf8_unicode_ci,
+  UNIQUE KEY `Committee_ID` (`committee_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE `FACULTY` (
   `faculty_ID` int(11) NOT NULL auto_increment,
   `prefix` varchar(4) collate utf8_unicode_ci NOT NULL,

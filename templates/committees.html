@@ -3,6 +3,32 @@
 
 {% block content %}
 	<h1>Committees</h1>
-	<p>Detailed committee pages will be on our site shortly. Check back soon! For now, you can view descriptions of each of our committees below.</p>
-	<iframe src="http://docs.google.com/gview?url=http://ilmunc-india.herokuapp.com/static/docs/ILMUNC-India-2016-Committees.pdf&embedded=true" style="width:100%; height:1070px;" frameborder="0"></iframe>
+	<!-- <p><a class="normal" href="" target="_blank">Country and crisis requests</a> are due by DATE DUE. The request form can be found in the right menu after logging in to your account.</p> -->
+
+	<h2>General Assembly</h2>
+	<p>The General Assembly is the main deliberative, policymaking and representative organ of the United Nations. With every UN nation represented, the GA offers a forum for multilateral discussion of a wealth of international topics and concerns.</p>
+	<p>
+	{% for c in ga %}
+		<a href="{{ url_for('committee', name=c.shortname) }}">{{ c.title }}{% if c.dualdel %}*{% endif %}{% if c.application %}**{% endif %}</a><br>
+	{% endfor %}
+	</p>
+
+
+	<h2>Economic and Social Council Committees and Specialized Agencies</h2>
+	<p>The committees of the Economic and Social Council (ECOSOC) and Specialized make up the majority of bodies within the United Nations. One of the six principle organs of the UN, the Council orchestrates the economic and social agendas of the fourteen specialized agencies, functional commissions, and five regional commissions. This year, delegates participating in the ECOSOC organ will address global issues in a more diverse array of committees than ever before.</p>
+	<p>
+	{% for c in ecosoc %}
+		<a href="{{ url_for('committee', name=c.shortname) }}">{{ c.title }}{% if c.dualdel %}*{% endif %}{% if c.application %}**{% endif %}</a><br>
+	{% endfor %}
+	</p>
+
+
+	<h2>Crisis Committees</h2>
+	<p>A distinctive characteristic of ILMUNC India is its capability to consistently yield intelligent and dynamic crisis committees. Each is overseen by a chair, a crisis director, and dedicated staff members who are committed to creating an efficient and thought­provoking simulation. These crises are some of ILMUNC India’s most compelling committees; rest assured that each delegate will be challenged and tested by the fast­paced nature of their weekends.</p>
+	<p>
+	{% for c in crisis %}
+		<a href="{{ url_for('committee', name=c.shortname) }}">{{ c.title }}{% if c.dualdel %}*{% endif %}{% if c.application %}**{% endif %}</a><br>
+	{% endfor %}
+	</p>
+
 {% endblock %}

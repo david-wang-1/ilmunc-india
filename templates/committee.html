@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% set active_page = 'committee.shortname' %}
+
+{% block sidebar %}{% endblock %}
+
+{% block lower %}
+<div class="inner">
+	<h1>{{ committee.title }}</h1>
+	<div class="committee_info left">
+		<h3>Committee Information</h3>
+		<!-- TITLE -->
+		<p><b>Title: </b>{{ committee.title }}</p>
+
+		<!-- ORGAN -->
+		<p>
+			<b>Organ: </b>
+			{% if committee.organ == "GA" %}General Assembly
+			{% elif committee.organ == "ECOSOC" %}Economic and Social Council Committees and Specialized Agencies
+			{% else %}Crisis Committees
+			{% endif %}
+		</p>
+
+		<!-- CHAIR -->
+		<p><b>Chair: </b>{{ committee.chair|safe}}</p>
+
+		<!-- CRISIS DIRECTOR -->
+		{% if committee.crisis_director %}
+		<p><b>Crisis Director: </b>{{ committee.crisis_director|safe}}</p>
+		{% endif %}
+
+		<!-- TOPIC NAMES -->
+		{% if committee.organ == "Crisis" %}
+			<p><b>Committee Summary: </b></p><div class="letter"><p>{{ committee.Topic_A_summary|safe }}</p></div>
+		{% elif committee.Topic_A_name and not committee.Topic_B_name %}
+			<p><b>Topic Name: </b><i>{{ committee.Topic_A_name|safe }}</i></p>
+			<p><b>Topic Summary: </b></p><div class="letter"><p>{{ committee.Topic_A_summary|safe }}</p></div>
+		{% elif committee.Topic_A_name and committee.Topic_B_name %}
+			<p><b>Topic A: </b><i>{{ committee.Topic_A_name }}</i></p>
+			<p><b>Topic A Summary: </b></p><div class="letter"><p>{{ committee.Topic_A_summary|safe }}</p></div>
+			<p><b>Topic B: </b><i>{{ committee.Topic_B_name }}</i></p>
+			<p><b>Topic B Summary: </b></p><div class="letter"><p>{{ committee.Topic_B_summary|safe }}</p></div>
+		{% endif %}
+
+		<!-- UPDATE PAPER -->
+		{% if committee.update_paper %}
+			<p><b>Update Paper: </b><a href="{{ committee.update_paper }}" target="_blank">Click Here</a></p>
+		{% endif %}
+	</div>
+
+	<!-- BACKGROUND GUIDE -->
+	<div class="committee_info right">
+		<h3>Background Guide</h3>
+		{% if not committee.bg_link or committee.bg_link == '' %}
+			<p>Some background guides are not yet available. We will notify delegates when they are posted.</p>
+		{% else %}
+			<a href="{{ committee.bg_link }}" target="_blank"><img src="{{ committee.bg_cover }}" class="bgcover"></a>
+		{% endif %}
+	</div>
+
+	<!-- COMMITTEE VIDEOS -->
+	{% if committee.vid_code %}
+		<br><br><div class="hr"></div><br><br>
+		<div class="chairvideos">
+			<iframe src="http://www.youtube.com/embed/{{ committee.vid_code }}" frameborder="0" allowfullscreen></iframe>
+			{% if committee.vid_code2 %}
+				<iframe src="http://www.youtube.com/embed/{{ committee.vid_code2 }}" frameborder="0" allowfullscreen></iframe>
+			{% endif %}
+		</div>
+	{% endif %}
+		
+	<!-- CHAIR LETTERS -->
+	{% if committee.chair_letter %}
+		<br><br><div class="hr"></div><br>
+		<h3>Letter from the Chair</h3>
+		<div class="letter">
+			<div class="headshot" style="background-image: url('/static/images/headshots/chairs2016/{{ committee.shortname }}_chair.png');"></div>
+
+			<p>Dear Delegates,</p>
+			{{ committee.chair_letter|safe }}
+
+			<p>Sincerely,<br>
+			{{ committee.chair|safe }}<br>
+			Chair, {{ committee.title }}<br>
+			<a href="mailto:{{ committee.chair_email }}">{{ committee.chair_email }}</a></p>
+		</div>
+	{% endif %}
+	
+	{% if committee.crisis_director_letter %}
+		<br>
+		<h3>Letter from the Crisis Director</h3>
+		<div class="letter">
+			<div class="headshot" style="background-image: url('/static/images/headshots/chairs2016/{{ committee.shortname }}_chair.png');"></div>
+
+			<p>Dear Delegates,</p>
+			{{ committee.crisis_director_letter|safe }}
+
+			<p>Sincerely,<br>
+			{{ committee.crisis_director|safe }}<br>
+			Crisis Director, {{ committee.title }}<br>
+			<a href="mailto:{{ committee.crisis_director_email }}">{{ committee.crisis_director_email }}</a></p>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

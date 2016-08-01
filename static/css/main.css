@@ -36,6 +36,17 @@ body.no-scroll {
 	overflow: hidden;
 }
 
+div.hr {
+	display: block;
+	border-bottom: 1px solid rgb(63, 196, 184);
+	width: 100%;
+	margin: 0 auto
+}
+
+div.hr.narrow {
+	width: 50%;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
@@ -1068,16 +1079,24 @@ a.social.white.youtube {
 	}
 }
 
-img.headshot {
+div.headshot {
 	height: 200px;
+	width: 180px;
 	margin: 4px 30px 10px 0px;
+	display: block;
 	float: left;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
-img.headshot-large {
+div.headshot-large {
 	height: 250px;
+	width: 225px;
 	margin: 4px 30px 10px 0px;
+	display: block;
 	float: left;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 div.headshot-rounded {
