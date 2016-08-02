@@ -385,6 +385,10 @@ def penn():
 def ilmunc():
 	return redirect('http://www.ilmunc.com/')
 
+@app.route('/terms')
+def terms():
+	return render_template('terms.html', error=get_session_error(), success=get_session_success())
+
 # --- CONFERENCE ###############################################################
 @app.route('/invitation')
 def invitation():
