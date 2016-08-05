@@ -3,174 +3,182 @@
 
 {% block content %}
 	<h1>Assistant Director Application</h1>
-	<p>We thank you for your interest in applying to be an Assistant Director for ILMUNC India {{ g.ILMUNC_year }}! In order to apply, please complete the application below. If you would like to register as a delegate for ILMUNC India {{ g.ILMUNC_year }} please visit our <a href="{{ url_for('register') }}">Registration</a> page.</p>
-	<p>If you have any questions while filling out the application, feel free to reach out to us at <a href="mailto:{{ g.ILMUNC_email }}">{{ g.ILMUNC_email }}</a>.</p>
-	<script>
-		var submitted=false;
 
-		$(document).ready(function() {
-			var maskList = $.masksSort($.masksLoad("http://cdn.rawgit.com/andr-04/inputmask-multi/master/data/phone-codes.json"), ['#'], /[0-9]|#/, "mask");
+	{% if g.strtime > g.ILMUNC_adApplicationDeadline %}
+		
+		<p>We thank you for your interest in applying to be an Assistant Director for ILMUNC India {{ g.ILMUNC_year }}! At this point in time, our applications have closed. If you are still interested in being a part of the conference, consider registering as a delegate. The registration for delegates can be found <a href="{{ url_for('register') }}">here</a>.</p>
 
-			var maskOpts = {
-				inputmask: {
-					definitions: {
-						'#': {
-							validator: "[0-9]",
-							cardinality: 1
-						}
+	{% else %}
+
+		<p>We thank you for your interest in applying to be an Assistant Director for ILMUNC India {{ g.ILMUNC_year }}! In order to apply, please complete the application below. If you would like to register as a delegate for ILMUNC India {{ g.ILMUNC_year }} please visit our <a href="{{ url_for('register') }}">Registration</a> page.</p>
+		<p>If you have any questions while filling out the application, feel free to reach out to us at <a href="mailto:{{ g.ILMUNC_email }}">{{ g.ILMUNC_email }}</a>.</p>
+		<script>
+			var submitted=false;
+
+			$(document).ready(function() {
+				var maskList = $.masksSort($.masksLoad("http://cdn.rawgit.com/andr-04/inputmask-multi/master/data/phone-codes.json"), ['#'], /[0-9]|#/, "mask");
+
+				var maskOpts = {
+					inputmask: {
+						definitions: {
+							'#': {
+								validator: "[0-9]",
+								cardinality: 1
+							}
+						},
+						showMaskOnHover: false,
+						autoUnmask: true,
+						clearMaskOnLostFocus: false
 					},
-					showMaskOnHover: false,
-					autoUnmask: true,
-					clearMaskOnLostFocus: false
-				},
-				match: /[0-9]/,
-				replace: '#',
-				list: maskList,
-				listKey: "mask"
-			};
+					match: /[0-9]/,
+					replace: '#',
+					list: maskList,
+					listKey: "mask"
+				};
 
-			$('#entry\\.1740396478').inputmasks(maskOpts);
-		});
-	</script>
-	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='{{ url_for('success') }}';}"></iframe>
-	<form method="post" action="https://docs.google.com/forms/d/1ziTu7YUDByyQhGRQltA381JeAx86HvFIwl-XKeQgnpE/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
-		<h2>Personal Information</h2>
-		<div class="row">
-			<div class="col s6">
-				<label class="required">First name</label>
-				<input type="text" name="entry.1806311742" id="entry.1806311742" required>
+				$('#entry\\.1740396478').inputmasks(maskOpts);
+			});
+		</script>
+		<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='{{ url_for('success') }}';}"></iframe>
+		<form method="post" action="https://docs.google.com/forms/d/1ziTu7YUDByyQhGRQltA381JeAx86HvFIwl-XKeQgnpE/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+			<h2>Personal Information</h2>
+			<div class="row">
+				<div class="col s6">
+					<label class="required">First name</label>
+					<input type="text" name="entry.1806311742" id="entry.1806311742" required>
+				</div>
+				<div class="col s6">
+					<label class="required">Last name</label>
+					<input type="text" name="entry.559139005" id="entry.559139005" required>
+				</div>
 			</div>
-			<div class="col s6">
-				<label class="required">Last name</label>
-				<input type="text" name="entry.559139005" id="entry.559139005" required>
+			<div class="row">
+				<div class="col s6">
+					<label class="required">E-mail address</label>
+					<input type="text" name="entry.1308047245" id="entry.1308047245" required>
+				</div>
+				<div class="col s6">
+					<label class="required">Phone number</label>
+					<input type="text" name="entry.1740396478" id="entry.1740396478" required>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s6">
-				<label class="required">E-mail address</label>
-				<input type="text" name="entry.1308047245" id="entry.1308047245" required>
+			<div class="row">
+				<div class="col s6">
+					<label class="required">School name</label>
+					<input type="text" name="entry.2093882500" id="entry.2093882500" required>
+				</div>
+				<div class="col s6">
+					<label class="required">City</label>
+					<input type="text" name="entry.1429475437" id="entry.1429475437" required>
+				</div>
 			</div>
-			<div class="col s6">
-				<label class="required">Phone number</label>
-				<input type="text" name="entry.1740396478" id="entry.1740396478" required>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s6">
-				<label class="required">School name</label>
-				<input type="text" name="entry.2093882500" id="entry.2093882500" required>
-			</div>
-			<div class="col s6">
-				<label class="required">City</label>
-				<input type="text" name="entry.1429475437" id="entry.1429475437" required>
-			</div>
-		</div>
 
 
-		<h2>Application Questions</h2>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">Please outline your past Model United Nations or debate experience (max 10 conferences).</label>
-				<textarea name="entry.1756157452" id="entry.1756157452" placeholder="Please outline your past Model United Nations or debate experience (max 10 conferences)." rows="8"></textarea>
+			<h2>Application Questions</h2>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">Please outline your past Model United Nations or debate experience (max 10 conferences).</label>
+					<textarea name="entry.1756157452" id="entry.1756157452" placeholder="Please outline your past Model United Nations or debate experience (max 10 conferences)." rows="8"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">What personal qualities do you have which make you suitable for the position of an Assistant Director?</label>
-				<textarea name="entry.986852018" id="entry.986852018" placeholder="What personal qualities do you have which make you suitable for the position of an Assistant Director?" rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">What personal qualities do you have which make you suitable for the position of an Assistant Director?</label>
+					<textarea name="entry.986852018" id="entry.986852018" placeholder="What personal qualities do you have which make you suitable for the position of an Assistant Director?" rows="8"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">What are the best and worst attributes you have seen in Directors and Assistant Directors who have moderated a conference you attended in the past?</label>
-				<textarea name="entry.1800814472" id="entry.1800814472" placeholder="What are the best and worst attributes you have seen in Directors and Assistant Directors who have moderated a conference you attended in the past?" rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">What are the best and worst attributes you have seen in Directors and Assistant Directors who have moderated a conference you attended in the past?</label>
+					<textarea name="entry.1800814472" id="entry.1800814472" placeholder="What are the best and worst attributes you have seen in Directors and Assistant Directors who have moderated a conference you attended in the past?" rows="8"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">What song is a good depiction of your personality?</label>
-				<textarea name="entry.1260015182" id="entry.1260015182" placeholder="What song is a good depiction of your personality?" rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">What song is a good depiction of your personality?</label>
+					<textarea name="entry.1260015182" id="entry.1260015182" placeholder="What song is a good depiction of your personality?" rows="8"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">What is your craziest or funniest Model United Nations story?</label>
-				<textarea name="entry.1108165490" id="entry.1108165490" placeholder="What is your craziest or funniest Model United Nations story?" rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">What is your craziest or funniest Model United Nations story?</label>
+					<textarea name="entry.1108165490" id="entry.1108165490" placeholder="What is your craziest or funniest Model United Nations story?" rows="8"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">What are your other time commitments you will have (that you know of) in the next few months?</label>
-				<textarea name="entry.1258061015" id="entry.1258061015" placeholder="What are your other time commitments you will have (that you know of) in the next few months?" rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">What are your other time commitments you will have (that you know of) in the next few months?</label>
+					<textarea name="entry.1258061015" id="entry.1258061015" placeholder="What are your other time commitments you will have (that you know of) in the next few months?" rows="8"></textarea>
+				</div>
 			</div>
-		</div>
 
 
-		<h2>Committee Preferences</h2>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">Committee Preference 1</label>
-				<select id="entry.1267309499" name="entry.1267309499" required>
-					<option disabled selected value></option>
-					<option value="GA: DISEC">GA: DISEC</option>
-					<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
-					<option value="GA: Legal">GA: Legal</option>
-					<option value="ECOSOC: WHO">ECOSOC: WHO</option>
-					<option value="ECOSOC: ILO">ECOSOC: ILO</option>
-					<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
-					<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
-					<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
-				</select>
+			<h2>Committee Preferences</h2>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">Committee Preference 1</label>
+					<select id="entry.1267309499" name="entry.1267309499" required>
+						<option disabled selected value></option>
+						<option value="GA: DISEC">GA: DISEC</option>
+						<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
+						<option value="GA: Legal">GA: Legal</option>
+						<option value="ECOSOC: WHO">ECOSOC: WHO</option>
+						<option value="ECOSOC: ILO">ECOSOC: ILO</option>
+						<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
+						<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
+						<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">Committee Preference 2</label>
-				<select id="entry.1175473212" name="entry.1175473212" required>
-					<option disabled selected value></option>
-					<option value="GA: DISEC">GA: DISEC</option>
-					<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
-					<option value="GA: Legal">GA: Legal</option>
-					<option value="ECOSOC: WHO">ECOSOC: WHO</option>
-					<option value="ECOSOC: ILO">ECOSOC: ILO</option>
-					<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
-					<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
-					<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
-				</select>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">Committee Preference 2</label>
+					<select id="entry.1175473212" name="entry.1175473212" required>
+						<option disabled selected value></option>
+						<option value="GA: DISEC">GA: DISEC</option>
+						<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
+						<option value="GA: Legal">GA: Legal</option>
+						<option value="ECOSOC: WHO">ECOSOC: WHO</option>
+						<option value="ECOSOC: ILO">ECOSOC: ILO</option>
+						<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
+						<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
+						<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">Committee Preference 3</label>
-				<select id="entry.2062445643" name="entry.2062445643" required>
-					<option disabled selected value></option>
-					<option value="GA: DISEC">GA: DISEC</option>
-					<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
-					<option value="GA: Legal">GA: Legal</option>
-					<option value="ECOSOC: WHO">ECOSOC: WHO</option>
-					<option value="ECOSOC: ILO">ECOSOC: ILO</option>
-					<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
-					<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
-					<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
-				</select>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">Committee Preference 3</label>
+					<select id="entry.2062445643" name="entry.2062445643" required>
+						<option disabled selected value></option>
+						<option value="GA: DISEC">GA: DISEC</option>
+						<option value="GA: Special Session on Drugs">GA: Special Session on Drugs</option>
+						<option value="GA: Legal">GA: Legal</option>
+						<option value="ECOSOC: WHO">ECOSOC: WHO</option>
+						<option value="ECOSOC: ILO">ECOSOC: ILO</option>
+						<option value="ECOSOC: UN Population Fund">ECOSOC: UN Population Fund</option>
+						<option value="Crisis: Bonaparte Family Dinner">Crisis: Bonaparte Family Dinner</option>
+						<option value="Crisis: South African Anti-Apartheid Summit">Crisis: South African Anti-Apartheid Summit</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<label class="required">Briefly explain your top three committee preferences.</label>
-				<textarea name="entry.2039382281" id="entry.2039382281" placeholder="Briefly explain your top three committee preferences." rows="8"></textarea>
+			<div class="row">
+				<div class="col s12">
+					<label class="required">Briefly explain your top three committee preferences.</label>
+					<textarea name="entry.2039382281" id="entry.2039382281" placeholder="Briefly explain your top three committee preferences." rows="8"></textarea>
+				</div>
 			</div>
-		</div>
 
-		<h2>Final Confirmation</h2>
-		<p>To submit your application, please double check the information entered in the fields above, make sure that all fields are completed, and then press "Apply" below.</p>
-		<div class="row button-row">
-			<div class="col s6">
-				<input type="submit" value="Apply">
+			<h2>Final Confirmation</h2>
+			<p>To submit your application, please double check the information entered in the fields above, make sure that all fields are completed, and then press "Apply" below.</p>
+			<div class="row button-row">
+				<div class="col s6">
+					<input type="submit" value="Apply">
+				</div>
+				<div class="col s6">
+					<input type="reset" onclick="$('div.error').hide();" value="Reset">
+				</div>
 			</div>
-			<div class="col s6">
-				<input type="reset" onclick="$('div.error').hide();" value="Reset">
-			</div>
-		</div>
-	</form>
+		</form>
+	{% endif %}
 {% endblock %}

@@ -255,6 +255,7 @@ def before_request():
 	g.ILMUNC_email = "secgen@ilmunc-india.com"
 	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 15 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Oct 20 2016  11:59PM', '%b %d %Y %I:%M%p')
+	g.ILMUNC_adApplicationDeadline = datetime.strptime('Jul 30 2016  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_fees_domestic = {
 		'currency': "INR ",
 		'delegate': 22790,
