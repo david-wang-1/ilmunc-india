@@ -58,6 +58,14 @@
 				<td>{{ delegation.expected_delegates }} delegates</td>
 			</tr>
 			{% endif %}
+			<tr>
+				<td>First ILMUNC India</td>
+				<td>{% if delegation.first_ilmunc == 1%}Yes{% else %}No{% endif %}</td>
+			</tr>
+			<tr>
+				<td>Experience</td>
+				<td>{{ delegation.experience|safe }}</td>
+			</tr>
 		</tbody>
 	</table>
 
