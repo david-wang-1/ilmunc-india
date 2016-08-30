@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% set active_page = 'staff' %}
+
+{% block content %}
+	<h1>Payments</h1>
+
+	<h2>Add New</h2>
+	<form method="post" id="add_payment_form">
+		<div class="row">
+			<div class="col s12">
+				<label class="required">School/Individual name</label>
+				<select id="delegation_ID" name="delegation_ID" required>
+					<option disabled selected value></option>
+					{% for (school_name, delegation_ID) in schools %}
+					<option value="{{ delegation_ID }}">{{ school_name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Payment amount</label>
+				<input type="number" min="0.01" step="0.01" name="payment_amount" id="payment_amount" placeholder="0.00" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Payment currency</label>
+				<select id="payment_currency" name="payment_currency" required>
+					<option disabled selected value></option>
+					<option value="INR">INR</option>
+					<option value="USD">USD</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Payment method</label>
+				<select id="payment_method" name="payment_method" required>
+					<option disabled selected value></option>
+					<option value="Check">Check</option>
+					<option value="Wire Transfer">Wire Transfer</option>
+					<option value="Demand Draft">Demand Draft</option>
+					<option value="Other">Other</option>
+				</select>
+			</div>
+			<div class="col s6">
+				<label class="required">Payment date</label>
+				<input type="date" name="payment_date" id="payment_date" required>
+			</div>
+		</div>
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Add">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+		
+	</form>
+
+	<h2>Existing Payments</h2>
+	<table class="sortable" style="word-wrap:break-word; table-layout:fixed;">
+		<thead>
+			<tr>
+				<td>Date</td>
+				<td>Delegation</td>
+				<td>Amount</td>
+				<td>Method</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if payments|length == 0 %}
+			<tr>
+				<td colspan="4" style="text-align:center;">There are no payments added yet! You can add one using the form above.</td>			
+			</tr>
+			{% endif %}
+			{% for payment in payments %}
+			<tr>
+				<td>{{ payment.payment_date.date() }}</td>
+				<td><a href="{{ url_for('staffViewDelegation', id=payment.delegation_ID) }}" title="View delegation details">{{ payment.school_name }}</a></td>
+				<td>{{ payment.payment_currency }} {{ "%.2f" % payment.payment_amount }}</td>
+				<td>{{ payment.payment_method }}</td>				
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
+
+{% block sidebar %}
+	{% include "staffLinks.html" %}
+{% endblock %}

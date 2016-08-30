@@ -208,6 +208,10 @@ table thead tr td {
 	text-transform: uppercase;
 }
 
+table.sortable thead tr td {
+	cursor: pointer;
+}
+
 table tr td > a > i {
 	float: right;
 	margin-top: 3px;

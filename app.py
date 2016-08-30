@@ -153,6 +153,24 @@ class Faculty(db.Model):
 		self.delegation_ID = delegation_ID
 		self.school_name = school_name
 
+class Payments(db.Model):
+	__tablename__ = 'PAYMENTS'
+	payment_ID = db.Column(db.Integer, primary_key=True)
+	payment_date = db.Column(db.DateTime)
+	payment_amount = db.Column(db.Float)
+	payment_currency = db.Column(db.String(3))
+	payment_method = db.Column(db.String(25))
+	delegation_ID = db.Column(db.Integer)
+	school_name = db.Column(db.String(100))
+
+	def __init__(self, payment_date, payment_amount, payment_currency, payment_method, delegation_ID, school_name):
+		self.payment_date = payment_date
+		self.payment_amount = payment_amount
+		self.payment_currency = payment_currency
+		self.payment_method = payment_method
+		self.delegation_ID = delegation_ID
+		self.school_name = school_name
+
 class Secretariat(db.Model):
 	__tablename__ = 'SECRETARIAT'
 	secretariat_ID = db.Column(db.Integer, primary_key=True)
@@ -954,7 +972,7 @@ def invoice():
 	single_advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID, room_preference="Single").all()
 	double_advisors = Faculty.query.filter_by(delegation_ID=current_user.user.delegation_ID, room_preference="Double").all()
 	assistant_directors = []
-	payments = []
+	payments = Payments.query.filter_by(delegation_ID=current_user.user.delegation_ID).all()
 	return render_template('invoice.html', error=get_session_error(), success=get_session_success(), single_advisors=single_advisors, double_advisors=double_advisors, assistant_directors=assistant_directors, payments=payments)
 
 @app.route('/staff')
@@ -1065,6 +1083,41 @@ def staffDeleteDelegation(id):
 	db.session.commit()
 	session['success'] = 'This delegation has been successfully removed.'
 	return redirect(url_for('staff'))
+
+@app.route('/staff/payments', methods=['GET', 'POST'])
+def staffPayments():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+
+	if request.method == 'POST':
+		delegation_ID = request.form.get('delegation_ID')
+		payment_amount = request.form.get('payment_amount')
+		payment_currency = request.form.get('payment_currency')
+		payment_method = request.form.get('payment_method')
+		payment_date = request.form.get('payment_date')
+
+		delegation = Delegations.query.filter_by(delegation_ID=delegation_ID).first()
+		if delegation.individual_prefix == None:
+			school_name = delegation.school_name
+		else:
+			school_name = delegation.individual_prefix + " " + delegation.individual_first_name + " " + delegation.individual_last_name
+
+		newpayment = Payments(payment_date, payment_amount, payment_currency, payment_method, delegation_ID, school_name)
+		db.session.add(newpayment)
+		db.session.commit()
+
+		session['success'] = 'This payment has been successfully added and will now show up on the delegation\'s invoice.'
+		return redirect(url_for('staffPayments'))
+	else:
+		delegations = Delegations.query.all()
+		names = []
+		for delegation in delegations:
+			if delegation.individual_prefix == None:
+				names.append((delegation.school_name, delegation.delegation_ID))
+			else:
+				names.append((delegation.individual_prefix + " " + delegation.individual_first_name + " " + delegation.individual_last_name, delegation.delegation_ID))
+
+		payments = Payments.query.order_by(Payments.payment_date.desc()).all()
+		return render_template('staffPayments.html', error=get_session_error(), success=get_session_success(), schools=sorted(names), payments=payments)
 
 @app.route('/admin')
 def admin():

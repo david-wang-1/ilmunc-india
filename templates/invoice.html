@@ -8,133 +8,163 @@
 {% endif %}
 
 {% block content %}
-	<h1>Invoice</h1>
-	<table id="invoice">
-		<thead>
-			<tr>
-				<td>Item</td>
-				<td>Rate</td>
-				<td>Quantity</td>
-				<td>Amount</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Delegate Conference Fee</td>
-				<td>{{ fees.currency }}{{ fees.delegate }}</td>
-				<td>{{ current_user.user.expected_delegates }}</td>
-				<td>{{ fees.currency }}{{ fees.delegate * current_user.user.expected_delegates }}</td>
-			</tr>
-			{% if single_advisors|length > 0 %}
-			<tr>
-				<td>Faculty Advisor Fee (Single Room)</td>
-				<td>{{ fees.currency }}{{ fees.faculty_single }}</td>
-				<td>{{ single_advisors|length }}</td>
-				<td>{{ fees.currency }}{{ fees.faculty_single * single_advisors|length }}</td>
-			</tr>
-			{% endif %}
-			{% if double_advisors|length > 0 %}
-			<tr>
-				<td>Faculty Advisor Fee (Double Room)</td>
-				<td>{{ fees.currency }}{{ fees.faculty_double }}</td>
-				<td>{{ double_advisors|length }}</td>
-				<td>{{ fees.currency }}{{ fees.faculty_double * double_advisors|length }}</td>
-			</tr>
-			{% endif %}
-			{% if assistant_directors|length > 0 %}
-			<tr>
-				<td>Assistant Director Fee</td>
-				<td>{{ fees.currency }}{{ fees.assistant_director }}</td>
-				<td>{{ assistant_directors|length }}</td>
-				<td>{{ fees.currency }}{{ fees.assistant_director * assistant_directors|length }}</td>
-			</tr>
-			{% endif %}
-		</tbody>
-		<thead>
-			<tr>
-				<td colspan="3">Total</td>
-				<td>{{ fees.currency }}{{ fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length }}</td>
-			</tr>
-		</thead>
-		<tbody>
-			{% set payment_total = 0 %}
-			{% for payment in payments %}
-			<tr>
-				<td colspan="3">{{ payment.date }}</td>
-				<td>({{ fees.currency }}{{ payment.amount }})</td>
-			</tr>
-			{% set payment_total = payment_total + payment.amount %}
-			{% endfor %}
-		</tbody>
-		<thead>
-			<tr>
-				<td colspan="3">Amount Paid</td>
-				<td>({{ fees.currency }}{{ payment_total }})</td>
-			</tr>
-		</thead>
-		<thead>
-			<tr>
-				<td colspan="3">Balance Remaining</td>
-				<td>{{ fees.currency }}{{ fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length - payment_total }}</td>
-			</tr>
-		</thead>
-	</table>
+	<style>
+		@media print {
+			body * {
+				visibility: hidden;
+			}
+			.section-to-print, .section-to-print * {
+				visibility: visible;
+			}
+			.section-to-print {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.section-to-print .expandable {
+				display: block;
+			}
+			.section-to-print .no-print {
+				visibility: hidden;
+				display: none;
+			}
+			.section-to-print h1 span {
+				display: block;
+			}
+		}
+	</style>
 
-	<h2>Payment Instructions</h2>
-	<table>
-		<thead class="expander">
-			<tr>
-				<td>Pay by Check</td>
-			</tr>
-		</thead>
-		<tbody class="expandable">
-			<tr>
-				<td>
-					<p>Delegations must send a single check in the total amount of the delegation. The check should be made payable to "Worldview Education Services Pvt. Ltd- ILMUNC India". Please ensure that you write the name of your school and ILMUNC India on the envelope or the back of the check. Checks must be mailed to:</p>
-					<p>
-						ILMUNC India<br>
-						409/411- Block II, WhiteHouse,<br>
-						Greenlands, Begumpet, Hyderabad - 500016<br>
-						Andhra Pradesh, India<br>
-						Ph- 040-64630095 ,040-64630058
-					</p>
-				</td>
-			</tr>
-		</tbody>
-		<thead class="expander">
-			<tr>
-				<td>Wire Transfer</td>
-			</tr>
-		</thead>
-		<tbody class="expandable">
-			<tr>
-				<td>
-					<p>
-						<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
-						<b>Account Number</b>: 915020021429917<br>
-						<b>IFSC Code</b>: UTIB0000030<br>
-						<b>Bank Name</b>: Axis Bank<br>
-						<b>Branch</b>: Jubilee Hills
-					</p>
-				</td>
-			</tr>
-		</tbody>
-		<thead class="expander">
-			<tr>
-				<td>Demand Draft</td>
-			</tr>
-		</thead>
-		<tbody class="expandable">
-			<tr>
-				<td>
-					<p>
-						<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
-						<b>Account Number</b>: 915020021429917
-					</p>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="section-to-print">
+		<h1>Invoice <a href="javascript:window.print()" title="Print" class="no-print"><i class="fa fa-print" aria-hidden="true"></i></a></h1>
+		<table id="invoice">
+			<thead>
+				<tr>
+					<td>Item</td>
+					<td>Rate</td>
+					<td>Quantity</td>
+					<td>Amount</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Delegate Conference Fee</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.delegate) }}</td>
+					<td>{{ current_user.user.expected_delegates }}</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.delegate * current_user.user.expected_delegates) }}</td>
+				</tr>
+				{% if single_advisors|length > 0 %}
+				<tr>
+					<td>Faculty Advisor Fee (Single Room)</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.faculty_single) }}</td>
+					<td>{{ single_advisors|length }}</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.faculty_single * single_advisors|length) }}</td>
+				</tr>
+				{% endif %}
+				{% if double_advisors|length > 0 %}
+				<tr>
+					<td>Faculty Advisor Fee (Double Room)</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.faculty_double) }}</td>
+					<td>{{ double_advisors|length }}</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.faculty_double * double_advisors|length) }}</td>
+				</tr>
+				{% endif %}
+				{% if assistant_directors|length > 0 %}
+				<tr>
+					<td>Assistant Director Fee</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.assistant_director) }}</td>
+					<td>{{ assistant_directors|length }}</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.assistant_director * assistant_directors|length) }}</td>
+				</tr>
+				{% endif %}
+			</tbody>
+			<thead>
+				<tr>
+					<td colspan="3">Total</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length) }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% set payment_total = [0.0] %}
+				{% for payment in payments %}
+				<tr>
+					<td colspan="3">{{ payment.payment_method }} Payment on {{ payment.payment_date.date().strftime("%B %d, %Y") }}</td>
+					<td>({{ fees.currency }}{{ "%.2f" % payment.payment_amount }})</td>
+				</tr>
+				{% if payment_total.append(payment_total.pop() + payment.payment_amount) %}{% endif %}
+				{% endfor %}
+				{% set amount_paid = payment_total.pop() %}
+			</tbody>
+			<thead>
+				<tr>
+					<td colspan="3">Amount Paid</td>
+					<td>({{ fees.currency }}{{ "%.2f" % amount_paid }})</td>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<td colspan="3">Balance Remaining</td>
+					<td>{{ fees.currency }}{{ "%.2f" % (fees.delegate * current_user.user.expected_delegates + fees.faculty_single * single_advisors|length + fees.faculty_double * double_advisors|length + fees.assistant_director * assistant_directors|length - amount_paid) }}</td>
+				</tr>
+			</thead>
+		</table>
+
+		<h2>Payment Instructions</h2>
+		<table>
+			<thead class="expander">
+				<tr>
+					<td>Pay by Check</td>
+				</tr>
+			</thead>
+			<tbody class="expandable">
+				<tr>
+					<td>
+						<p>Delegations must send a single check in the total amount of the delegation. The check should be made payable to "Worldview Education Services Pvt. Ltd- ILMUNC India". Please ensure that you write the name of your school and ILMUNC India on the envelope or the back of the check. Checks must be mailed to:</p>
+						<p>
+							ILMUNC India<br>
+							409/411- Block II, WhiteHouse,<br>
+							Greenlands, Begumpet, Hyderabad - 500016<br>
+							Andhra Pradesh, India<br>
+							Ph- 040-64630095 ,040-64630058
+						</p>
+					</td>
+				</tr>
+			</tbody>
+			<thead class="expander">
+				<tr>
+					<td>Wire Transfer</td>
+				</tr>
+			</thead>
+			<tbody class="expandable">
+				<tr>
+					<td>
+						<p>
+							<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
+							<b>Account Number</b>: 915020021429917<br>
+							<b>IFSC Code</b>: UTIB0000030<br>
+							<b>Bank Name</b>: Axis Bank<br>
+							<b>Branch</b>: Jubilee Hills
+						</p>
+					</td>
+				</tr>
+			</tbody>
+			<thead class="expander">
+				<tr>
+					<td>Demand Draft</td>
+				</tr>
+			</thead>
+			<tbody class="expandable">
+				<tr>
+					<td>
+						<p>
+							<b>Account Name</b>: Worldview Education Services Pvt Ltd - ILMUNC India<br>
+							<b>Account Number</b>: 915020021429917
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
 {% endblock %}
 
 {% block sidebar %}
