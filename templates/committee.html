@@ -53,7 +53,7 @@
 		{% if not committee.bg_link or committee.bg_link == '' %}
 			<p>Some background guides are not yet available. We will notify delegates when they are posted.</p>
 		{% else %}
-			<a href="{{ committee.bg_link }}"><img src="{{ committee.bg_cover }}" alt="Download" class="bgcover"></a>
+			<a href="{{ committee.bg_link }}" target="_blank"><img src="{{ committee.bg_cover }}" alt="Download" class="bgcover"></a>
 		{% endif %}
 	</div>
 
