@@ -1,0 +1,5 @@
+*.psd
+/design
+/old
+/venv
+/env
