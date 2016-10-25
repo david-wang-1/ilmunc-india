@@ -26,33 +26,15 @@
 	text-align: center;
 }
 
-@media only screen and (max-width : 600px) {
+@media only screen and (max-width : 1015px) {
 	#hero-text {
 		margin-top: 180px;
 	}
-
-	#hero-text span#hero-text-main {
-		font-size: 50px;
-		line-height: 50px;
-	}
-
-	#hero-text span#hero-text-sub {
-		font-size: 12px;
-	}
 }
 
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 400px) {
 	#hero-text {
 		margin-top: 150px;
-	}
-	
-	#hero-text span#hero-text-main {
-		font-size: 35px;
-		line-height: 80px;
-	}
-
-	#hero-text span#hero-text-sub {
-		font-size: 10px;
 	}
 }
 

@@ -122,6 +122,30 @@ span.subtitle {
 	color: rgb(255, 255, 255);
 }
 
+@media only screen and (max-width : 1015px) {
+	span.title {
+		font-size: 170pt;
+		line-height: 105px;
+
+	}
+
+	span.subtitle {
+		font-size: 14pt;
+	}
+}
+
+@media only screen and (max-width : 400px) {
+	span.title {
+		font-size: 130pt;
+		line-height: 80px;
+
+	}
+
+	span.subtitle {
+		font-size: 12pt;
+	}
+}
+
 span.subhead {
 	display: block;
 	color: rgb(170, 172, 177);
@@ -914,7 +938,7 @@ div#footer {
 	bottom: 0;
 }
 
-@media only screen and (min-width: 1016px) {
+@media only screen and (min-width: 1015px) {
 	div.inner {
 		width: calc(100% - (125px + 125px));
 		max-width: 1400px;
