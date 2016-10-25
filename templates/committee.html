@@ -100,5 +100,66 @@
 			<a href="mailto:{{ committee.crisis_director_email }}">{{ committee.crisis_director_email }}</a></p>
 		</div>
 	{% endif %}
+
+	<!-- DYNAMIC BACKGROUND GUIDES -->
+	{% if articles|length >= 1 %}
+		<br><br><div class="hr"></div><br>
+		<h3>Dynamic Background Guide</h3>
+		<div class="row">
+			<div class="col s12">
+				<a href="{{ url_for('committee', name=committee.shortname) }}/bg/{{ articles[0].canonical_url }}">
+					<div class="card c1 clickable" style="background-image: url('{{ articles[0].image }}');">
+						<div class="inner-shadow c1 p2">
+							<span class="card-h3 max-lines">{{ articles[0].title }}</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		{% if articles|length >= 3 %}
+		<div class="row">
+			<div class="col s5">
+				<a href="{{ url_for('committee', name=committee.shortname) }}/bg/{{ articles[1].canonical_url }}">
+					<div class="card c2 clickable" style="background-image: url('{{ articles[1].image }}');">
+						<div class="inner-shadow c2 p2">
+							<span class="card-h3 max-lines">{{ articles[1].title }}</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col s7">
+				<a href="{{ url_for('committee', name=committee.shortname) }}/bg/{{ articles[2].canonical_url }}">
+					<div class="card c3 clickable" style="background-image: url('{{ articles[2].image }}');">
+						<div class="inner-shadow c3 p2">
+							<span class="card-h3 max-lines">{{ articles[2].title }}</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		{% if articles|length >= 5 %}
+		<div class="row">
+			<div class="col s8">
+				<a href="{{ url_for('committee', name=committee.shortname) }}/bg/{{ articles[3].canonical_url }}">
+					<div class="card c1 clickable" style="background-image: url('{{ articles[3].image }}');">
+						<div class="inner-shadow c1 p2">
+							<span class="card-h3 max-lines">{{ articles[3].title }}</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col s4">
+				<a href="{{ url_for('committee', name=committee.shortname) }}/bg/{{ articles[4].canonical_url }}">
+					<div class="card c2 clickable" style="background-image: url('{{ articles[4].image }}');">
+						<div class="inner-shadow c2 p2">
+							<span class="card-h3 max-lines">{{ articles[4].title }}</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+	{% endif %}
 </div>
 {% endblock %}

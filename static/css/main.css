@@ -124,7 +124,7 @@ span.subtitle {
 
 span.subhead {
 	display: block;
-	color: rgb(170, 170, 170);
+	color: rgb(170, 172, 177);
 	font-size: 23px;
 	margin-top: -15px;
 	margin-bottom: 25px;
@@ -512,14 +512,70 @@ div.card > .inner-shadow {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-div.card span.card-h1 {
+div.card > .inner-shadow.c1 {
+	background-color: rgba(62, 196, 184, 0.5);
+}
+
+div.card > .inner-shadow.c2 {
+	background-color: rgba(239, 81, 81, 0.5);
+}
+
+div.card > .inner-shadow.c3 {
+	background-color: rgba(254, 119, 17, 0.5);
+}
+
+div.card > .inner-shadow, div.card > .inner-shadow.p1 {
+	padding: 60px 15px;
+}
+
+div.card > .inner-shadow.p2 {
+	padding: 120px 15px;
+}
+
+div.card > .inner-shadow.p3 {
+	padding: 180px 15px;
+}
+
+div.card span.max-lines {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+div.card span.card-h1, div.card span.card-h2, div.card span.card-h3, div.card span.card-h4, div.card span.card-h5, div.card span.card-h6 {
 	display: block;
 	color: rgb(255, 255, 255);
-	font-size: 50px;
 	font-weight: 700;
 	text-align: center;
 	text-transform: uppercase;
-	padding: 60px 0px;
+}
+
+div.card span.card-h1 > a, div.card span.card-h2 > a, div.card span.card-h3 > a, div.card span.card-h4 > a, div.card span.card-h5 > a, div.card span.card-h6 > a{
+	color: inherit;
+}
+
+div.card span.card-h1, div.card span.card-h1 > a {
+	font-size: 50px;
+}
+
+div.card span.card-h2, div.card span.card-h2 > a {
+	font-size: 38px;
+}
+
+div.card span.card-h3, div.card span.card-h3 > a {
+	font-size: 28px;
+}
+
+div.card span.card-h4, div.card span.card-h4 > a {
+	font-size: 24px;
+}
+
+div.card span.card-h5, div.card span.card-h5 > a {
+	font-size: 22px;
+}
+
+div.card span.card-h6, div.card span.card-h6 > a {
+	font-size: 18px;
 }
 
 

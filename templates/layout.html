@@ -182,6 +182,17 @@
 			function toggleMenu() {
 				$('nav').toggleClass('visible');
 			}
+
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+				"http://www.ilmunc-india.org/static/images/logos/lotus-color.png"
+			)
 		</script>
 				
 		<!-- LANDING -->
@@ -240,7 +251,10 @@
 					<span class="label">About Us</span>
 					<p class="label">The Ivy League Model United Nations Conference India is the region's preeminent Model United Nations conference. We combine an exceptional, challenging, immersive, academic experience with the opportunity to meet India's brightest minds, as well as to receive guidance, mentorship, and support from distinguished students studying at the <a href="https://www.upenn.edu/" target="_blank">University of Pennsylvania</a> and its <a href="https://www.wharton.upenn.edu/" target="_blank">Wharton School of Business</a>. The conference is co-hosted by Penn's International Affairs Association and MUNCafe.</p>
 
-					<p style="text-align:center"><img src="/static/images/logos/ilmunc.png" alt="ILMUNC" height="80px"><img src="/static/images/logos/muncafe.png" alt="MUNCafe" height="80px"></p>
+					<p style="text-align:center">
+						<a href="{{ url_for('ilmunc') }}"><img src="/static/images/logos/ilmunc.png" alt="ILMUNC" height="80px"></a>
+						<a href="{{ url_for('muncafe') }}"><img src="/static/images/logos/muncafe.png" alt="MUNCafe" height="80px"></a>
+					</p>
 			{% endblock %}</div>
 			<script>
 				function getTimeRemaining(endtime) {

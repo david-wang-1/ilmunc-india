@@ -213,6 +213,18 @@ div.chairvideos iframe:first-child:nth-last-child(2) {
 	}
 }
 
+div.bg-article-text {
+	margin-top: 20px;
+}
+
+div.bg-article-source {
+	margin-top: 40px;
+}
+
+div.bg-article-disqus {
+	margin-top: 60px;
+}
+
 
 /* Invoice */
 #invoice tr td:nth-child(2), #invoice tr td:nth-child(4) {
