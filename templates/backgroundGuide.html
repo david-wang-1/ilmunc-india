@@ -5,7 +5,7 @@
 	<h1>Dynamic Background Guide</h1>
 
 	<h3>{{ article.title|safe }}</h3>
-	<h6 style="color: rgb(170, 172, 177);">Originally published {{ article.date.strftime('%m/%d/%Y') }} by <a href="{{ article.source_url|safe }}" target="_blank">{{ article.source|safe }}&nbsp;&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h6>
+	<h6 style="color: rgb(170, 172, 177);">Originally published on {{ article.date.strftime('%m/%d/%Y') }} by <a href="{{ article.source_url|safe }}" target="_blank">{{ article.source|safe }}&nbsp;&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h6>
 	
 	<div class="bg-article-text">{{ article.text|safe }}</div>
 
