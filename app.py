@@ -90,6 +90,18 @@ class Delegations(db.Model):
 		self.first_ilmunc = first_ilmunc
 		self.experience = experience
 
+class BackgroundGuides(db.Model):
+	__tablename__ = 'BACKGROUNDGUIDES'
+	bg_ID = db.Column(db.Integer, primary_key=True)
+	committee_ID = db.Column(db.Integer)
+	canonical_url = db.Column(db.String(100))
+	title = db.Column(db.String(500))
+	date = db.Column(db.DateTime)
+	source = db.Column(db.String(500))
+	source_url = db.Column(db.String(500))
+	image = db.Column(db.String(500))
+	text = db.Column(db.Text)
+
 class Committees(db.Model):
 	__tablename__ = 'COMMITTEES'
 	committee_ID = db.Column(db.Integer, primary_key=True)
@@ -673,7 +685,16 @@ def committees():
 @app.route('/committee/<name>')
 def committee(name):
 	committee = Committees.query.filter_by(shortname=name).first()
-	return render_template('committee.html', error=get_session_error(), success=get_session_success(), committee=committee)
+	if not committee: return render_template('404.html'), 404
+	articles = BackgroundGuides.query.filter_by(committee_ID=committee.committee_ID).all()
+	return render_template('committee.html', error=get_session_error(), success=get_session_success(), committee=committee, articles=articles)
+
+@app.route('/committee/<name>/bg/<url>')
+def backgroundGuide(name, url):
+	committee = Committees.query.filter_by(shortname=name).first()
+	article = BackgroundGuides.query.filter_by(canonical_url=url).first()
+	if not committee or not article: return render_template('404.html'), 404
+	return render_template('backgroundGuide.html', error=get_session_error(), success=get_session_success(), committee=committee, article=article)
 
 # --- RESEARCH #################################################################
 @app.route('/research')
