@@ -289,7 +289,7 @@ def before_request():
 	g.ILMUNC_fees_domestic = {
 		'currency': "INR ",
 		'delegate': 22790,
-		'faculty_single': 22790,
+		'faculty_single': 24150,
 		'faculty_double': 12070,
 		'assistant_director': 12070
 	}
