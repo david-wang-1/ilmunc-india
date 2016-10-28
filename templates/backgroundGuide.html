@@ -16,8 +16,8 @@
 		*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 		
 		var disqus_config = function () {
-			this.page.url = "http://www.ilmunc-india.com/committee/" + {{ committee.shortname|safe }} + "/bg/" + {{ article.canonical_url|safe }};  // Replace PAGE_URL with your page's canonical URL variable
-			this.page.identifier = {{ committee.shortname|safe }} + "-" + {{ article.canonical_url|safe }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			this.page.url = "http://www.ilmunc-india.com/committee/" + "{{ committee.shortname|safe }}" + "/bg/" + "{{ article.canonical_url|safe }}";  // Replace PAGE_URL with your page's canonical URL variable
+			this.page.identifier = "{{ committee.shortname|safe }}" + "-" + "{{ article.canonical_url|safe }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 		};
 		
 		(function() { // DON'T EDIT BELOW THIS LINE
