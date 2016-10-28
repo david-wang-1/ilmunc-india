@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% set active_page = 'procedure' %}
+
+{% block content %}
+	<h1>Guides to Procedure</h1>
+
+	<div class="row">
+		<div class="col s6" style="padding-right:10px;">
+			<a href="/static/docs/procedure/ProcedureGuide.pdf" target="_blank">
+				<img src="/static/docs/procedure/ProcedureGuide.png" alt="Procedure Guide" width="100%">
+			</a>
+		</div>
+		<div class="col s6" style="padding-left:10px;">
+			<a href="/static/docs/procedure/PositionPaperGuide.pdf" target="_blank">
+				<img src="/static/docs/procedure/PositionPaperGuide.png" alt="Position Paper Guide" width="100%">
+			</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s6" style="padding-right:10px;">
+			<a href="/static/docs/procedure/WorkingPaperGuide.pdf" target="_blank">
+				<img src="/static/docs/procedure/WorkingPaperGuide.png" alt="Working Paper Guide" width="100%">
+			</a>
+		</div>
+		<div class="col s6" style="padding-left:10px;">
+			<a href="/static/docs/procedure/ResolutionWritingGuide.pdf" target="_blank">
+				<img src="/static/docs/procedure/ResolutionWritingGuide.png" alt="Resolution Writing Guide" width="100%">
+			</a>
+		</div>
+	</div>
+
+	<h2>Information Regarding Position Papers</h2>
+	<p>Position papers will be due in at the beginning of the first committee session on Thursday, {{ g.ILMUNC_month }} {{ g.ILMUNC_start }}. Please bring a printed copy with you to the conference and committee session, as Committee Directors will only be accepting printed copies.</p>
+	<p>Position papers should be no more than one side of a typed, single-spaced page for each topic. Font size should not be smaller than 10pt.</p>
+
+	
+{% endblock %}
