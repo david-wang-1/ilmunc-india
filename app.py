@@ -713,6 +713,10 @@ def training():
 def procedure():
 	return render_template('procedure.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/dynamicBackgroundGuides')
+def dynamicBackgroundGuides():
+	return render_template('dynamicBackgroundGuides.html', error=get_session_error(), success=get_session_success())
+
 # --- LOGIN #####################################################################
 @app.route('/login', methods=['GET', 'POST'])
 def login():
