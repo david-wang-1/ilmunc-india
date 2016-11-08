@@ -263,31 +263,31 @@ table#schedule tr:nth-child(even) {
 }
 
 table#schedule td.meal {
-	background-color: rgba(254, 119, 17, 0.3);
+	background-color: rgba(254, 119, 17, 0.2);
 	text-align: center;
 }
 
 table#schedule td.committee {
-	background-color: rgba(62, 196, 184, 0.3);
+	background-color: rgba(62, 196, 184, 0.2);
 	text-align: center;
 }
 
 table#schedule td.ceremony {
-	background-color: rgba(155, 89, 182, 0.3);
+	background-color: rgba(155, 89, 182, 0.2);
 	text-align: center;
 }
 
 table#schedule td.curfew {
-	background-color: rgba(149, 165, 166, 0.3);
+	background-color: rgba(149, 165, 166, 0.2);
 	text-align: center;
 }
 
 table#schedule td.task {
-	background-color: rgba(239, 81, 81, 0.3);
+	background-color: rgba(239, 81, 81, 0.2);
 	text-align: center;
 }
 
 table#schedule td.other {
-	background-color: rgba(241, 196, 15, 0.3);
+	background-color: rgba(241, 196, 15, 0.2);
 	text-align: center;
 }
