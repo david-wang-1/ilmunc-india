@@ -108,6 +108,29 @@
 		</tbody>
 	</table>
 	{% endfor %}
+
+	<h2>Positions</h2>
+	<table class="sortable" style="word-wrap:break-word; table-layout:fixed;">
+		<thead>
+			<tr>
+				<td>Position</td>
+				<td>Committee</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if positions|length == 0 %}
+			<tr>
+				<td colspan="2" style="text-align:center;">There are no positions allocated to this delegation.</td>			
+			</tr>
+			{% endif %}
+			{% for position in positions %}
+			<tr>
+				<td>{{ position.position }}</td>
+				<td><a href="{{ url_for('committee', name=committees[position.committee_ID].shortname) }}" title="View committee details">{{ committees[position.committee_ID].title }}</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
 
 {% block sidebar %}

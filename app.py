@@ -189,6 +189,7 @@ class Positions(db.Model):
 	position = db.Column(db.String(100))
 	committee_ID = db.Column(db.Integer)
 	delegation_ID = db.Column(db.Integer)
+	school_name = db.Column(db.String(100))
 	first_name = db.Column(db.String(100))
 	last_name = db.Column(db.String(100))
 	attendance_s1 = db.Column(db.Integer)
@@ -205,10 +206,11 @@ class Positions(db.Model):
 	points_day2 = db.Column(db.Integer)
 	points_day3 = db.Column(db.Integer)
 
-	def __init__(self, position, committee_ID, delegation_ID):
+	def __init__(self, position, committee_ID, delegation_ID, school_name):
 		self.position = position
 		self.committee_ID = committee_ID
 		self.delegation_ID = delegation_ID
+		self.school_name = school_name
 
 class Secretariat(db.Model):
 	__tablename__ = 'SECRETARIAT'
@@ -1053,7 +1055,9 @@ def staffViewDelegation(id):
 	if not check_authentication('Staff'): return redirect(url_for('login'))
 	delegation = Delegations.query.filter_by(delegation_ID=id).first()
 	advisors = Faculty.query.filter_by(delegation_ID=id).all()
-	return render_template('staffViewDelegation.html', error=get_session_error(), success=get_session_success(), delegation=delegation, advisors=advisors)
+	positions = Positions.query.filter_by(delegation_ID=id).all()
+	committees = Committees.query.all()
+	return render_template('staffViewDelegation.html', error=get_session_error(), success=get_session_success(), delegation=delegation, advisors=advisors, positions=positions, committees=committees)
 
 @app.route('/staff/editDelegation/<int:id>', methods=['GET', 'POST'])
 def staffEditDelegation(id):
@@ -1197,7 +1201,7 @@ def staffPositionAllocations():
 			session['error'] = 'This committee does not exist. Please choose an option in the dropdown menu.'
 			return redirect(url_for('staffPositionAllocations'))
 
-		newposition = Positions(position, committee_found.committee_ID, delegation_found.delegation_ID)
+		newposition = Positions(position, committee_found.committee_ID, delegation_found.delegation_ID, delegation)
 		db.session.add(newposition)
 		db.session.commit()
 
@@ -1206,7 +1210,8 @@ def staffPositionAllocations():
 	else:
 		committees = Committees.query.all()
 		delegations = Delegations.query.all()
-		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees, delegations=delegations)
+		positions = Positions.query.all()
+		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees, delegations=delegations, positions=positions)
 
 @app.route('/admin')
 def admin():

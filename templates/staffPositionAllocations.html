@@ -3,6 +3,7 @@
 
 {% block content %}
 	<h1>Position Allocations</h1>
+	<h2>Add New</h2>
 	<p>Please use this form to assign individual positions to a delegation. Simply fill out the position, the committee, and the school/individual name, and then press "Add".</p>
 	<p>After typing a few letters, you'll be prompted with an <b>autocomplete suggestion</b>, which you should then click on. For example, type "Unite" and then click "United States of America" when it is suggested.</p>
 	<p><i>Note: the number in brackets in the "Delegation" field is the delegation's ID. Please ignore it, but make sure your submission has it, otherwise you will get an error.</i></p>
@@ -295,6 +296,31 @@
 			</div>
 		</div>
 	</form>
+
+	<h2>Existing Positions</h2>
+	<table class="sortable" style="word-wrap:break-word; table-layout:fixed;">
+		<thead>
+			<tr>
+				<td>Position</td>
+				<td>Delegation</td>
+				<td>Committee</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if positions|length == 0 %}
+			<tr>
+				<td colspan="3" style="text-align:center;">There are no positions added yet! You can add one using the form above.</td>			
+			</tr>
+			{% endif %}
+			{% for position in positions %}
+			<tr>
+				<td>{{ position.position }}</td>
+				<td><a href="{{ url_for('staffViewDelegation', id=position.delegation_ID) }}" title="View delegation details">{{ position.school_name }}</a></td>
+				<td><a href="{{ url_for('committee', name=committees[position.committee_ID].shortname) }}" title="View committee details">{{ committees[position.committee_ID].title }}</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
 
 {% block sidebar %}
