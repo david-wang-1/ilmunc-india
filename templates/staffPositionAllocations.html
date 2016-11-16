@@ -1,0 +1,302 @@
+{% extends "layout.html" %}
+{% set active_page = 'staffPositionAllocations' %}
+
+{% block content %}
+	<h1>Position Allocations</h1>
+	<p>Please use this form to assign individual positions to a delegation. Simply fill out the position, the committee, and the school/individual name, and then press "Add".</p>
+	<p>After typing a few letters, you'll be prompted with an <b>autocomplete suggestion</b>, which you should then click on. For example, type "Unite" and then click "United States of America" when it is suggested.</p>
+	<p><i>Note: the number in brackets in the "Delegation" field is the delegation's ID. Please ignore it, but make sure your submission has it, otherwise you will get an error.</i></p>
+
+	<script>
+		$( function() {
+			var countries = [
+				"Afghanistan",
+				"Albania",
+				"Algeria",
+				"Andorra",
+				"Angola",
+				"Antigua and Barbuda",
+				"Argentina",
+				"Armenia",
+				"Australia",
+				"Austria",
+				"Azerbaijan",
+				"Bahamas",
+				"Bahrain",
+				"Bangladesh",
+				"Barbados",
+				"Belarus",
+				"Belgium",
+				"Belize",
+				"Benin",
+				"Bhutan",
+				"Bolivia (Plurinational State of)",
+				"Bosnia and Herzegovina",
+				"Botswana",
+				"Brazil",
+				"Brunei Darussalam",
+				"Bulgaria",
+				"Burkina Faso",
+				"Burundi",
+				"Cambodia",
+				"Cameroon",
+				"Canada",
+				"Cape Verde",
+				"Central African Republic",
+				"Chad",
+				"Chile",
+				"China (People's Rep. of)",
+				"Colombia",
+				"Comoros",
+				"Congo (Democratic Republic of the)",
+				"Costa Rica",
+				"Croatia",
+				"Côte d'Ivoire",
+				"Cuba",
+				"Cyprus",
+				"Czech Republic",
+				"D.P.R. Korea",
+				"Denmark",
+				"Djibouti",
+				"Dominica",
+				"Dominican Republic",
+				"Ecuador",
+				"Egypt",
+				"El Salvador",
+				"Equatorial Guinea",
+				"Eritrea",
+				"Estonia",
+				"Ethiopia",
+				"Fiji",
+				"Finland",
+				"France",
+				"FYR Macedonia",
+				"Gabon",
+				"Gambia",
+				"Georgia",
+				"Germany",
+				"Ghana",
+				"Greece",
+				"Grenada",
+				"Guatemala",
+				"Guinea",
+				"Guinea-Bissau",
+				"Guyana",
+				"Haiti",
+				"Holy See",
+				"Honduras",
+				"Hungary",
+				"Iceland",
+				"India",
+				"Indonesia",
+				"Iran (Islamic Republic of)",
+				"Iraq",
+				"Ireland",
+				"Israel",
+				"Italy",
+				"Jamaica",
+				"Japan",
+				"Jordan",
+				"Kazakhstan",
+				"Kenya",
+				"Kiribati",
+				"Kuwait",
+				"Kyrgyzstan",
+				"Lao People's Dem. Rep.",
+				"Latvia",
+				"Lebanon",
+				"Lesotho",
+				"Liberia",
+				"Libya",
+				"Liechtenstein",
+				"Lithuania",
+				"Luxembourg",
+				"Madagascar",
+				"Malawi",
+				"Malaysia",
+				"Maldives",
+				"Mali",
+				"Malta",
+				"Marshall Islands",
+				"Mauritania",
+				"Mauritius",
+				"Mexico",
+				"Micronesia (Fed. States of)",
+				"Monaco",
+				"Mongolia",
+				"Montenegro",
+				"Morocco",
+				"Mozambique",
+				"Myanmar",
+				"Namibia",
+				"Nauru",
+				"Nepal",
+				"Netherlands",
+				"New Zealand",
+				"Nicaragua",
+				"Niger",
+				"Nigeria",
+				"Norway",
+				"Oman",
+				"Pakistan",
+				"Palau",
+				"Palestinian Authority (OBSERVER)",
+				"Panama",
+				"Papua New Guinea",
+				"Paraguay",
+				"Peru",
+				"Philippines",
+				"Poland",
+				"Portugal",
+				"Qatar",
+				"Republic of Korea",
+				"Republic of Moldova",
+				"Romania",
+				"Russian Federation",
+				"Rwanda",
+				"Samoa",
+				"San Marino",
+				"Sao Tome and Principe",
+				"Saudi Arabia",
+				"Senegal",
+				"Serbia",
+				"Seychelles",
+				"Sierra Leone",
+				"Singapore",
+				"Slovakia",
+				"Slovenia",
+				"Solomon Islands",
+				"Somalia",
+				"South Africa",
+				"South Sudan",
+				"Spain",
+				"Sri Lanka",
+				"St. Kitts and Nevis",
+				"St. Lucia",
+				"St. Vincent & Grenadines",
+				"Sudan",
+				"Suriname",
+				"Swaziland",
+				"Sweden",
+				"Switzerland",
+				"Syrian Arab Republic",
+				"Tajikistan",
+				"Thailand",
+				"Timor-L'este",
+				"Togo",
+				"Tonga",
+				"Trinidad and Tobago",
+				"Tunisia",
+				"Turkey",
+				"Turkmenistan",
+				"Tuvalu",
+				"Uganda",
+				"Ukraine",
+				"United Arab Emirates",
+				"United Kingdom of G.B. & N.I.",
+				"United Rep. of Tanzania",
+				"United States of America",
+				"Uruguay",
+				"Uzbekistan",
+				"Vanuatu",
+				"Venezuela (Boliv. Rep. of)",
+				"Viet Nam",
+				"Yemen",
+				"Zambia",
+				"Zimbabwe"
+    		];
+
+    		var crisis = [
+				"Walter Sisulu",
+				"Ahmed Kathrada",
+				"Dennis Goldberg",
+				"Raymond Mhlaba",
+				"Govan Mbeki",
+				"Anthony Suze",
+				"Jacob Zuma",
+				"John Nankudhu",
+				"Andimba Toivo ya Toivo",
+				"Andrew Mlangeni",
+				"Eddie Daniels",
+				"Billy Nair",
+				"Elias Motsoeledi",
+				"Joséphine de Beauharnais",
+				"Eugène Rose de Beauharnais ",
+				"Caroline Bonaparte",
+				"Lucien Bonaparte",
+				"Hugues-Bernard Maret",
+				"Charles Maurice de Talleyrand-Périgord",
+				"Jean-Antoine Chaptal",
+				"Louis-Alexandre Berthier",
+				"Martin-Michel-Charles Gaudin",
+				"François Barbé-Marbois",
+				"Admiral Denis Decrés",
+				"Charles-François Leburn",
+				"Joseph Fouché",
+				"William Pinkney",
+				"Jean-Étienne-Marie Portalis"
+    		];
+
+    		var positions = countries.concat(crisis);
+
+    		var delegations = [
+    			{% for delegation in delegations %}
+	    			{% if delegation.school_name != "Individual" %}
+	    				"{{ delegation.school_name }} [{{ delegation.delegation_ID }}]",
+	    			{% else %}
+	    				"{{ delegation.individual_prefix }} {{ delegation.individual_first_name }} {{ delegation.individual_last_name }} [{{ delegation.delegation_ID }}]",
+	    			{% endif %}
+    			{% endfor %}
+    		];
+
+
+			$( "#position" ).autocomplete({
+				source: positions,
+				minLength: 3,
+			});
+
+			$( "#delegation" ).autocomplete({
+				source: delegations,
+				minLength: 3,
+			});
+		} );
+	</script>
+
+	<form method="post" id="add_position_form">
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Position Name</label>
+				<input name="position" id="position" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Committee</label>
+				<select id="committee_ID" name="committee_ID" required>
+					<option disabled selected value></option>
+					{% for committee in committees %}
+					<option value="{{ committee.committee_ID }}">{{ committee.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Delegation</label>
+				<input name="delegation" id="delegation" required>
+			</div>
+		</div>
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Add">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "staffLinks.html" %}
+{% endblock %}

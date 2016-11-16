@@ -183,6 +183,33 @@ class Payments(db.Model):
 		self.delegation_ID = delegation_ID
 		self.school_name = school_name
 
+class Positions(db.Model):
+	__tablename__ = 'POSITIONS'
+	position_ID = db.Column(db.Integer, primary_key=True)
+	position = db.Column(db.String(100))
+	committee_ID = db.Column(db.Integer)
+	delegation_ID = db.Column(db.Integer)
+	first_name = db.Column(db.String(100))
+	last_name = db.Column(db.String(100))
+	attendance_s1 = db.Column(db.Integer)
+	attendance_s2 = db.Column(db.Integer)
+	attendance_s3 = db.Column(db.Integer)
+	attendance_s4 = db.Column(db.Integer)
+	attendance_s5 = db.Column(db.Integer)
+	attendance_s6 = db.Column(db.Integer)
+	attendance_s7 = db.Column(db.Integer)
+	attendance_s8 = db.Column(db.Integer)
+	attendance_s9 = db.Column(db.Integer)
+	attendance_s10 = db.Column(db.Integer)
+	points_day1 = db.Column(db.Integer)
+	points_day2 = db.Column(db.Integer)
+	points_day3 = db.Column(db.Integer)
+
+	def __init__(self, position, committee_ID, delegation_ID):
+		self.position = position
+		self.committee_ID = committee_ID
+		self.delegation_ID = delegation_ID
+
 class Secretariat(db.Model):
 	__tablename__ = 'SECRETARIAT'
 	secretariat_ID = db.Column(db.Integer, primary_key=True)
@@ -1143,6 +1170,43 @@ def staffPayments():
 
 		payments = Payments.query.order_by(Payments.payment_date.desc()).all()
 		return render_template('staffPayments.html', error=get_session_error(), success=get_session_success(), schools=sorted(names), payments=payments)
+
+@app.route('/staff/positionAllocations', methods=['GET', 'POST'])
+def staffPositionAllocations():
+	if not check_authentication('Staff'): return redirect(url_for('login'))
+
+	if request.method == 'POST':
+		position = request.form.get('position')
+		committee_ID = request.form.get('committee_ID')
+		delegation = request.form.get('delegation')
+
+		try:
+			delegation_ID = delegation[delegation.index("[") + 1:delegation.rindex("]")]
+		except:
+			session['error'] = 'The delegation you typed did not include an ID. Please use the suggestions in the autocomplete in order to complete this form.'
+			return redirect(url_for('staffPositionAllocations'))
+
+		delegation_found = Delegations.query.filter_by(delegation_ID=delegation_ID).first()
+		committee_found = Committees.query.filter_by(committee_ID=committee_ID).first()
+
+		if not delegation_found:
+			session['error'] = 'This delegation does not exist. Please make sure you have typed it exactly as written or used the suggestions in the autocomplete box.'
+			return redirect(url_for('staffPositionAllocations'))
+
+		if not committee_found:
+			session['error'] = 'This committee does not exist. Please choose an option in the dropdown menu.'
+			return redirect(url_for('staffPositionAllocations'))
+
+		newposition = Positions(position, committee_found.committee_ID, delegation_found.delegation_ID)
+		db.session.add(newposition)
+		db.session.commit()
+
+		session['success'] = 'This position allocation has been successfully added. You may add another below.'
+		return redirect(url_for('staffPositionAllocations'))
+	else:
+		committees = Committees.query.all()
+		delegations = Delegations.query.all()
+		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees, delegations=delegations)
 
 @app.route('/admin')
 def admin():

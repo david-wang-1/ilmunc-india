@@ -87,6 +87,29 @@ CREATE TABLE `FACULTY` (
   PRIMARY KEY  (`faculty_ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE `POSITIONS` (
+  `position_ID` int(11) unsigned NOT NULL auto_increment,
+  `position` varchar(100) default NULL,
+  `committee_ID` int(11) default NULL,
+  `delegation_ID` int(11) default NULL,
+  `first_name` varchar(100) default NULL,
+  `last_name` varchar(100) default NULL,
+  `attendance_s1` tinyint(1) default NULL,
+  `attendance_s2` tinyint(1) default NULL,
+  `attendance_s3` tinyint(1) default NULL,
+  `attendance_s4` tinyint(1) default NULL,
+  `attendance_s5` tinyint(1) default NULL,
+  `attendance_s6` tinyint(1) default NULL,
+  `attendance_s7` tinyint(1) default NULL,
+  `attendance_s8` tinyint(1) default NULL,
+  `attendance_s9` tinyint(1) default NULL,
+  `attendance_s10` tinyint(1) default NULL,
+  `points_day1` int(11) default NULL,
+  `points_day2` int(11) default NULL,
+  `points_day3` int(11) default NULL,
+  PRIMARY KEY  (`position_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SECRETARIAT` (
   `secretariat_ID` int(11) NOT NULL auto_increment,
   `position` varchar(40) collate utf8_unicode_ci NOT NULL,
