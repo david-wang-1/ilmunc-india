@@ -1209,9 +1209,12 @@ def staffPositionAllocations():
 		return redirect(url_for('staffPositionAllocations'))
 	else:
 		committees = Committees.query.all()
+		committees_map = {}
+		for committee in committees:
+			committees_map[committee.committee_ID] = committee.title
 		delegations = Delegations.query.all()
 		positions = Positions.query.all()
-		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees, delegations=delegations, positions=positions)
+		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees_map, delegations=delegations, positions=positions)
 
 @app.route('/admin')
 def admin():
