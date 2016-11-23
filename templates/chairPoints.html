@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% set active_page = 'chairPoints' %}
+
+{% block content %}
+	<h1>Committee Points</h1>
+	<span class="subhead">Points for Day {{ day }}</span>
+
+	<p>Please allocate a total of 10 points (or less) among your top delegates. You may only use integer values (e.g. 1.5 points will not be allowed). Please take into consideration the size of your committee while doing this.</p>
+
+	<form action="{{ url_for('chairPoints', id=day) }}" method="POST">
+		{% for n in range(points_count) %}
+		<div class="row">
+			<div class="col s6">
+				<label>Position</label>
+				<select id='position{{ n }}' name='position{{ n }}'>
+					<option disabled selected value></option>
+					{% for position in positions %}
+					<option value="{{ position.position_ID }}">{{ position.position }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col s6">
+				<label>Points</label>
+				<input type="number" min="0" step="1" name="points{{ n }}" id="points{{ n }}">
+			</div>
+		</div>
+		{% endfor %}
+
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Submit">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "chairLinks.html" %}
+{% endblock %}

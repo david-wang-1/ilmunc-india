@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% set active_page = 'addChair' %}
+
+{% block content %}
+	<h1>Add Chair</h1>
+	<p>Anyone added as a Chair to the website will be able to take attendance , submit points, and give awards for their committee. The username and password must be at least six characters long.</p>
+
+	<form method="post" id="add_chair_form">
+		<div class="row">
+			<div class="col s6">
+				<label class="required">First Name</label>
+				<input type="text" name="first_name" id="first_name" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Last Name</label>
+				<input type="text" name="last_name" id="last_name" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">E-mail address</label>
+				<input type="text" name="email" id="email" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Username</label>
+				<input type="text" pattern=".{6,}" name="username" id="username" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Password</label>
+				<input type="password" pattern=".{6,}" name="password" id="password" required>
+			</div>
+			<div class="col s6">
+				<label class="required">Confirm password</label>
+				<input type="password" pattern=".{6,}" name="password_confirm" id="password_confirm" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<label class="required">Committee</label>
+				<select id="committee_ID" name="committee_ID" required>
+					<option disabled selected value></option>
+					{% for committee in committees %}
+					<option value="{{ committee.committee_ID }}">{{ committee.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Add">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "adminLinks.html" %}
+{% endblock %}

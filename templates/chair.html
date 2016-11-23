@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% set active_page = 'chair' %}
+
+{% block content %}
+	<h1>Chair Dashboard</h1>
+	<p>Hey, {{ current_user.user.first_name }}! Welcome to ILMUNC India {{ g.ILMUNC_year }}!</p>
+	<p>You can use this chair dashboard to take committee attendance, track speakers, submit points each day, and enter your awards at the end of conference. If you have any questions during committee, just ask someone on the Secretariat!</p>
+
+	<h2>Committee Info</h2>
+	<p>
+		<b>Committee: </b><a href="{{ url_for('committee', name=committee.shortname) }}" target="_blank">{{ committee.title }}</a><br>
+		<b>Background Guide: </b>
+		{% if not committee.bg_link or committee.bg_link == '' %}
+			Some background guides are not yet available. We will notify delegates when they are posted.
+		{% else %}
+			<a href="{{ committee.bg_link }}" target="_blank">Download</a> (Password: BenFranklin2016)
+		{% endif %}
+		<br>
+		<b>Chair: </b>{{ committee.chair|safe}}<br>
+		{% if committee.crisis_director %}
+			<b>Crisis Director: {{ committee.crisis_director|safe}}</b>
+		{% endif %}
+	</p>
+
+	<!-- SESSION SELECTOR -->
+	<h2>Attendance and Speaker Tracker</h2>
+	<p>Begin by selecting a committee session below.</p>
+
+	<form action="{{ url_for('chair') }}" method="POST">
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Committee session</label>
+				<select id='committee_session' name='committee_session'>
+					<option disabled selected value></option>
+					{% for i in range(g.ILMUNC_sessions|length) %}
+					<option value="{{ i+1 }}">{{ g.ILMUNC_sessions[i] }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col s6">
+				<input type="submit" value="Start">
+			</div>
+		</div>
+	</form>
+
+	<!-- POINTS SELECTOR -->
+	<h2>Submit Points</h2>
+	<p>Assign points to delegations for one of the days below.</p>
+
+	<form action="{{ url_for('chair') }}" method="POST">
+		<div class="row">
+			<div class="col s6">
+				<label class="required">Day</label>
+				<select id='day' name='day'>
+					<option disabled selected value></option>
+					<option value="1">Day 1 (Thursday)</option>
+					<option value="2">Day 2 (Friday)</option>
+					<option value="3">Day 3 (Saturday)</option>
+				</select>
+			</div>
+			<div class="col s6">
+				<input type="submit" value="Start">
+			</div>
+		</div>
+	</form>
+	
+{% endblock %}
+
+{% block sidebar %}
+	{% include "chairLinks.html" %}
+{% endblock %}

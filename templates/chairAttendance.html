@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% set active_page = 'chairAttendance' %}
+
+{% block content %}
+	<h1>Committee Attendance</h1>
+	<span class="subhead">Attendance for {{ g.ILMUNC_sessions[committee_session-1]|safe }}</span>
+
+	<form action="{{ url_for('chairAttendance', id=committee_session) }}" method="POST">
+		<table>
+			<thead>
+				<td style="text-align: center; width: 50px;">&nbsp;&#10003;&nbsp;</td>
+				<td>Position</td>	
+			</thead>
+			<tbody>
+			{% for position in positions %}
+				<tr>
+					{% if (committee_session == 1 and position.attendance_s1 == 1) or (committee_session == 2 and position.attendance_s2 == 1) or (committee_session == 3 and position.attendance_s3 == 1) or (committee_session == 4 and position.attendance_s4 == 1) or (committee_session == 5 and position.attendance_s5 == 1) or (committee_session == 6 and position.attendance_s6 == 1) or (committee_session == 7 and position.attendance_s7 == 1) or (committee_session == 8 and position.attendance_s8 == 1) or (committee_session == 9 and position.attendance_s9 == 1) or (committee_session == 10 and position.attendance_s10 == 1) %}
+					<td><input type="checkbox" name="attending" value="{{ position.position_ID }}" checked></td>
+					{% else %}
+					<td><input type="checkbox" name="attending" value="{{ position.position_ID }}"></td>
+					{% endif %}
+					<td>{{ position.position }}</td>
+				</tr>
+			{% endfor %}
+				<tr>
+					<td colspan="2"><i>Please ask if any delegation's name was not called. If this is the case, and it does not show up in the list above, please notify the Secretariat to have it added.</i></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="row button-row">
+			<div class="col s6">
+				<input type="submit" value="Save">
+			</div>
+			<div class="col s6">
+				<input type="reset" onclick="$('div.error').hide();" value="Reset">
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "chairLinks.html" %}
+{% endblock %}
