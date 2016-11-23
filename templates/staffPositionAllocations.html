@@ -316,8 +316,7 @@
 			<tr>
 				<td>{{ position.position }}</td>
 				<td><a href="{{ url_for('staffViewDelegation', id=position.delegation_ID) }}" title="View delegation details">{{ position.school_name }}</a></td>
-				<!-- <td><a href="{{ url_for('committee', name=committees[position.committee_ID].shortname) }}" title="View committee details">{{ committees[position.committee_ID].title }}</a></td> -->
-				<td>{{ committees[position.committee_ID] }}</td>
+				<td><a href="{{ url_for('committee', name=committees[position.committee_ID - 1].shortname) }}" target="_blank" title="View committee details">{{ committees[position.committee_ID - 1].title }}</a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
