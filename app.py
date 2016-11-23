@@ -1054,10 +1054,10 @@ def chair():
 	if not check_authentication('Chair'): return redirect(url_for('login'))
 	committee = Committees.query.get(current_user.user.committee_ID)
 	if request.method == 'POST': # Commitee session selector
-		if request.form['committee_session'] != '':
+		if 'committee_session' in request.form and request.form['committee_session'] != '':
 			committee_session = int(request.form['committee_session'])
 			return redirect(url_for('chairAttendance', id=committee_session))
-		elif request.form['day'] != '':
+		elif 'day' in request.form and request.form['day'] != '':
 			day = int(request.form['day'])
 			return redirect(url_for('chairPoints', id=day))
 		else:
@@ -1072,7 +1072,9 @@ def chairAttendance(id):
 		committee = Committees.query.get(current_user.user.committee_ID)
 		if request.method == 'POST':
 			position_IDs = request.form.getlist("attending")
+			print position_IDs
 			for position in position_IDs:
+				print position
 				delegate = Positions.query.get(int(position))
 				delegate_attendance = getattr(delegate, 'attendance_s' +  str(id))
 				delegate_attendance = 1
@@ -1358,13 +1360,10 @@ def staffPositionAllocations():
 		session['success'] = 'This position allocation has been successfully added. You may add another below.'
 		return redirect(url_for('staffPositionAllocations'))
 	else:
-		committees = Committees.query.all()
-		committees_map = {}
-		for committee in committees:
-			committees_map[committee.committee_ID] = committee.title
+		committees = Committees.query.order_by(Committees.committee_ID.asc()).all()
 		delegations = Delegations.query.all()
 		positions = Positions.query.all()
-		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees_map, delegations=delegations, positions=positions)
+		return render_template('staffPositionAllocations.html', error=get_session_error(), success=get_session_success(), committees=committees, delegations=delegations, positions=positions)
 
 @app.route('/admin')
 def admin():
