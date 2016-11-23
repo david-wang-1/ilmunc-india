@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% set active_page = 'chairTracker' %}
+
+{% block content %}
+	<h1>Speaker Tracker</h1>
+	<span class="subhead">Statistics for {{ g.ILMUNC_sessions[committee_session-1]|safe }}</span>
+
+	<!-- DELEGATION COUNTS -->
+	<h2>Delegation Counts</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Statistic</td>
+				<td># (Required)</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Delegations Present</td>
+				<td>{{ present_count|int }}</td>
+			</tr>
+			<tr>
+				<td>1/2 Majority</td>
+				<td>{{ present_count * (1/2)|round(0, 'ceil')|int }}</td>
+			</tr>
+			<tr>
+				<td>2/3 Majority</td>
+				<td>{{ present_count * (2/3)|round(0, 'ceil')|int }}</td>
+			</tr>
+			<tr>
+				<td>Signatories Required</td>
+				<td>{{ present_count * (1/4)|round(0, 'ceil')|int }}</td>
+			</tr>
+			<tr>
+				<td>Abstentions (enter #)</td>
+				<td><input type="text" name="abstentions" id="abstentions" placeholder="Enter #"></td>
+			</tr>
+			<tr>
+				<td>Resolution Votes</td>
+				<td id="resolution_votes"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script>
+		$('#abstentions').onChange(function() {
+			var present_count = {{ present_count }};
+			var abstentions_count = $(this).val();
+			var votes_required = Math.ciel((present_count - abstentions_count) * (1/2));
+			$('#resolution_votes').text(votes_required);
+		});
+	</script>
+
+
+	<!-- COMMITTEE NOTES -->
+	<h2>Committee Notes</h2>
+	<p>Use the space below to take notes on your committee. These notes will save between committee sessions and you can refer to them later on.</p>
+{% endblock %}
+
+{% block sidebar %}
+	{% include "chairLinks.html" %}
+{% endblock %}
