@@ -235,7 +235,7 @@
 
 			<!-- SIDEBAR -->
 			<div id="sidebar">{% block sidebar %}
-				<div id="clockdiv">
+				<div id="clockdiv" style="display:none;">
 					<div>
 						<span class="days"></span>
 						<div class="smalltext">Days</div>
@@ -311,7 +311,6 @@
 				}
 
 				var deadline = 'November 24 2016 10:30:00 UTC+0000';
-				initializeClock('clockdiv', deadline);
 			</script>
 		</div>
 
