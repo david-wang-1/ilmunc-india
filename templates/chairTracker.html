@@ -189,6 +189,22 @@
 			}, 30000);
 		});
 	</script>
+
+
+	{% if committee_session != 10 and committee_session != 11 %}
+		{% if committee_session == 1 %}
+			{% set day = 1 %}
+		{% elif committee_session == 2 or committee_session == 3 or committee_session == 4 or committee_session == 5 %}
+			{% set day = 2 %}
+		{% elif committee_session == 6 or committee_session == 7 or committee_session == 8 or committee_session == 9 %}
+			{% set day = 3 %}
+		{% endif %}
+		<!-- POINTS SUBMISSION -->
+		<br>
+		<h2>Points Submission</h2>
+		<p>When all of today's committee sessions are over, please submit points <a href="{{ url_for('chairPoints', id=day) }}" target="_blank">here</a>.</p>
+	{% endif %}
+	
 {% endblock %}
 
 {% block sidebar %}
