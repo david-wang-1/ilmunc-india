@@ -97,9 +97,9 @@
 			updateColors();
 
 			// Remove the right-click menu
-			// $('.position_row').on("contextmenu", function() {
-			// 	return false;
-			// }); 
+			$('.position_row').on("contextmenu", function() {
+				return false;
+			}); 
 
 			// Function to make the AJAX request with all the data
 			function makeAJAX() {
@@ -153,17 +153,14 @@
 					if (speaking_count == max) {
 						$(row).css('background-color', red_dark);
 					}
-					else if ((speaking_count >= max / 2) && (speaking_count != max)) {
+					if ((speaking_count >= max / 2) && (speaking_count != max)) {
 						$(row).css('background-color', red_light);	
 					}
-					else if ((speaking_count <= max / 2) && (speaking_count != min)) {
+					if ((speaking_count <= max / 2) && (speaking_count != min)) {
 						$(row).css('background-color', green_light);	
 					}
-					else if (speaking_count == min) {
+					if (speaking_count == min) {
 						$(row).css('background-color', green_dark);	
-					}
-					else {
-
 					}
 				});
 			}
@@ -187,6 +184,7 @@
 					if (new_val < 0) { new_val = 0; }
 					$(speaking_count).html(new_val);
 				}
+				updateColors();
 			});
 
 			// Set an interval for the ajax request
@@ -204,7 +202,7 @@
 	<div class="row">
 		<div class="col s12">
 			<label>Notes</label>
-			<textarea name="notes" id="notes" placeholder="Feel free to use this space to take notes on your committee..." rows="15">{% if committee.notes != None %}{{ committee.notes }}{% endif %}</textarea>
+			<textarea name="notes" id="notes" placeholder="Feel free to use this space to take notes on your committee. All changes will save automatically every 60 seconds..." rows="15">{% if committee.notes != None %}{{ committee.notes }}{% endif %}</textarea>
 		</div>
 	</div>
 	<script>$('#sidebar').css('position', 'fixed');</script>

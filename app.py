@@ -352,7 +352,6 @@ def before_request():
 
 	# Global updates and deadlines arrays for sidebar
 	g.strtime = datetime.now()
-	print datetime.now()
 	dbdeadlines = SiteUpdate.query.filter_by(uptype='deadline').filter(SiteUpdate.date>=datetime.now()).order_by(SiteUpdate.date.asc()).limit(2).all()
 	g.deadlines = []
 	for d in dbdeadlines:
@@ -1480,8 +1479,6 @@ def adminAddChair():
 		newuser = User(email, username, password, 'Chair')
 		db.session.add(newuser)
 		db.session.flush()
-		print newuser.user_ID
-		print newuser.email
 		newchair = Chairs(newuser.user_ID, committee_ID, first_name, last_name)
 		db.session.add(newchair)
 		db.session.flush()
@@ -1515,6 +1512,7 @@ def adminResetChairSubmissions():
 		committee.closing_remarks = ""
 		committee.notes = ""
 
+	db.session.commit()
 	session['success'] = 'All the chair submission details (points, awards, attendance, etc.) have been reset.'
 	return redirect(url_for('account'))
 
