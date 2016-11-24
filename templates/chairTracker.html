@@ -7,6 +7,7 @@
 
 	<!-- DELEGATION COUNTS -->
 	<h2>Delegation Counts</h2>
+	<p>If a delegation enters committee late, please revise attendance <a href="{{ url_for('chairAttendance', id=committee_session) }}">here</a>.</p>
 	<table>
 		<thead>
 			<tr>
@@ -21,42 +22,190 @@
 			</tr>
 			<tr>
 				<td>1/2 Majority</td>
-				<td>{{ present_count * (1/2)|round(0, 'ceil')|int }}</td>
+				<td>{{ ((present_count * (1/2))|round(0, 'ceil'))|int }}</td>
 			</tr>
 			<tr>
 				<td>2/3 Majority</td>
-				<td>{{ present_count * (2/3)|round(0, 'ceil')|int }}</td>
+				<td>{{ ((present_count * (2/3))|round(0, 'ceil'))|int }}</td>
 			</tr>
-			<tr>
+			<tr style="border-bottom:1px solid rgb(112, 112, 112);">
 				<td>Signatories Required</td>
-				<td>{{ present_count * (1/4)|round(0, 'ceil')|int }}</td>
+				<td>{{ ((present_count * (1/4))|round(0, 'ceil'))|int }}</td>
 			</tr>
 			<tr>
-				<td>Abstentions (enter #)</td>
-				<td><input type="text" name="abstentions" id="abstentions" placeholder="Enter #"></td>
+				<td>Abstentions</td>
+				<td><input type="text" name="abstentions" id="abstentions" placeholder="Enter # to update Resolution Votes" style="border:none; border-radius:0px; padding:0px; margin:0px; font-size:18px; "></td>
 			</tr>
 			<tr>
 				<td>Resolution Votes</td>
-				<td id="resolution_votes"></td>
+				<td id="resolution_votes">{{ ((present_count * (1/2))|round(0, 'ceil'))|int }}</td>
 			</tr>
 		</tbody>
 	</table>
 
 	<script>
-		$('#abstentions').onChange(function() {
+		$('#abstentions').change(function() {
 			var present_count = {{ present_count }};
 			var abstentions_count = $(this).val();
-			var votes_required = Math.ciel((present_count - abstentions_count) * (1/2));
+			var votes_required = Math.ceil((present_count - abstentions_count) * (1/2));
+			if (votes_required < 0) { votes_required = 0; }
 			$('#resolution_votes').text(votes_required);
 		});
 	</script>
 
 
-	<!-- COMMITTEE NOTES -->
-	<h2>Committee Notes</h2>
-	<p>Use the space below to take notes on your committee. These notes will save between committee sessions and you can refer to them later on.</p>
+	<!-- SPEAKER COUNTS -->
+	<h2>Speaker Counts</h2>
+	<p>Use the following to help keep track of speaking counts and maintain fairness. Left click on a delegation to increase it's count, right click on a delegation to decrease it's count. Click the column headers to sort.</p>
+	<div style="column-count:{{ num_columns }}; -moz-column-count:{{ num_columns }}; -webkit-column-count:{{ num_columns }};">
+	<table class="sortable nocolor" style="font-size:15px !important;">
+		<thead>
+			<tr class="click">
+				<td>Position</td>
+				<td style="text-align:right;">#</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for position in positions %}
+				{% if (committee_session == 1 and position.attendance_s1 == 1) or (committee_session == 2 and position.attendance_s2 == 1) or (committee_session == 3 and position.attendance_s3 == 1) or (committee_session == 4 and position.attendance_s4 == 1) or (committee_session == 5 and position.attendance_s5 == 1) or (committee_session == 6 and position.attendance_s6 == 1) or (committee_session == 7 and position.attendance_s7 == 1) or (committee_session == 8 and position.attendance_s8 == 1) or (committee_session == 9 and position.attendance_s9 == 1) or (committee_session == 10 and position.attendance_s10 == 1) %}
+				<tr class="clickable position_row" style="border-bottom:1px solid rgb(230, 230, 230);background" id="{{ position.position_ID }}">
+					<td class="position">{{ position.position }}</td>
+					<td style="text-align:right;" class="count">{{ position.speaking_count }}</td>
+					<td class="position_ID" style="display: none;">{{ position.position_ID }}</td>
+				</tr>
+				{% else %}
+				<tr class="clickable position_row" style="border-bottom:1px solid rgb(230, 230, 230);" id="{{ position.position_ID }}">
+					<td class="position" style="background-color:rgba(255, 255, 255, 1.0) !important;">{{ position.position }} (Not Present)</td>
+					<td style="text-align:right; background-color:rgba(255, 255, 255, 1.0) !important;" class="count">{{ position.speaking_count }}</td>
+					<td class="position_ID" style="display:none;">{{ position.position_ID }}</td>
+				</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+
+	<script>
+		$( document ).ready(function() {
+			max = 0;
+			min = 50000;
+			red_dark = 'rgba(239, 81, 81, 0.5) !important;';
+			red_light = 'rgba(239, 81, 81, 0.2) !important;';
+			green_light = 'rgba(62, 196, 184, 0.2) !important;';
+			green_dark = 'rgba(62, 196, 184, 0.5) !important;';
+			all_rows = $('.position_row');
+			updateColors();
+
+			// Remove the right-click menu
+			// $('.position_row').on("contextmenu", function() {
+			// 	return false;
+			// }); 
+
+			// Function to make the AJAX request with all the data
+			function makeAJAX() {
+				console.log('In the interval');
+
+				var data = {
+					"notes": $('#notes').val(),
+				}
+
+				$(all_rows).each(function() {
+					var row = $(this);
+					var position = $(this).children()[0];
+					var speaking_count = $(this).children()[1];
+					var position_ID = $(this).children()[2];
+					data[$(position_ID).html()] = $(speaking_count).html();
+				});
+
+				$.ajax({
+					type: "POST",
+					url: "{{ url_for('chairTracker', id=committee_session) }}",
+					data: JSON.stringify(data, null, '\t'),
+					contentType: "application/json; charset=utf-8",
+					success: function(result) {
+						updateColors();
+					}
+				});
+			}
+
+			// Function to find the appropriate background colors
+			function updateColors() {
+				// Find the current max and min speaker value
+				$(all_rows).each(function() {
+					var row = $(this);
+					var speaking_count_object = $(this).children()[1];
+					var speaking_count = parseInt($(speaking_count_object).html());
+					if (speaking_count > max) { 
+						max = speaking_count;
+					}
+					if (speaking_count < min) {
+						min = parseInt(speaking_count);
+					}
+				});
+
+				// Set the colors
+				$(all_rows).each(function() {
+					console.log('Trying to set colors');
+					var row = $(this);
+					var speaking_count_object = $(this).children()[1];
+					var speaking_count = parseInt($(speaking_count_object).html());
+					console.log(min/2);
+					if (speaking_count == max) {
+						$(row).css('background-color', red_dark);
+					}
+					else if ((speaking_count >= max / 2) && (speaking_count != max)) {
+						$(row).css('background-color', red_light);	
+					}
+					else if ((speaking_count <= max / 2) && (speaking_count != min)) {
+						$(row).css('background-color', green_light);	
+					}
+					else if (speaking_count == min) {
+						$(row).css('background-color', green_dark);	
+					}
+					else {
+
+					}
+				});
+			}
+
+			// Bind the mouse click for each of the rows
+			$('.position_row').mouseup(function(event) {
+				var row = $(this);
+				var position = $(this).children()[0];
+				var speaking_count = $(this).children()[1];
+				var position_ID = $(this).children()[2];
+				// Left mouse button pressed
+				if (event.which == 1) {
+					old_val = parseInt($(speaking_count).html());
+					new_val = old_val + 1;
+					$(speaking_count).html(new_val);
+				}
+				// Right mouse button pressed
+				else if (event.which == 3) {
+					old_val = parseInt($(speaking_count).html());
+					new_val = old_val - 1;
+					if (new_val < 0) { new_val = 0; }
+					$(speaking_count).html(new_val);
+				}
+			});
+
+			// Set an interval for the ajax request
+			setInterval(function() {
+				makeAJAX();
+			}, 60000);
+		});
+	</script>
 {% endblock %}
 
 {% block sidebar %}
-	{% include "chairLinks.html" %}
+	<!-- COMMITTEE NOTES -->
+	<h2>Committee Notes</h2>
+	<p>Use the space below to take notes on your committee. These notes will save between committee sessions and you can refer to them later on.</p>
+	<div class="row">
+		<div class="col s12">
+			<label>Notes</label>
+			<textarea name="notes" id="notes" placeholder="Feel free to use this space to take notes on your committee..." rows="15">{% if committee.notes != None %}{{ committee.notes }}{% endif %}</textarea>
+		</div>
+	</div>
+	<script>$('#sidebar').css('position', 'fixed');</script>
 {% endblock %}

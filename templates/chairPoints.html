@@ -5,7 +5,8 @@
 	<h1>Committee Points</h1>
 	<span class="subhead">Points for Day {{ day }}</span>
 
-	<p>Please allocate a total of 10 points (or less) among your top delegates. You may only use integer values (e.g. 1.5 points will not be allowed). Please take into consideration the size of your committee while doing this.</p>
+	<p>Please allocate a <b>total of 10 points (or less)</b> among your top delegates. You may only use integer values (e.g. 1.5 points will not be allowed). Please take into consideration the size of your committee while doing this.</p>
+	<p><i>Note: you do not need to fill in all 10 spaces (e.g. you could give 4 points and then 2 points, leaving the rest blank).</i></p>
 
 	<form action="{{ url_for('chairPoints', id=day) }}" method="POST">
 		{% for n in range(points_count) %}

@@ -4,6 +4,8 @@
 {% block content %}
 	<h1>Committee Attendance</h1>
 	<span class="subhead">Attendance for {{ g.ILMUNC_sessions[committee_session-1]|safe }}</span>
+	<p>To take attendance, check the box next the delegation's name if they are Present or Present and Voting. When you are finished, press the "Save" button to continue to Speaker Tracker.</p>
+	<p><i>Pro Tip: you can use Tab then Space bar to quickly select a checkbox after you've selected the first one.</i></p>
 
 	<form action="{{ url_for('chairAttendance', id=committee_session) }}" method="POST">
 		<table>

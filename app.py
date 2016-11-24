@@ -158,6 +158,7 @@ class Committees(db.Model):
 	awards = db.Column(TINYINT)
 	location = db.Column(db.String(100))
 	closing_remarks = db.Column(db.Text)
+	notes = db.Column(db.Text)
 
 class Faculty(db.Model):
 	__tablename__ = 'FACULTY'
@@ -222,6 +223,7 @@ class Positions(db.Model):
 	points_d1 = db.Column(db.Integer)
 	points_d2 = db.Column(db.Integer)
 	points_d3 = db.Column(db.Integer)
+	speaking_count = db.Column(db.Integer)
 
 	def __init__(self, position, committee_ID, delegation_ID, school_name):
 		self.position = position
@@ -575,6 +577,7 @@ def registerSchool():
 		faculty = Faculty(faculty_prefix, faculty_first_name, faculty_last_name, faculty_room_preference, faculty_phone_number, faculty_email, delegation.delegation_ID, school_name)
 		db.session.add(faculty)
 		db.session.flush()
+		db.session.commit()
 
 		# Send confirmation e-mail
 		msg = Message("Your ILMUNC India Account Information", sender=g.ILMUNC_email, recipients=[email])
@@ -667,6 +670,7 @@ def registerIndividual():
 		delegation = Delegations("Individual", address1, address2, city, state, zipcode, country, prefix, first_name, last_name, username, email, phone_number, 1, first_ilmunc, experience)
 		db.session.add(delegation)
 		db.session.flush()
+		db.session.commit()
 
 		# Send confirmation e-mail
 		msg = Message("Your ILMUNC India Account Information", sender=g.ILMUNC_email, recipients=[email])
@@ -1072,17 +1076,12 @@ def chairAttendance(id):
 		committee = Committees.query.get(current_user.user.committee_ID)
 		if request.method == 'POST':
 			position_IDs = request.form.getlist("attending")
-			print position_IDs
-			for position in position_IDs:
-				print position
-				delegate = Positions.query.get(int(position))
-				delegate_attendance = getattr(delegate, 'attendance_s' +  str(id))
-				delegate_attendance = 1
-			committee_attendance = getattr(committee, 'attendance_s' +  str(id))
-			committee_attendance = 1
+			for position_ID in position_IDs:
+				delegate = Positions.query.get(int(position_ID))
+				setattr(delegate, 'attendance_s' +  str(id), 1)
+			setattr(committee, 'attendance_s' +  str(id), 1)
 
 			db.session.commit()
-			session['success'] = "You have succesfully taken attendance for this committee session. You can revise it at any time during committee."
 			return redirect(url_for('chairTracker', id=id))		
 		else:
 			positions = Positions.query.filter_by(committee_ID=committee.committee_ID).order_by(Positions.position)
@@ -1096,16 +1095,26 @@ def chairTracker(id):
 	if not check_authentication('Chair'): return redirect(url_for('login'))
 	if id:
 		committee = Committees.query.get(current_user.user.committee_ID)
+		positions = Positions.query.filter_by(committee_ID=committee.committee_ID).order_by(Positions.position)
 		if request.method == 'POST':
-			return redirect(url_for('chair'))
+			notes = str(request.json['notes'])
+			for position in positions:
+				position_ID = position.position_ID
+				speaking_count = int(request.json[str(position_ID)])
+				position.speaking_count = speaking_count
+			committee.notes = notes
+			db.session.commit()
+			return str(request.json)
 		else:
-			positions = Positions.query.filter_by(committee_ID=committee.committee_ID).order_by(Positions.position)
 			present_count = 0.0
+			num_columns = 1
+			if positions.count() > 20: num_columns = 2
+			if positions.count() > 40: num_columns = 3
 			for position in positions:
 				position_attendance = getattr(position, 'attendance_s' + str(id))
 				if position_attendance == 1:
 					present_count += 1.0
-			return render_template('chairTracker.html', error=get_session_error(), success=get_session_success(), committee=committee, positions=positions, committee_session=id, present_count=present_count)
+			return render_template('chairTracker.html', error=get_session_error(), success=get_session_success(), committee=committee, positions=positions, committee_session=id, present_count=present_count, num_columns=num_columns)
 	else:
 		session['error'] = 'Please select a committee session below and then try again.'
 		return redirect(url_for('chair'))
@@ -1117,16 +1126,22 @@ def chairPoints(id):
 		committee = Committees.query.get(current_user.user.committee_ID)
 		points_count = 10
 		points_sum = 0
+
+		# Check if awards have already been submitted for this committee
+		if getattr(committee, 'points_d' + str(id)) == 1:
+			session['error'] = 'You have already submitted points for this day. Please contact the Secretariat if you would like to change them.'
+			return redirect(url_for('chair'))
+
 		if request.method == 'POST':
 			# Get the points for each of the positions provided
 			for n in range(points_count):
 				position_ID = request.form.get('position' + str(n))
 				points = request.form.get('points' + str(n))
-				if position_ID != "" or points != "":
+				if position_ID != None and points != None:
 					position = Positions.query.get(int(position_ID))
-					position['points_d' + str(id)] = int(points)
+					setattr(position, 'points_d' +  str(id), int(points))
 					points_sum += int(points)
-			committee['points_d' + str(id)] = 1
+			setattr(committee, 'points_d' +  str(id), 1)
 
 			# Check that < 10 points were allocated
 			if points_sum > 10:
@@ -1152,6 +1167,12 @@ def chairAwards():
 	award_form_name = ['best', 'outstanding', 'honarable', 'verbal']
 	award_count = {'GA': [1, 2, 3, 4], 'ECOSOC': [1, 2, 2, 3], 'Crisis': [1, 1, 1, 2]}
 	committee_awards = award_count[committee.organ]
+
+	# Check if awards have already been submitted for this committee
+	if committee.awards == 1:
+		session['error'] = 'You have already submitted your awards for your committee. Please contact the Secretariat if you would like to change them.'
+		return redirect(url_for('chair'))
+
 	if request.method == 'POST':
 		closing_remarks = request.form.get('closing_remarks')
 
@@ -1168,11 +1189,6 @@ def chairAwards():
 		session['success'] = 'You have successfully submitted your awards for your committee. Thanks!'
 		return redirect(url_for('chair'))
 	else:
-		# Check if awards have already been submitted for this committee
-		if committee.awards == 1:
-			session['error'] = 'You have already submitted your awards for your committee. Please contact the Secretariat if you would like to change them.'
-			return redirect(url_for('chair'))
-
 		# Sum up all the points for each position that has them
 		positions_points = {}
 		for position in positions:
@@ -1371,7 +1387,7 @@ def admin():
 	return render_template('admin.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/admin/addAdmin', methods=['GET', 'POST'])
-def addAdmin():
+def adminAddAdmin():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	if request.method == 'POST':
 		username = request.form.get('username').strip()
@@ -1382,17 +1398,17 @@ def addAdmin():
 		# Check username doesn't exist
 		if not validate_username_available(username):
 			session['error'] = 'Could not add admin. Please try again.'
-			return redirect(url_for('addAdmin'))
+			return redirect(url_for('adminAddAdmin'))
 
 		# Check passwords match
 		if not validate_passwords_match(password, password_confirm):
 			session['error'] = 'Could not add admin. Please try again.'
-			return redirect(url_for('addAdmin'))
+			return redirect(url_for('adminAddAdmin'))
 
 		# Check length of username and password
 		if not validate_username_length(username) or not validate_password_length(password):
 			session['error'] = 'Could not add admin. Please try again.'
-			return redirect(url_for('addAdmin'))
+			return redirect(url_for('adminAddAdmin'))
 
 		newuser = User(email, username, password, 'Admin')
 		db.session.add(newuser)
@@ -1400,10 +1416,10 @@ def addAdmin():
 		session['success'] = 'This admin account has been successfully added to the database.'
 		return redirect(url_for('account'))
 	else:
-		return render_template('addAdmin.html', error=get_session_error(), success=get_session_success())
+		return render_template('adminAddAdmin.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/admin/addStaff', methods=['GET', 'POST'])
-def addStaff():
+def adminAddStaff():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	if request.method == 'POST':
 		username = request.form.get('username').strip()
@@ -1414,17 +1430,17 @@ def addStaff():
 		# Check username doesn't exist
 		if not validate_username_available(username):
 			session['error'] = 'Could not add staff. Please try again.'
-			return redirect(url_for('addStaff'))
+			return redirect(url_for('adminAddStaff'))
 
 		# Check passwords match
 		if not validate_passwords_match(password, password_confirm):
 			session['error'] = 'Could not add staff. Please try again.'
-			return redirect(url_for('addStaff'))
+			return redirect(url_for('adminAddStaff'))
 
 		# Check length of username and password
 		if not validate_username_length(username) or not validate_password_length(password):
 			session['error'] = 'Could not add staff. Please try again.'
-			return redirect(url_for('addStaff'))
+			return redirect(url_for('adminAddStaff'))
 
 		newuser = User(email, username, password, 'Staff')
 		db.session.add(newuser)
@@ -1432,10 +1448,10 @@ def addStaff():
 		session['success'] = 'This staff account has been successfully added to the database.'
 		return redirect(url_for('account'))
 	else:
-		return render_template('addStaff.html', error=get_session_error(), success=get_session_success())
+		return render_template('adminAddStaff.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/admin/addChair', methods=['GET', 'POST'])
-def addChair():
+def adminAddChair():
 	if not check_authentication('Admin'): return redirect(url_for('login'))
 	if request.method == 'POST':
 		username = request.form.get('username').strip()
@@ -1449,17 +1465,17 @@ def addChair():
 		# Check username doesn't exist
 		if not validate_username_available(username):
 			session['error'] = 'Could not add chair. Please try again.'
-			return redirect(url_for('addChair'))
+			return redirect(url_for('adminAddChair'))
 
 		# Check passwords match
 		if not validate_passwords_match(password, password_confirm):
 			session['error'] = 'Could not add chair. Please try again.'
-			return redirect(url_for('addChair'))
+			return redirect(url_for('adminAddChair'))
 
 		# Check length of username and password
 		if not validate_username_length(username) or not validate_password_length(password):
 			session['error'] = 'Could not add chair. Please try again.'
-			return redirect(url_for('addChair'))
+			return redirect(url_for('adminAddChair'))
 
 		newuser = User(email, username, password, 'Chair')
 		db.session.add(newuser)
@@ -1469,12 +1485,38 @@ def addChair():
 		newchair = Chairs(newuser.user_ID, committee_ID, first_name, last_name)
 		db.session.add(newchair)
 		db.session.flush()
+		db.session.commit()
 
 		session['success'] = 'This chair account has been successfully added to the database.'
 		return redirect(url_for('account'))
 	else:
 		committees = Committees.query.order_by(Committees.committee_ID.asc()).all()
-		return render_template('addChair.html', error=get_session_error(), success=get_session_success(), committees=committees)
+		return render_template('adminAddChair.html', error=get_session_error(), success=get_session_success(), committees=committees)
+
+@app.route('/admin/resetChairSubmissions')
+def adminResetChairSubmissions():
+	if not check_authentication('Admin'): return redirect(url_for('login'))
+	positions = Positions.query.all()
+	committees = Committees.query.all()
+
+	for position in positions:
+		for n in range(1, 12):
+			setattr(position, 'attendance_s' + str(n), 0)
+		for n in range(1, 4):
+			setattr(position, 'points_d' + str(n), 0)
+		position.speaking_count = 0
+
+	for committee in committees:
+		for n in range(1, 12):
+			setattr(committee, 'attendance_s' + str(n), 0)
+		for n in range(1, 4):
+			setattr(committee, 'points_d' + str(n), 0)
+		committee.awards = 0
+		committee.closing_remarks = ""
+		committee.notes = ""
+
+	session['success'] = 'All the chair submission details (points, awards, attendance, etc.) have been reset.'
+	return redirect(url_for('account'))
 
 
 # ERROR HANDLERS ###############################################################
