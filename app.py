@@ -464,6 +464,18 @@ def penn():
 def ilmunc():
 	return redirect('http://www.ilmunc.com/')
 
+@app.route('/ivycentral')
+def ivycentral():
+	return redirect('http://www.ivycentral.com/')
+
+@app.route('/coke')
+def coke():
+	return redirect('https://www.coca-colaindia.com/')
+
+@app.route('/ashoka')
+def ashoka():
+	return redirect('https://www.ashoka.edu.in/')
+
 @app.route('/terms')
 def terms():
 	return render_template('terms.html', error=get_session_error(), success=get_session_success())
