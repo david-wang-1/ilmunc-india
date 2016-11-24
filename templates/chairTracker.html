@@ -74,7 +74,7 @@
 					<td class="position_ID" style="display: none;">{{ position.position_ID }}</td>
 				</tr>
 				{% else %}
-				<tr class="clickable position_row" style="border-bottom:1px solid rgb(230, 230, 230);" id="{{ position.position_ID }}">
+				<tr class="clickable position_row" style="border-bottom:1px solid rgb(230, 230, 230); opacity: 0.2;" id="{{ position.position_ID }}">
 					<td class="position" style="background-color:rgba(255, 255, 255, 1.0) !important;">{{ position.position }} (Not Present)</td>
 					<td style="text-align:right; background-color:rgba(255, 255, 255, 1.0) !important;" class="count">{{ position.speaking_count }}</td>
 					<td class="position_ID" style="display:none;">{{ position.position_ID }}</td>
@@ -103,8 +103,6 @@
 
 			// Function to make the AJAX request with all the data
 			function makeAJAX() {
-				console.log('In the interval');
-
 				var data = {
 					"notes": $('#notes').val(),
 				}
@@ -145,11 +143,9 @@
 
 				// Set the colors
 				$(all_rows).each(function() {
-					console.log('Trying to set colors');
 					var row = $(this);
 					var speaking_count_object = $(this).children()[1];
 					var speaking_count = parseInt($(speaking_count_object).html());
-					console.log(min/2);
 					if (speaking_count == max) {
 						$(row).css('background-color', red_dark);
 					}
@@ -190,7 +186,7 @@
 			// Set an interval for the ajax request
 			setInterval(function() {
 				makeAJAX();
-			}, 60000);
+			}, 30000);
 		});
 	</script>
 {% endblock %}
