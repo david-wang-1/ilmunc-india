@@ -1187,11 +1187,17 @@ def chairAwards():
 	if request.method == 'POST':
 		closing_remarks = request.form.get('closing_remarks')
 
+		awards_given = []
 		for a in range(len(committee_awards)):
 			for i in range(1, committee_awards[a] + 1):
 				position_ID = request.form.get(award_form_name[a] + str(i))
 				position = Positions.query.get(position_ID)
 				position.award = award_name[a]
+				if position_ID in awards_given:
+					session['error'] = 'You have given more than one award to the same delegation. Please try submitting your awards again.'
+					return redirect(url_for('chairAwards'))
+				else:
+					awards_given.append(position_ID)
 
 		committee.closing_remarks = closing_remarks
 		committee.awards = 1
