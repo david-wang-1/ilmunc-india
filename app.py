@@ -348,7 +348,7 @@ def before_request():
 		'faculty_double': 195,
 		'assistant_director': 195
 	}
-	g.ILMUNC_sessions = ["Committee Session I - Thursday, 6:30PM", "Committee Session II - Friday, 9:00AM", "Committee Session III - Friday, 11:00AM", "Committee Session IV - Friday, 2:00PM", "Committee Session V - Friday, 4:00PM", "Committee Session VI - Saturday, 9:00AM", "Committee Session VII - Saturday, 11:00AM", "Committee Session VIII - Saturday, 2:00PM", "Committee Session IX - Saturday, 4:00PM", "Committee Session X - Sunday, 9:30AM", "Committee Session XI - Sunday, 11:30AM"]
+	g.ILMUNC_sessions = ["Committee Session I - Thursday, 6:30PM", "Committee Session II - Friday, 9:00AM", "Committee Session III - Friday, 11:00AM", "Committee Session IV - Friday, 2:00PM", "Committee Session V - Friday, 4:00PM", "Midnight Crisis - Saturday, 12:00AM", "Committee Session VII - Saturday, 11:00AM", "Committee Session VIII - Saturday, 2:00PM", "Committee Session IX - Saturday, 4:00PM", "Committee Session X - Sunday, 9:30AM", "Committee Session XI - Sunday, 11:30AM"]
 
 	# Global updates and deadlines arrays for sidebar
 	g.strtime = datetime.now()
