@@ -44,8 +44,8 @@
 	</form>
 
 	<!-- POINTS SELECTOR -->
-	<h2>Submit Points</h2>
-	<p>Assign points to delegations for one of the days below.</p>
+	<h2>Submit Points and Awards</h2>
+	<p>Assign points to delegations for one of the days below. On Day 3, instead of assigning points you will give awards.</p>
 
 	<form action="{{ url_for('chair') }}" method="POST">
 		<div class="row">
@@ -53,9 +53,9 @@
 				<label class="required">Day</label>
 				<select id='day' name='day'>
 					<option disabled selected value></option>
-					<option value="1">Day 1 (Thursday)</option>
-					<option value="2">Day 2 (Friday)</option>
-					<option value="3">Day 3 (Saturday)</option>
+					<option value="1">Day 1 (Thursday) - Points</option>
+					<option value="2">Day 2 (Friday) - Points</option>
+					<option value="3">Day 3 (Saturday) - Awards</option>
 				</select>
 			</div>
 			<div class="col s6">

@@ -224,6 +224,7 @@ class Positions(db.Model):
 	points_d2 = db.Column(db.Integer)
 	points_d3 = db.Column(db.Integer)
 	speaking_count = db.Column(db.Integer)
+	award = db.Column(db.String(30))
 
 	def __init__(self, position, committee_ID, delegation_ID, school_name):
 		self.position = position
@@ -1138,7 +1139,11 @@ def chairPoints(id):
 		points_count = 10
 		points_sum = 0
 
-		# Check if awards have already been submitted for this committee
+		# If it is time for awards, redirect to the awards page
+		if id == 3:
+			return redirect(url_for('chairAwards'))
+
+		# Check if points have already been submitted for this committee
 		if getattr(committee, 'points_d' + str(id)) == 1:
 			session['error'] = 'You have already submitted points for this day. Please contact the Secretariat if you would like to change them.'
 			return redirect(url_for('chair'))
@@ -1175,7 +1180,7 @@ def chairAwards():
 	committee = Committees.query.get(current_user.user.committee_ID)
 	positions = Positions.query.filter_by(committee_ID=committee.committee_ID).order_by(Positions.position)
 	award_name = ['Best Delegate', 'Outstanding Delegate', 'Honorable Mention', 'Verbal Commendation']
-	award_form_name = ['best', 'outstanding', 'honarable', 'verbal']
+	award_form_name = ['best', 'outstanding', 'honorable', 'verbal']
 	award_count = {'GA': [1, 2, 3, 4], 'ECOSOC': [1, 2, 2, 3], 'Crisis': [1, 1, 1, 2]}
 	committee_awards = award_count[committee.organ]
 
