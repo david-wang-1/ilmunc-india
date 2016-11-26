@@ -1181,8 +1181,10 @@ def chairAwards():
 	positions = Positions.query.filter_by(committee_ID=committee.committee_ID).order_by(Positions.position)
 	award_name = ['Best Delegate', 'Outstanding Delegate', 'Honorable Mention', 'Verbal Commendation']
 	award_form_name = ['best', 'outstanding', 'honorable', 'verbal']
-	award_count = {'GA': [1, 2, 3, 4], 'ECOSOC': [1, 2, 2, 3], 'Crisis': [1, 1, 1, 2]}
+	award_count = {'GA': [1, 2, 3, 4], 'ECOSOC': [1, 2, 2, 3], 'Crisis': [1, 1, 1, 1]}
 	committee_awards = award_count[committee.organ]
+	if committee.shortname == "UNFPA":
+		committee_awards = [1, 1, 2, 2]
 
 	# Check if awards have already been submitted for this committee
 	if committee.awards == 1:
