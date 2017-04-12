@@ -19,7 +19,7 @@ $ python app.py
 
 This will create a Python 2.6 virtual environment (which correlates to the environment on the server), install the necessary requirements, and launch the main app. Every time you want to work on the site, you must run these two commands to start the server locally:
 ```sh
-$ pip install -r requirements.txt
+$ source venv/bin/activate
 $ python app.py
 ```
 
