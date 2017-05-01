@@ -35,6 +35,7 @@ First, make sure Python, pip, and virtualenv are installed on your computer.
 $ python --version
 $ easy_install pip
 $ pip install virtualenv
+```
 
 After cloning the git repository, cd to the root directory (e.g. where you see `app.py` when you type `ls`) and run:
 ```sh
