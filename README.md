@@ -11,13 +11,13 @@ $ sudo pip install virtualenv
 
 After cloning the git repository, cd to the root directory (e.g. where you see `app.py` when you type `ls`) and run:
 ```sh
-$ virtualenv -p /usr/bin/python2.6 venv
+$ virtualenv -p /usr/bin/python2.7 venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ python app.py
 ```
 
-This will create a Python 2.6 virtual environment (which correlates to the environment on the server), install the necessary requirements, and launch the main app. Every time you want to work on the site, you must run these two commands to start the server locally:
+This will create a Python 2.7 virtual environment (which correlates to the environment on the server), install the necessary requirements, and launch the main app. Every time you want to work on the site, you must run these two commands to start the server locally:
 ```sh
 $ source venv/bin/activate
 $ python app.py
@@ -28,3 +28,19 @@ After you have merged any changes to the master branch, push them to the Heroku 
 ```sh
 $ git push heroku master
 ```
+
+### Windows Instructions
+First, make sure Python, pip, and virtualenv are installed on your computer. 
+```sh
+$ python --version
+$ easy_install pip
+$ pip install virtualenv
+
+After cloning the git repository, cd to the root directory (e.g. where you see `app.py` when you type `ls`) and run:
+```sh
+$ virtualenv venv
+$ venv/Scripts/activate.bat
+$ pip install -r requirements.txt
+$ python app.py
+```
+
