@@ -1,0 +1,7 @@
+*.pyc
+venv
+env
+*.psd
+.DS_Store
+.git
+.dockerignore
