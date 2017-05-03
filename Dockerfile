@@ -7,8 +7,8 @@ COPY . /app
 WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN pip install wsgiref
+RUN pip install wsgiref json-logging-py
 
 # Run the app
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+EXPOSE 5000
+ENTRYPOINT ["/usr/local/bin/gunicorn", "--config", "gunicorn.conf", "--log-config", "logging.conf", "-b", ":5000", "app:app"]
