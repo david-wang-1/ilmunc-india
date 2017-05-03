@@ -11,4 +11,4 @@ RUN pip install wsgiref json-logging-py
 
 # Run the app
 EXPOSE 5000
-ENTRYPOINT ["/usr/local/bin/gunicorn", "--config", "gunicorn.conf", "--log-config", "logging.conf", "-b", ":5000", "app:app"]
+CMD ["/usr/local/bin/gunicorn", "--config", "gunicorn.conf", "--log-config", "logging.conf", "-b", ":5000", "app:app"]
