@@ -1,10 +1,18 @@
 # ILMUNC India Website Information
 ---
 
+### First Things First
+It will be helpful to install the following:
+1. Sublime Text
+2. GitHub Desktop
+3. Sequel Pro (Mac) or MySQL Workbench (Windows)
+
 ### Getting Started
 1. Make sure you have Docker installed: https://www.docker.com/community-edition
-2. Clone the git repository to your computer
-3. `cd` to the root directory, e.g. where you see `app.py` when you type `ls` (Mac) or `dir` (PC)
+2. Make sure you have Heroku installed: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+3. Make sure you have Heroku container installed: `heroku plugins:install heroku-container-registry`
+4. Clone the git repository to your computer
+5. `cd` to the root directory, e.g. where you see `app.py` when you type `ls` (Mac) or `dir` (PC)
 
 ### Build with Docker
 ```sh
@@ -20,8 +28,10 @@ docker run -e PORT=5000 -p 5000:5000 -v <absolute-path-to-ilmunc-india>:/app -it
 Then, visit http://0.0.0.0:5000/ in your browser.
 
 ### Pushing Code
-After you have merged any changes to the master branch, push them to the Heroku server. Remember that the Heroku slug must be < 300 MB. So you should add any large files that don't need to be used in your app to `.slugignore`.
+After you have merged any changes to the master branch, push them to the Heroku server. Note, you need heroku-container-registry installed. Remember that the Heroku slug must be < 300 MB. So you should add any large files that don't need to be used in your app to `.slugignore`.
 ```sh
-$ git push heroku master
+heroku container:login
+heroku container:push web
+heroku open
 ```
 
