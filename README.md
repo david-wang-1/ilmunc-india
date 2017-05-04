@@ -15,7 +15,7 @@ docker build -t ilmunc-india:latest .
 In order to run the server, you will need the absolute path to the `ilmunc-india` directory on your computer. E.g.:
 `/Users/alexsands/Documents/GitHub/ilmunc-india`. Once you have this, replace `<absolute-path-to-ilmunc-india>` below and run:
 ```sh
-docker run -e GUNICORN_WORKERS=4 -e GUNICORN_ACCESSLOG=- -p 5000:5000 -v <absolute-path-to-ilmunc-india>:/app -it ilmunc-india
+docker run -e PORT=5000 -p 5000:5000 -v <absolute-path-to-ilmunc-india>:/app -it ilmunc-india
 ```
 Then, visit http://0.0.0.0:5000/ in your browser.
 
