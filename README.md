@@ -34,8 +34,8 @@ Then, visit http://0.0.0.0:5000/ or localhost:5000 in your browser.
 After you have merged any changes to the master branch, push them to the Heroku server. Note, you need heroku-container-registry installed. Remember that the Heroku slug must be < 300 MB. So you should add any large files that don't need to be used in your app to `.slugignore`.
 ```sh
 heroku container:login
-heroku container:push web --app ilmunc-india
-heroku open --app ilmunc-india
+heroku container:push web 
+heroku open
 ```
-*The app tag may be necessary to identify the push target. 
+*An "--app ilmunc-india" tag may be necessary to identify the target for the push and open operations.
 
