@@ -325,7 +325,7 @@ def load_user(userid):
 def before_request():
 	# Global ILMUNC year variables (change this after each year of ILMUNC and it will update all the pages)
 	# Some places still need updated dates each year
-	g.ILMUNC_year = "2016"
+	g.ILMUNC_year = "2017"
 	g.ILMUNC_month = "November"
 	g.ILMUNC_start = "24th"
 	g.ILMUNC_end = "27th"
