@@ -28,7 +28,7 @@ On Mac or Windows, run:
 docker run -e PORT=5000 -p 5000:5000 -v <absolute-path-to-ilmunc-india>:/app -it ilmunc-india
 ```
 
-Then, visit http://0.0.0.0:5000/ or localhost:5000 in your browser.
+Then, visit http://0.0.0.0:5000/ in your browser. If that doesn't work, try http://localhost:5000/.
 
 ### Pushing Code
 After you have merged any changes to the master branch, push them to the Heroku server. Note, you need heroku-container-registry installed. Remember that the Heroku slug must be < 300 MB. So you should add any large files that don't need to be used in your app to `.slugignore`.
