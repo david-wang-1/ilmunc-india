@@ -37,5 +37,5 @@ heroku container:login
 heroku container:push web 
 heroku open
 ```
-*An "--app ilmunc-india" tag may be necessary to identify the target for the push and open operations.
+*An `--app ilmunc-india` tag may be necessary to identify the target for the `push` and `open` operations.
 
