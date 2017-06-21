@@ -1,0 +1,245 @@
+{% extends "layout.html" %}
+{% set active_page = 'schedule' %}
+
+{% block content %}
+	<h1>Conference Schedule</h1>
+	
+	<table id="schedule">
+		<thead>
+			<tr>
+				<td style="width: 150px;">Time<br>(IST)</td>
+				<td>Thursday,<br>Nov. 23</td>
+				<td>Friday,<br>Nov. 24</td>
+				<td>Saturday,<br>Nov. 25</td>
+				<td>Sunday,<br>Nov. 26</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>8:00 - 8:30</td>
+				<td></td>
+				<td class="meal" rowspan="2">Breakfast</td>
+				<td class="meal" rowspan="2">Breakfast</td>
+				<td class="meal" rowspan="3">Breakfast and Checkout</td>
+			</tr>
+			<tr>
+				<td>8:30 - 9:00</td>
+				<td></td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>9:00 - 9:30</td>
+				<td></td>
+				<td class="committee" rowspan="3">Committee Session II</td>
+				<td class="committee" rowspan="3">Committee Session VI</td>
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>9:30 - 10:00</td>
+				<td></td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td class="committee" rowspan="3">Committee Session X</td>
+			</tr>
+			<tr>
+				<td>10:00 - 10:30</td>
+				<td></td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>10:30 - 11:00</td>
+				<td></td>
+				<td class="meal">Tea Break</td>
+				<td class="meal">Tea Break</td>
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>11:00 - 11:30</td>
+				<td class="task" rowspan="4">Registration and Check-ins Open Until 3:30</td>
+				<td class="committee" rowspan="4">Committee Session III</td>
+				<td class="committee" rowspan="4">Committee Session VII</td>
+				<td class="meal">Tea Break</td>
+			</tr>
+			<tr>
+				<td>11:30 - 12:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td class="committee" rowspan="3">Committee Session XI</td>
+			</tr>
+			<tr>
+				<td>12:00 - 12:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>12:30 - 1:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>1:00 - 1:30</td>
+				<td class="task" rowspan="2">ROP Training and UPenn Panels</td>
+				<td class="meal" rowspan="2">Lunch</td>
+				<td class="meal" rowspan="2">Lunch</td>
+				<td class="meal" rowspan="2">Lunch</td>
+			</tr>
+			<tr>
+				<td>1:30 - 2:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>2:00 - 2:30</td>
+				<td class="task"></td>
+				<td class="committee" rowspan="3">Committee Session IV</td>
+				<td class="committee" rowspan="3">Committee Session VIII</td>
+				<td class="ceremony" rowspan="3">Closing Ceremony</td>
+			</tr>
+			<tr>
+				<td>2:30 - 3:00</td>
+				<td class="task" rowspan="2">UPenn Panels and College Fair</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>3:00 - 3:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+			</tr>
+			<tr>
+				<td>3:30 - 4:00</td>
+				<td class="other">Transition</td>
+				<td class="meal">Tea Break</td>
+				<td class="meal">Tea Break</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4:00 - 4:30</td>
+				<td class="ceremony" rowspan="4">Opening Ceremony</td>
+				<td class="committee" rowspan="3">Committee Session V</td>
+				<td class="committee" rowspan="3">Committee Session IX</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4:30 - 5:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>5:00 - 5:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>5:30 - 6:00</td>
+				<!-- <td></td> -->
+				<td class="other">Transition</td>
+				<td class="other">Transition</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>6:00 - 6:30</td>
+				<td class="meal">Tea Break</td>
+				<td class="ceremony" rowspan="3">Leadership Forum I</td>
+				<td class="ceremony" rowspan="3">Leadership Forum II</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>6:30 - 7:00</td>
+				<td class="committee" rowspan="4">Committee Session I</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>7:00 - 7:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>7:30 - 8:00</td>
+				<!-- <td></td> -->
+				<td class="meal" rowspan="2">Break</td>
+				<td class="meal" rowspan="2">Break</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>8:00 - 8:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>8:30 - 9:00</td>
+				<td class="meal" rowspan="4">Dinner</td>
+				<td class="meal" rowspan="5">Dinner and Social Event</td>
+				<td class="meal" rowspan="5">Dinner and Social Event</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>9:00 - 9:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>9:30 - 10:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>10:00 - 10:30</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>10:30 - 11:00</td>
+				<td class="curfew" rowspan="3">Curfew</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+			<tr>
+				<td>11:00 - 11:30</td>
+				<!-- <td></td> -->
+				<td class="curfew" rowspan="2">Curfew</td>
+				<td class="curfew" rowspan="2">Curfew</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>11:30 - 12:00</td>
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<!-- <td></td> -->
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+{% endblock %}
