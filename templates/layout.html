@@ -175,6 +175,9 @@
 					<ul>{{ print_menu(conference) }}</ul>
 				</li>
 				<li>
+				<a href="{{ url_for('secretariat') }}">Secretariat</a>
+				</li>
+				<li>
 					<!--<a href="{{ url_for('committees') }}">Committees</a>
 					<ul>
 						{{ print_menu(committees_GA, True) }}
@@ -276,7 +279,7 @@
 						<a href="{{ url_for('muncafe') }}" target="_blank"><img src="/static/images/logos/muncafe.png" alt="MUNCafe" height="80px"></a>
 					</p>
 
-					<span class="label">Our Sponsors</span>
+					<span class="label">Past Sponsors</span>
 					<p style="text-align:center; vertical-align:middle;">
 						<a href="{{ url_for('ivycentral') }}" target="_blank"><img src="/static/images/logos/sponsors/ivycentral.jpg" alt="ILMUNC" height="50px"></a>&nbsp;&nbsp;
 						<a href="{{ url_for('coke') }}" target="_blank"><img src="/static/images/logos/sponsors/coke.png" alt="MUNCafe" height="35px" style="margin-bottom:8px;"></a>&nbsp;&nbsp;
