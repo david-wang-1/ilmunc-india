@@ -3,6 +3,9 @@
 	('about', 'ILMUNC India'),
 	('secretariat', 'Secretariat'),
 	('muncafe', 'MUNCafe'),
+] %}
+
+{% set aboutExt = [
 	('penn', 'University of Pennsylvania'),
 	('ilmunc', 'ILMUNC')
 ] %}
@@ -53,11 +56,13 @@
 
 <!-- SETTING AND PRINTING PAGES -->
 {% set active_page = active_page|default('index') %}
-{% macro print_menu(arr, committee_flag) %}
+{% macro print_menu(arr, committee_flag, ext_link) %}
 	{% for item in arr %}
 		<li {% if active_page == item[0] %} class="active" {% endif %}>
 			{% if committee_flag %}
 			<a href="{{ url_for('committee', name=item[0]|e) }}">{{ item[1] }}</a>
+			{% elif ext_link %}
+			<a href="{{ url_for(item[0]|e) }}" target="_blank">{{ item[1] }}</a>
 			{% else %}
 			<a href="{{ url_for(item[0]|e) }}">{{ item[1] }}</a>
 			{% endif %}
@@ -163,6 +168,7 @@
 				<li>
 					<a href="{{ url_for('about') }}">About</a>
 					<ul>{{ print_menu(about) }}</ul>
+					<ul>{{ print_menu(aboutExt, False, True) }}</ul>
 				</li>
 				<li>
 					<a href="{{ url_for('invitation') }}">Conference</a>
