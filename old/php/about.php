@@ -56,7 +56,7 @@ getHeader("ILMUNC India | About");
 
 <h3>Innovation and Ideation</h3>
 
-<p>ILMUNC India strives to push the boundaries of Model United Nations conferences through continuous innovation and ideation. We are proud to announce the introduction of a novel mobile application that will revolutionize the delegate experience and will also allow faculty advisors to continuously keep updated with the conference from their smartphones. This year’s conference will also see innovation substantively through dynamic background guides to ensure continuous delegate engagement before and during the conference. At ILMUNC India we believe in exploring every possible path to improving the conference experience for our delegates.</p>
+<p>ILMUNC India strives to push the boundaries of Model United Nations conferences through continuous innovation and ideation. This year’s conference will feature innovative dynamic background guides to ensure continuous delegate engagement before and during the conference. At ILMUNC India we believe in exploring every possible path to improving the conference experience for our delegates.</p>
 
 <h3>Substantive Excellence</h3>
 
