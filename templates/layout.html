@@ -167,8 +167,10 @@
 				</li>
 				<li>
 					<a href="{{ url_for('about') }}">About</a>
-					<ul>{{ print_menu(about) }}</ul>
-					<ul>{{ print_menu(aboutExt, False, True) }}</ul>
+					<ul>
+						{{ print_menu(about) }}
+						{{ print_menu(aboutExt, False, True) }}
+					</ul>
 				</li>
 				<li>
 					<a href="{{ url_for('invitation') }}">Conference</a>
