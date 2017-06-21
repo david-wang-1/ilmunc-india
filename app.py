@@ -337,17 +337,17 @@ def before_request():
 	g.ILMUNC_adApplicationDeadline = datetime.strptime('Jul 30 2017  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_fees_domestic = {
 		'currency': "INR ",
-		'delegate': 22790,
-		'faculty_single': 24150,
-		'faculty_double': 12070,
-		'assistant_director': 12070
+		'delegate': 23500,
+		'faculty_single': 24500,
+		'faculty_double': 12500,
+		'assistant_director': 12500
 	}
 	g.ILMUNC_fees_international = {
 		'currency': "$",
-		'delegate': 390,
+		'delegate': 380,
 		'faculty_single': 390,
-		'faculty_double': 195,
-		'assistant_director': 195
+		'faculty_double': 200,
+		'assistant_director': 200
 	}
 	g.ILMUNC_sessions = ["Committee Session I - Thursday, 6:30PM", "Committee Session II - Friday, 9:00AM", "Committee Session III - Friday, 11:00AM", "Committee Session IV - Friday, 2:00PM", "Committee Session V - Friday, 4:00PM", "Midnight Crisis - Saturday, 12:00AM", "Committee Session VII - Saturday, 11:00AM", "Committee Session VIII - Saturday, 2:00PM", "Committee Session IX - Saturday, 4:00PM", "Committee Session X - Sunday, 9:30AM", "Committee Session XI - Sunday, 11:30AM"]
 
