@@ -24,7 +24,7 @@
 					/* Show the correct form type */
 					registration_form.attr("action", "{{ url_for('registerSchool') }}");
 					registration_form_content.html($('#school_registration_content').html())
-					$('#faculty_phone_number').inputmasks(maskOpts);
+				//	$('#faculty_phone_number').inputmasks(maskOpts);
 					registration_form.show();
 				});
 
@@ -60,7 +60,7 @@
 					list: maskList,
 					listKey: "mask"
 				};
-
+				$('#faculty_phone_number').inputmasks(maskOpts);
 				$('#phone_number').inputmasks(maskOpts);
 			});
 		</script>
