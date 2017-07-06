@@ -51,7 +51,7 @@
 	<div class="committee_info right">
 		<h3>Background Guide</h3>
 		{% if not committee.bg_link or committee.bg_link == '' %}
-			<p>Some background guides are not yet available. We will notify delegates when they are posted.</p>
+			<p>Background Guides will be available starting August 30th.</p>
 		{% else %}
 			<a href="{{ committee.bg_link }}" target="_blank"><img src="{{ committee.bg_cover }}" alt="Download" class="bgcover"></a>
 		{% endif %}

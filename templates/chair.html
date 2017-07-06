@@ -11,7 +11,7 @@
 		<b>Committee: </b><a href="{{ url_for('committee', name=committee.shortname) }}" target="_blank">{{ committee.title }}</a><br>
 		<b>Background Guide: </b>
 		{% if not committee.bg_link or committee.bg_link == '' %}
-			Some background guides are not yet available. We will notify delegates when they are posted.
+			Background Guides will be available starting August 30th.
 		{% else %}
 			<a href="{{ committee.bg_link }}" target="_blank">Download</a> (Password: BenFranklin2017)
 		{% endif %}
