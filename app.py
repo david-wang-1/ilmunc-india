@@ -1453,12 +1453,12 @@ def adminAddStaff():
 
 		# Check username doesn't exist
 		if not validate_username_available(username):
-			session['error'] = 'Could not add staff. Please try again.'
+			session['error'] = 'Could not add staff: Username exists. Please try again.'
 			return redirect(url_for('adminAddStaff'))
 
 		# Check passwords match
 		if not validate_passwords_match(password, password_confirm):
-			session['error'] = 'Could not add staff. Please try again.'
+			session['error'] = 'Could not add staff: Passwords do not match.  Please try again.'
 			return redirect(url_for('adminAddStaff'))
 
 		# Check length of username and password
