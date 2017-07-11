@@ -55,7 +55,7 @@ body.no-scroll {
 
 div.hr {
 	display: block;
-	border-bottom: 1px solid rgb(63, 196, 184);
+	border-bottom: 1px solid rgb(100, 0, 10);
 	width: 100%;
 	margin: 0 auto
 }
@@ -172,11 +172,11 @@ span.subhead {
 }
 
 span.label {
-	color: rgb(63, 196, 184);
+	color: rgb(100, 0, 10);
 	text-transform: uppercase;
 	font-weight: 700;
 	font-size: 16px;
-	border-bottom: 3px solid rgb(63, 196, 184);
+	border-bottom: 3px solid rgb(100, 0, 10);
 	display: inline-block;
 	line-height: 40px;
 	width: 100%;
@@ -205,7 +205,7 @@ p.small {
 }
 
 p.label {
-	color: rgb(63, 196, 184);
+	color: rgb(100, 0, 10);
 }
 
 div.letter p {
@@ -281,7 +281,7 @@ div.error {
 }
 
 div.success {
-	background-color: rgb(63, 196, 184);
+	background-color: rgb(100, 0, 10);
 	color: #FFFFFF;
 	font-size: 20px;
 	text-align: center;
@@ -740,7 +740,7 @@ nav > ul > li:not(.logo):hover {
 }
 
 nav > ul > li:not(.logo):hover > a {
-	color: rgb(63, 196, 184);
+	color: rgb(100, 0, 10);
 	opacity: 0.98;
 }
 
@@ -776,7 +776,7 @@ nav > ul > li > ul > li > a {
 }
 
 nav > ul > li > ul > li > a {
-	color: rgb(63, 196, 184);
+	color: rgb(100, 0, 10);
 }
 
 nav > ul > li > ul > li > a:hover {
@@ -891,7 +891,7 @@ div#sidebar ul li a {
 	text-align: center;
 	font-weight: 700;
 	color: rgb(255, 255, 255);
-	background-color: rgb(63, 196, 184);
+	background-color: rgb(100, 0, 10);
 }
 
 div#footer, div#footer * {
@@ -1008,7 +1008,7 @@ div#footer {
 div#clockdiv {
 	display: flex;
 	justify-content: space-between;
-	background-color: rgb(63, 196, 184);
+	background-color: rgb(100, 0, 10);
 	color: rgb(255, 255, 255);
 	padding: 10px 40px;
 	margin-top: 17px;
