@@ -1,12 +1,15 @@
 <!-- MENU ITEMS -->
 {% set about = [
-	('about', 'ILMUNC India'),
-	('muncafe', 'Worldview'),
+	('about', 'ILMUNC India')
 ] %}
 
 {% set aboutExt = [
-	('penn', 'University of Pennsylvania'),
-	('ilmunc', 'ILMUNC')
+	('ilmunc', 'ILMUNC'),
+	('penn', 'University of Pennsylvania')
+] %}
+
+{% set about2 = [
+	('worldview', 'Worldview')
 ] %}
 
 {% set conference = [
@@ -169,6 +172,7 @@
 					<ul>
 						{{ print_menu(about) }}
 						{{ print_menu(aboutExt, False, True) }}
+						{{ print_menu(about2) }}
 					</ul>
 				</li>
 				<li>
