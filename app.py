@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import mimetypes
 import os
 import random
@@ -5,6 +7,7 @@ import re
 import string
 import time
 import math
+import sys
 
 from datetime import datetime
 # from dropbox.client import DropboxClient, DropboxOAuth2Flow
@@ -86,7 +89,7 @@ class Delegations(db.Model):
 	crisis_rqst3 = db.Column(db.String(200))
 	crisis_rqst4 = db.Column(db.String(200))
 
-	def __init__(self, school_name, address1, address2, city, state, zipcode, country, individual_prefix, individual_first_name, individual_last_name, username, email, phone_number, expected_delegates, first_ilmunc, experience):
+	def __init__(self, school_name, address1, address2, city, state, zipcode, country, individual_prefix, individual_first_name, individual_last_name, username, email, phone_number, expected_delegates, first_ilmunc, experience, country_rqst1, country_rqst2, country_rqst3, country_rqst4, country_rqst5, country_rqst6):
 		self.school_name = school_name
 		self.address1 = address1
 		self.address2 = address2
@@ -103,6 +106,12 @@ class Delegations(db.Model):
 		self.expected_delegates = expected_delegates
 		self.first_ilmunc = first_ilmunc
 		self.experience = experience
+		self.country_rqst1 = country_rqst1
+		self.country_rqst2 = country_rqst2
+		self.country_rqst3 = country_rqst3
+		self.country_rqst4 = country_rqst4
+		self.country_rqst5 = country_rqst5
+		self.country_rqst6 = country_rqst6
 
 class BackgroundGuides(db.Model):
 	__tablename__ = 'BACKGROUNDGUIDES'
@@ -457,6 +466,10 @@ def about():
 def muncafe():
 	return render_template('muncafe.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/worldview')
+def worldview():
+	return render_template('muncafe.html', error=get_session_error(), success=get_session_success())
+
 @app.route('/penn')
 def penn():
 	return redirect('http://www.upenn.edu/')
@@ -506,6 +519,7 @@ def faq():
 # --- REGISTER #################################################################
 @app.route('/register')
 def register():
+	print('Hello world!', file=sys.stderr)
 	if g.strtime > g.ILMUNC_regularRegistrationDeadline:
 		session['error'] = 'Sorry, registration for ILMUNC India %s has closed. Please contact %s with any questions.' % (g.ILMUNC_year, g.ILMUNC_email)
 	return render_template('register.html', error=get_session_error(), success=get_session_success())
@@ -534,6 +548,12 @@ def registerSchool():
 		faculty_room_preference = request.form['faculty_room_preference'].strip()
 		faculty_phone_number = request.form['faculty_phone_number'].strip()
 		faculty_email = request.form['faculty_email'].strip()
+		country1 = request.form['country1']
+		country2 = request.form['country2']
+		country3 = request.form['country3']
+		country4 = request.form['country4']
+		country5 = request.form['country5']
+		country6 = request.form['country6']
 
 		# Didn't agree to contract
 		if 'contract' not in request.form:
@@ -583,7 +603,7 @@ def registerSchool():
 		newuser = User(email, username, password, 'Delegation')
 		db.session.add(newuser)
 		db.session.flush()
-		delegation = Delegations(school_name, address1, address2, city, state, zipcode, country, None, None, None, username, email, phone_number, expected_delegates, first_ilmunc, experience)
+		delegation = Delegations(school_name, address1, address2, city, state, zipcode, country, None, None, None, username, email, phone_number, expected_delegates, first_ilmunc, experience, country1, country2, country3, country4, country5, country6)
 		db.session.add(delegation)
 		db.session.flush()
 		faculty = Faculty(faculty_prefix, faculty_first_name, faculty_last_name, faculty_room_preference, faculty_phone_number, faculty_email, delegation.delegation_ID, school_name)
@@ -648,6 +668,12 @@ def registerIndividual():
 		last_name = request.form['last_name'].strip().title()
 		phone_number = request.form['phone_number'].strip()
 		email = request.form['email'].strip()
+		country1 = request.form['country1']
+		country2 = request.form['country2']
+		country3 = request.form['country3']
+		country4 = request.form['country4']
+		country5 = request.form['country5']
+		country6 = request.form['country6']
 
 		# Didn't agree to contract
 		if 'contract' not in request.form:
@@ -679,7 +705,7 @@ def registerIndividual():
 		newuser = User(email, username, password, 'Delegation')
 		db.session.add(newuser)
 		db.session.flush()
-		delegation = Delegations("Individual", address1, address2, city, state, zipcode, country, prefix, first_name, last_name, username, email, phone_number, 1, first_ilmunc, experience)
+		delegation = Delegations("Individual", address1, address2, city, state, zipcode, country, prefix, first_name, last_name, username, email, phone_number, 1, first_ilmunc, experience, country1, country2, country3, country4, country5, country6)
 		db.session.add(delegation)
 		db.session.flush()
 		db.session.commit()
