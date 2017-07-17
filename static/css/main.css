@@ -246,7 +246,7 @@ table thead tr {
 
 table thead tr td {
 	font-weight: bold;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 table.sortable thead tr td {
