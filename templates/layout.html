@@ -185,8 +185,11 @@
 				<li>
 					<a href="{{ url_for('committees') }}">Committees</a>
 					<ul>
+						<li><h6> General Assemblies:</h6></li>
 						{{ print_menu(committees_GA, True) }}
+						<li><h6> Economic and Social Councils:</h6></li>
 						{{ print_menu(committees_ECOSOC, True) }}
+						<li><h6> Crisis Committees:</h6></li>
 						{{ print_menu(committees_Crisis, True) }}
 					</ul>
 				</li>
