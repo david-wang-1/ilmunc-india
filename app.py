@@ -340,7 +340,7 @@ def before_request():
 	g.ILMUNC_end = "26th"
 	g.ILMUNC_secgen = "Siddharth Kumar"
 	g.ILMUNC_webmaster = "Noah Levine"
-	g.ILMUNC_email = "secgen@ilmunc-india.com"
+	g.ILMUNC_email = "info@ilmunc-india.com"
 	g.ILMUNC_earlyRegistrationDeadline = datetime.strptime('Aug 15 2017  11:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_regularRegistrationDeadline = datetime.strptime('Nov 23 2017  6:59PM', '%b %d %Y %I:%M%p')
 	g.ILMUNC_adApplicationDeadline = datetime.strptime('Jul 30 2017  11:59PM', '%b %d %Y %I:%M%p')
