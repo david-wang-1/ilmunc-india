@@ -474,6 +474,9 @@ def worldview():
 def sponsorship():
 	return render_template('sponsorship.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/speakers')
+def speakers():
+	return render_template('speakers.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/penn')
 def penn():
@@ -645,7 +648,7 @@ def registerSchool():
 		# mail.send(msg)
 
 		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
-		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password. (No confirmation emails issued at this time)' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
