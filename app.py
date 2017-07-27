@@ -470,6 +470,11 @@ def muncafe():
 def worldview():
 	return render_template('muncafe.html', error=get_session_error(), success=get_session_success())
 
+@app.route('/sponsorship')
+def sponsorship():
+	return render_template('sponsorship.html', error=get_session_error(), success=get_session_success())
+
+
 @app.route('/penn')
 def penn():
 	return redirect('http://www.upenn.edu/')
