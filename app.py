@@ -675,10 +675,10 @@ def registerIndividual():
 		country5 = request.form['country5']
 		country6 = request.form['country6']
 
-		# Didn't agree to contract
-		if 'contract' not in request.form:
-			session['error'] = 'You must agree to the Individual Delegate Contract in order to register for ILMUNC India.'
-			return redirect(url_for('register'))
+		# # Didn't agree to contract // contract no longer required.
+		# if 'contract' not in request.form:
+		# 	session['error'] = 'You must agree to the Individual Delegate Contract in order to register for ILMUNC India.'
+		# 	return redirect(url_for('register'))
 
 		# Missing required field
 		if not address1 or not city or not state or not zipcode or not country or not username or not password or not password_confirm or not first_ilmunc or not prefix or not first_name or not last_name or not phone_number or not email:
