@@ -355,8 +355,8 @@ def before_request():
 		'currency': "$",
 		'delegate': 380,
 		'faculty_single': 390,
-		'faculty_double': 200,
-		'assistant_director': 200
+		'faculty_double': 220,
+		'assistant_director': 220
 	}
 	g.ILMUNC_sessions = ["Committee Session I - Thursday, 6:30PM", "Committee Session II - Friday, 9:00AM", "Committee Session III - Friday, 11:00AM", "Committee Session IV - Friday, 2:00PM", "Committee Session V - Friday, 4:00PM", "Midnight Crisis - Saturday, 12:00AM", "Committee Session VII - Saturday, 11:00AM", "Committee Session VIII - Saturday, 2:00PM", "Committee Session IX - Saturday, 4:00PM", "Committee Session X - Sunday, 9:30AM", "Committee Session XI - Sunday, 11:30AM"]
 
@@ -469,6 +469,14 @@ def muncafe():
 @app.route('/worldview')
 def worldview():
 	return render_template('muncafe.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/sponsorship')
+def sponsorship():
+	return render_template('sponsorship.html', error=get_session_error(), success=get_session_success())
+
+@app.route('/speakers')
+def speakers():
+	return render_template('speakers.html', error=get_session_error(), success=get_session_success())
 
 @app.route('/penn')
 def penn():
@@ -640,7 +648,7 @@ def registerSchool():
 		# mail.send(msg)
 
 		# session['success'] = 'Welcome to ILMUNC India %s! You should receive an e-mail shortly confirming your registration.' % (g.ILMUNC_year)
-		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password.' % (g.ILMUNC_year)
+		session['success'] = 'Welcome to ILMUNC India %s! You can now log in to Delegation Manager using your username and password. (No confirmation emails issued at this time)' % (g.ILMUNC_year)
 		if login_user(DbUser(newuser, newuser.user_ID, 'Delegation')):
 			return redirect(url_for('account'))
 		else:
