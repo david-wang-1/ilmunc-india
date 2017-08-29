@@ -24,6 +24,7 @@
 
 {% block content %}
 	<h1>Welcome to ILMUNC India {{ g.ILMUNC_year }}</h1>
+	<span class="subhead" style="margin-top:0px; font-size:30px;">Join us for an unforgettable conference from {{ g.ILMUNC_month }} {{ g.ILMUNC_start }} - {{ g.ILMUNC_end }}!</span>	
 	<div class="letter">
 		<p>Dear Delegates,</p>
 
@@ -73,7 +74,7 @@
 				</div>
 			</div>
 		</div>
-		<span class="subhead" style="text-align:center; margin-top:0px; font-size:40px;">Join us for an unforgettable conference from {{ g.ILMUNC_month }} {{ g.ILMUNC_start }} - {{ g.ILMUNC_end }}!</span>
+		<!-- <span class="subhead" style="text-align:center; margin-top:0px; font-size:40px;">Join us for an unforgettable conference from {{ g.ILMUNC_month }} {{ g.ILMUNC_start }} - {{ g.ILMUNC_end }}!</span> -->
 		<div class="row button-row" style="text-align:center; margin-top: 50px;">
 			<a class="button submit" href="{{ url_for('register') }}"  style="font-size: 24px;">Register Today!</a>
 		</div>
