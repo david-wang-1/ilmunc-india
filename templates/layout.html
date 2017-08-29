@@ -54,6 +54,10 @@
 	('webinars', 'Webinars')
 ] %}
 
+<!-- {% set speakers = [
+	('speakers', 'Beyond Model UN')
+] %} -->
+
 {% set account = [
 	('account', 'Summary'),
 	('logout', 'Log Out')
@@ -198,6 +202,8 @@
 					</ul>
 				</li>
 				<li>
+					<a href="{{ url_for('speakers') }}">Beyond Model UN</a>
+					
 					<!--<a href="{{ url_for('research') }}">Research</a>
 					<ul>{{ print_menu(research) }}</ul>-->
 				</li>
