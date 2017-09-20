@@ -109,9 +109,43 @@
 	</table>
 	{% endfor %}
 
-	<h2>Positions</h2>
+	<h2>Position Preferences</h2>
 	<table class="sortable" style="word-wrap:break-word; table-layout:fixed;">
+
 		<thead>
+			<tr>
+				<td>Number</td>
+				<td>Country</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>{{delegation.country_rqst1|safe}}</a></td>
+			</tr>		
+			<tr>
+				<td>2</td>
+				<td>{{delegation.country_rqst2|safe}}</a></td>
+			</tr>		
+			<tr>
+				<td>3</td>
+				<td>{{delegation.country_rqst3|safe}}</a></td>
+			</tr>		
+			<tr>
+				<td>4</td>
+				<td>{{delegation.country_rqst4|safe}}</a></td>
+			</tr>		
+			<tr>
+				<td>5</td>
+				<td>{{delegation.country_rqst5|safe}}</a></td>
+			</tr>		
+			<tr>
+				<td>6</td>
+				<td>{{delegation.country_rqst6|safe}}</a></td>
+			</tr>		
+
+		</tbody>
+		<!-- <thead>
 			<tr>
 				<td>Position</td>
 				<td>Committee</td>
@@ -129,7 +163,7 @@
 				<td><a href="{{ url_for('committee', name=committees[position.committee_ID].shortname) }}" title="View committee details">{{ committees[position.committee_ID].title }}</a></td>
 			</tr>
 			{% endfor %}
-		</tbody>
+		</tbody> -->
 	</table>
 {% endblock %}
 
