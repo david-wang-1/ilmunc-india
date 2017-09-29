@@ -291,3 +291,23 @@ table#schedule td.other {
 	background-color: rgba(241, 196, 15, 0.2);
 	text-align: center;
 }
+
+[class*='speaker']:last-of-type {
+	padding-right: 20px;
+}
+
+.speaker {
+	width: 50%;
+}
+
+div.col.speaker:last-child {
+	margin-right: -4px;
+}
+
+.speaker-title {
+	background-color: #D1D1D1;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 5px;
+	height: 100px;
+}
