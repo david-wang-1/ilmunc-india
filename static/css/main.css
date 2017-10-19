@@ -669,7 +669,7 @@ nav {
 }
 
 nav:not(.index) {
-	background-image: url('../images/backgrounds/landing.png');
+	background-image: url('../images/backgrounds/landing.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: top center;
